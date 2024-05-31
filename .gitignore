@@ -2,6 +2,7 @@
 
 # Ignore the gscredentials.json file in the flask directory
 flask/gscredentials.json
+flask/__pycache__
 
 # dependencies
 node_modules/
