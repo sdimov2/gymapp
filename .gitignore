@@ -3,6 +3,7 @@
 # Ignore the gscredentials.json file in the flask directory
 src/flask/gscredentials.json
 src/flask/__pycache__
+src/flask/venv
 
 # dependencies
 node_modules/
@@ -43,5 +44,3 @@ yarn-error.*
 
 expo-env.d.ts
 # @end expo-cli
-
-src/flask/venv
