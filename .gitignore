@@ -1,8 +1,8 @@
 # Learn more https://docs.github.com/en/get-started/getting-started-with-git/ignoring-files
 
 # Ignore the gscredentials.json file in the flask directory
-flask/gscredentials.json
-flask/__pycache__
+src/flask/gscredentials.json
+src/flask/__pycache__
 
 # dependencies
 node_modules/
@@ -44,4 +44,4 @@ yarn-error.*
 expo-env.d.ts
 # @end expo-cli
 
-flask/venv
+src/flask/venv
