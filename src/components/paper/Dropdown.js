@@ -1,10 +1,12 @@
+import axios from 'axios'
 import React, { useState } from 'react';
-  import { StyleSheet, View } from 'react-native';
-  import { MultiSelect } from 'react-native-element-dropdown';
-  import AntDesign from '@expo/vector-icons/AntDesign';
+import { StyleSheet, View } from 'react-native';
+import { MultiSelect } from 'react-native-element-dropdown';
+import AntDesign from '@expo/vector-icons/AntDesign';
 
+import { baseUrl } from '@/src/constants/Fixed_Vars';
 
-  const Dropdown = ({updateGraph}) => {
+const WeightDropdown = ({updateGraph}) => {
     const [selected, setSelected] = useState([]);
 
     
@@ -27,6 +29,17 @@ import React, { useState } from 'react';
     }, []);
 
 
+    const getData = async () => {
+      try {
+        const res = (await axios.get(baseUrl + "/get_pairs")).data;
+        setData(res)
+
+      } catch (error) {
+        alert(error)
+      }
+    };
+
+
     return (
       <View style={styles.container}>
         <MultiSelect
@@ -44,28 +57,29 @@ import React, { useState } from 'react';
           value={selected}
           // updateGraph = {props.updateGraph}
           onSelectedItemsChange={
-            
-            fetch('http://127.0.0.1:5000/receive_data', {
-              method: 'POST',
-              headers: {
-                  'Content-Type': 'application/json',
-              },
-              body: JSON.stringify(selected)
-              })
-              .then(response => response.json())
-              .then(data => {
-                  console.log('Success:', data);
-              })
-              .catch((error) => {
-                  console.error('Error:', error);
-              })
+            getData()
+            // fetch('http://127.0.0.1:5000/receive_data', {
+            //   method: 'POST',
+            //   headers: {
+            //       'Content-Type': 'application/json',
+            //   },
+            //   body: JSON.stringify(selected)
+            //   })
+            //   .then(response => response.json())
+            //   .then(data => {
+            //       // console.log('Success:', data);
+            //   })
+            //   .catch((error) => {
+            //       console.error('Error:', error);
+            //   })
+
            
           }
+
           onChange={item => {
             setSelected(item);
-            
-          
           }}
+
           renderLeftIcon={() => (
             <AntDesign
               style={styles.icon}
@@ -74,13 +88,14 @@ import React, { useState } from 'react';
               size={20}
             />
           )}
+
           selectedStyle={styles.selectedStyle}
         />
       </View>
     );
   };
 
-  export default Dropdown;
+  export default WeightDropdown;
 
   const styles = StyleSheet.create({
     container: { padding: 16 },

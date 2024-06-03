@@ -1,87 +1,36 @@
 import * as React from 'react';
-
+import { useState } from 'react';
 import { StyleSheet } from 'react-native';
 import { Text, View } from '../../components/Themed';
+import { Avatar, Button, Card, Chip } from 'react-native-paper';
+import { Dropdown } from 'react-native-element-dropdown';
+import AntDesign from '@expo/vector-icons/AntDesign';
 
-import BodyWeightGraph from '../../components/recharts/areachart'
-import Dropdown from '../../components/paper/Dropdown'
-
-import VolumeGraph from '../../components/recharts/volumechart' 
-import { Avatar, Button, Card, Chip} from 'react-native-paper';
+import BodyWeightGraph from '../../components/recharts/areachart';
+import ChooseGraph from '../../components/paper/ChooseGraph';
+import WeightDropdown from '../../components/paper/Dropdown';
+import VolumeGraph from '@/src/components/recharts/volumechart';
+import SearchBar from '../../components/paper/SearchBar';
 import EditScreenInfo from '../../components/EditScreenInfo';
-import SearchBar from '../../components/paper/SearchBar' 
-
 
 
 export default function TabThreeScreen() {
- 
+  const [isAreaGraph, setIsAreaGraph] = React.useState(false);
 
-  const [graphs, setGraphs] = React.useState(
-    [
-      // {
-      //   id: "bw",
-      //   apiURL: "http://127.0.0.1:5000/bw",
-      //   data: [
-      //     {
-      //         x: 1,
-      //         y: 1,
-      //     },
-      //     {
-      //         x: 1,
-      //         y: 2,
-      //     },
-      //   ]
-      // },
-      // {
-      //   id: "volume",
-      //   apiURL: "http://127.0.0.1:5000/get_pairs",
-      //   data: [
-      //     {
-      //         x: 1,
-      //         y: 1,
-      //     },
-      //     {
-      //         x: 1,
-      //         y: 2,
-      //     },
-      //   ]
-      // },
-    ]
-  );
-  
-  
-  function updateGraph() {
-    
-    console.log("update invoked")
-    
-    /*
-    const updatedGraphs = graphs.map((graph) => {
-      if (id == graph.id)
-      {
-        return {...graph, data: newdata}
-      }
-
-    });
-    */
-  }
-  
-  
+  const updateGraph = () => {
+    // console.log("update invoked");
+  };
 
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Data Analytics</Text>
-      
-      <Dropdown updateGraph={updateGraph}></Dropdown>
-      
-      {/* <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" /> */}
-      
-      <BodyWeightGraph></BodyWeightGraph>
-      
-      {/* <div>
-        {graphs.map((graph) => {
-          return (<VolumeGraph data={graph.data} updateGraph={updateGraph} />)
-        })}
-      </div> */}
+
+      <View style={styles.spanContainer}>
+        <WeightDropdown updateGraph={updateGraph}></WeightDropdown>
+        <ChooseGraph setIsAreaGraph={setIsAreaGraph}/>
+      </View>
+
+      {isAreaGraph ? <BodyWeightGraph /> : <VolumeGraph />}
 
     </View>
   );
@@ -93,13 +42,38 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  spanContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    paddingHorizontal: 10, // Add padding to provide space between the components
+  },
   title: {
     fontSize: 20,
     fontWeight: 'bold',
   },
-  separator: {
-    marginVertical: 30,
-    height: 1,
-    width: '80%',
+  dropdown: {
+    height: 50,
+    borderColor: 'gray',
+    borderWidth: 0.5,
+    borderRadius: 8,
+    paddingHorizontal: 8,
+  },
+  icon: {
+    marginRight: 5,
+  },
+  placeholderStyle: {
+    fontSize: 16,
+  },
+  selectedTextStyle: {
+    fontSize: 16,
+  },
+  iconStyle: {
+    width: 20,
+    height: 20,
+  },
+  inputSearchStyle: {
+    height: 40,
+    fontSize: 16,
   },
 });
