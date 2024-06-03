@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
   import { StyleSheet, View } from 'react-native';
   import { MultiSelect } from 'react-native-element-dropdown';
-  //import AntDesign from '@expo/vector-icons/AntDesign';
+  import AntDesign from '@expo/vector-icons/AntDesign';
 
 
-  const MultiSelectComponent = (props) => {
+  const Dropdown = ({updateGraph}) => {
     const [selected, setSelected] = useState([]);
 
     
@@ -20,15 +20,16 @@ import React, { useState } from 'react';
           setData(json);
           
         })
-        .catch((error) => alert(error)) // display errors
+        .catch((error) => alert(error)) // display error
 
+        updateGraph("Hi")
         
     }, []);
 
 
     return (
       <View style={styles.container}>
-        {/* <MultiSelect
+        <MultiSelect
           style={styles.dropdown}
           placeholderStyle={styles.placeholderStyle}
           selectedTextStyle={styles.selectedTextStyle}
@@ -41,7 +42,7 @@ import React, { useState } from 'react';
           placeholder="Select item"
           searchPlaceholder="Search..."
           value={selected}
-          updateGraph = {props.updateGraph}
+          // updateGraph = {props.updateGraph}
           onSelectedItemsChange={
             
             fetch('http://127.0.0.1:5000/receive_data', {
@@ -74,12 +75,12 @@ import React, { useState } from 'react';
             />
           )}
           selectedStyle={styles.selectedStyle}
-        /> */}
+        />
       </View>
     );
   };
 
-  export default MultiSelectComponent;
+  export default Dropdown;
 
   const styles = StyleSheet.create({
     container: { padding: 16 },

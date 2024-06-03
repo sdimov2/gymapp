@@ -8,7 +8,6 @@ CORS(app, origins=['http://localhost:8081'])
 CORS(app, supports_credentials=True)
 
 @app.route("/api")
-
 def return_global_data():
     data = filter_entries(global_data[1:], "users", ["sdimov77@gmail.com"])
     temp = []
@@ -28,8 +27,8 @@ def return_global_data():
             })
     return jsonify(temp)
 
-@app.route("/bw")
 
+@app.route("/bw")
 def bw():
     bw = filter_entries(global_data[1:], "users", ["sdimov77@gmail.com"])
     bw = filter_entries(bw, "body_weight_ranges", [[0,999]])
@@ -38,14 +37,14 @@ def bw():
     for entry in bw:
         temp.append(
             {
-            "x": entry[0],
-            "y": entry[1],
+            "date": entry[0],
+            "weight": entry[1],
             })
     return jsonify(temp)
 
 
-@app.route("/get_pairs")
 
+@app.route("/get_pairs")
 def get_pairs(criteria="Bench"):
 
    # 0 timestamp, 7 is weight (placeholdr)
@@ -61,8 +60,9 @@ def get_pairs(criteria="Bench"):
             })
     return jsonify(temp)
 
-@app.route("/options")
 
+
+@app.route("/options")
 def options():
     data = global_data[1:]
     unique_values = set()
@@ -93,12 +93,14 @@ def options():
             })
    
 
+
 @app.route('/receive_data', methods=['POST'])
 def receive_data():
     data = request.get_json()  # Assuming data is sent as JSON
     
     # Process the received data here
     return data
+
 
 
 if __name__ == '__main__':
