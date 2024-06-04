@@ -1,69 +1,16 @@
 import axios from 'axios';
 import React, { useState, useEffect } from 'react';
 import { DataTable } from 'react-native-paper';
-import { SafeAreaView, ActivityIndicator, StyleSheet, ScrollView, Text, View } from 'react-native';
+import { SafeAreaView, ActivityIndicator, ScrollView, Text, View } from 'react-native';
 import { baseUrl } from '@/src/constants/Fixed_Vars';
+import tw from 'twrnc';
 
-const movieURL = baseUrl + '/api';
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 16,
-  },
-  table: {
-    borderWidth: 1,
-    borderColor: 'gray',
-  },
-  header: {
-    backgroundColor: '#d3d3d3',
-    borderBottomWidth: 2,
-    borderBottomColor: 'gray',
-  },
-  headerText: {
-    fontFamily: 'Helvetica',
-    fontSize: 16,
-    fontWeight: 'bold',
-    color: 'black',
-    padding: 8,
-    borderRightWidth: 1,
-    borderRightColor: 'gray',
-    textAlign: 'center',
-  },
-  cellContainer: {
-    flex: 1,
-    padding: 8,
-    borderRightWidth: 1,
-    borderRightColor: 'gray',
-  },
-  cellText: {
-    fontFamily: 'Helvetica',
-    fontSize: 14,
-    color: 'black',
-    textAlign: 'center',
-  },
-  lastCell: {
-    borderRightWidth: 0,
-  },
-  pagination: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    paddingVertical: 16,
-  },
-  evenRow: {
-    backgroundColor: '#f0f0f0',
-  },
-  oddRow: {
-    backgroundColor: '#fafafa',
-  },
-});
 
 const TableCell = ({ text, last }) => (
-  <DataTable.Cell style={[styles.cellContainer, last && styles.lastCell]}>
+  <DataTable.Cell style={tw`flex-1 p-2 border-r border-gray-400 ${last ? 'border-r-0' : ''}`}>
     <ScrollView horizontal showsHorizontalScrollIndicator={false}>
       <View>
-        <Text style={styles.cellText}>{text}</Text>
+        <Text style={tw`font-helvetica text-base text-black text-center`}>{text}</Text>
       </View>
     </ScrollView>
   </DataTable.Cell>
@@ -78,7 +25,7 @@ const GymTable = () => {
 
   const render = async () => {
     try {
-      const res = (await axios.get(movieURL)).data;
+      const res = (await axios.get(baseUrl + '/api')).data;
       setData(res);
     } catch (error) {
       alert(error);
@@ -95,20 +42,21 @@ const GymTable = () => {
   const to = Math.min((page + 1) * itemsPerPage, items.length);
 
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView style={tw`flex-1 p-4`}>
       {!isLoading ? (
         <ScrollView horizontal={true}>
-          <DataTable style={styles.table}>
-            <DataTable.Header style={styles.header}>
+          <DataTable style={tw`border border-gray-400`}>
+            
+            <DataTable.Header style={tw`bg-gray-300 border-b-2 border-gray-400`}>
               {['Timestamp', 'User', 'Body Weight', 'Workout', 'Lift', 'Resistance', 'Set', 'Weight', 'Reps', 'RPE'].map((title, index) => (
-                <DataTable.Title key={index} style={[styles.headerText, index === 9 && styles.lastCell]}>
+                <DataTable.Title key={index} style={tw`font-helvetica text-lg font-bold text-black p-2 border-r border-gray-400 ${index === 9 ? 'border-r-0' : ''}`}>
                   {title}
                 </DataTable.Title>
               ))}
             </DataTable.Header>
 
             {items.slice(from, to).map((item, index) => (
-              <DataTable.Row key={index} style={index % 2 === 0 ? styles.evenRow : styles.oddRow}>
+              <DataTable.Row key={index} style={tw`${index % 2 === 0 ? 'bg-gray-200' : 'bg-gray-100'}`}>
                 <TableCell text={item.timestamp} />
                 <TableCell text={item.user} />
                 <TableCell text={item.body_weight} />
@@ -128,7 +76,7 @@ const GymTable = () => {
               onPageChange={page => setPage(page)}
               label={`${from + 1}-${to} of ${items.length}`}
               showFastPaginationControls
-              style={styles.pagination}
+              style={tw`flex-row justify-between items-center py-1`}
             />
           </DataTable>
         </ScrollView>

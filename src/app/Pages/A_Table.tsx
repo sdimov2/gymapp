@@ -1,58 +1,24 @@
-import { StyleSheet, ScrollView } from 'react-native';
+import { ScrollView } from 'react-native';
 import { Text, View } from '../../components/Themed';
-
 import { GymTable } from '../../components/paper/GymTable';
 import { Provider } from 'react-native-paper';
+import tw from 'twrnc';
 
 export default function TabOneScreen() {
   return (
     <Provider theme={theme}>
-
-      <ScrollView contentContainerStyle={styles.scrollView}>
-        <View style={styles.container}>
-          
-          <Text style={styles.title}>Logged Data</Text>
-          
-          {/* <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" /> */}
-          
-          {/* <ScrollView horizontal> */}
-            <GymTable />
-          {/* </ScrollView> */}
-
+      <ScrollView contentContainerStyle={tw`flex-grow justify-center items-center`}>
+        <View style={tw`flex-1 items-center justify-center p-4`}>
+          <Text style={tw`text-xl font-bold`}>Logged Data</Text>
+          <GymTable />
         </View>
       </ScrollView>
-    
     </Provider>
   );
 }
-
 
 const theme = {
   colors: {
     primary: 'green',
   },
 };
-
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    padding: 16,
-  },
-  title: {
-    fontSize: 20,
-    fontWeight: 'bold',
-  },
-  separator: {
-    marginVertical: 30,
-    height: 1,
-    width: '80%',
-  },
-  scrollView: {
-    flexGrow: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-});

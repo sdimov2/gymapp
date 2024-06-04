@@ -38,7 +38,8 @@
     "react-native-screens": "~3.29.0",
     "react-native-web": "~0.19.6",
     "recharts": "^2.12.6",
-    "tailwind-rn": "^4.2.0"
+    "tailwind-rn": "^4.2.0",
+    "twrnc": "^4.2.0"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
