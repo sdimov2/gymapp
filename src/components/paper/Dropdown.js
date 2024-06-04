@@ -19,7 +19,7 @@ const WeightDropdown = ({updateGraph}) => {
         const res = (await axios.get(baseUrl + "/options")).data;
         setData(res)
       } catch (error) {
-        alert(error)
+        console.log(error)
       }
     }
 
@@ -29,7 +29,7 @@ const WeightDropdown = ({updateGraph}) => {
         // updateGraph(res)
 
       } catch (error) {
-        alert(error)
+        console.log(error)
       }
     };
 

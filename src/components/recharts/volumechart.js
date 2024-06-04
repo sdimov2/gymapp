@@ -16,7 +16,7 @@ const Volumegraph = () => {
         setData(res)
 
       } catch (error) {
-        alert(error)
+        console.log(error)
       }
     };
 

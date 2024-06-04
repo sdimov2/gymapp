@@ -29,7 +29,7 @@ const SearchBar = () => {
     //     setData(json);
         
     //   })
-    //   .catch((error) => alert(error)) // display errors
+    //   .catch((error) => console.log(error)) // display errors
   }, []);
 
   return (

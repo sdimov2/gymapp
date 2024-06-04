@@ -28,7 +28,7 @@ const GymTable = () => {
       const res = (await axios.get(baseUrl + '/api')).data;
       setData(res);
     } catch (error) {
-      alert(error);
+      console.log(error);
     }
     setLoading(false);
   };

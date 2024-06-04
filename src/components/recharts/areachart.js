@@ -16,7 +16,7 @@ const BodyWeightGraph = () => {
         setData(res)
 
       } catch (error) {
-        alert(error)
+        console.log(error)
       }
     };
 
