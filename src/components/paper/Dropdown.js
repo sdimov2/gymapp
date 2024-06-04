@@ -1,5 +1,5 @@
 import axios from 'axios'
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { MultiSelect } from 'react-native-element-dropdown';
 import AntDesign from '@expo/vector-icons/AntDesign';
@@ -8,31 +8,25 @@ import { baseUrl } from '@/src/constants/Fixed_Vars';
 
 const WeightDropdown = ({updateGraph}) => {
     const [selected, setSelected] = useState([]);
-
-    
-    const [data, setData] = React.useState(
-      ['apple', 'banana', 'cow', 'dex', 'zee', 'orange', 'air', 'bottle']
-    )
-    const movieURL = "http://127.0.0.1:5000/options";
-    // similar to 'componentDidMount', gets called once
-    React.useEffect(() => {
-      fetch(movieURL)
-        .then((response) => response.json()) // get response, convert to json
-        .then((json) => {
-          setData(json);
-          
-        })
-        .catch((error) => alert(error)) // display error
-
-        updateGraph("Hi")
-        
+    const [data, setData] = useState([])
+  
+    useEffect(() => {
+      getOptions()
     }, []);
 
-
-    const getData = async () => {
+    const getOptions = async () => {
       try {
-        const res = (await axios.get(baseUrl + "/get_pairs")).data;
+        const res = (await axios.get(baseUrl + "/options")).data;
         setData(res)
+      } catch (error) {
+        alert(error)
+      }
+    }
+
+    const getData = async (selected) => {
+      try {
+        const res = (await axios.post(baseUrl + "/receive_data", {selected})).data;
+        // updateGraph(res)
 
       } catch (error) {
         alert(error)
@@ -44,6 +38,7 @@ const WeightDropdown = ({updateGraph}) => {
       <View style={styles.container}>
         <MultiSelect
           style={styles.dropdown}
+          selectedStyle={styles.selectedStyle}
           placeholderStyle={styles.placeholderStyle}
           selectedTextStyle={styles.selectedTextStyle}
           inputSearchStyle={styles.inputSearchStyle}
@@ -55,31 +50,11 @@ const WeightDropdown = ({updateGraph}) => {
           placeholder="Select item"
           searchPlaceholder="Search..."
           value={selected}
+          onSelectedItemsChange={ getData(selected) }
+          onChange={item => { setSelected(item) }}
+          
           // updateGraph = {props.updateGraph}
-          onSelectedItemsChange={
-            getData()
-            // fetch('http://127.0.0.1:5000/receive_data', {
-            //   method: 'POST',
-            //   headers: {
-            //       'Content-Type': 'application/json',
-            //   },
-            //   body: JSON.stringify(selected)
-            //   })
-            //   .then(response => response.json())
-            //   .then(data => {
-            //       // console.log('Success:', data);
-            //   })
-            //   .catch((error) => {
-            //       console.error('Error:', error);
-            //   })
-
-           
-          }
-
-          onChange={item => {
-            setSelected(item);
-          }}
-
+          
           renderLeftIcon={() => (
             <AntDesign
               style={styles.icon}
@@ -88,14 +63,14 @@ const WeightDropdown = ({updateGraph}) => {
               size={20}
             />
           )}
-
-          selectedStyle={styles.selectedStyle}
         />
       </View>
     );
   };
 
   export default WeightDropdown;
+
+
 
   const styles = StyleSheet.create({
     container: { padding: 16 },

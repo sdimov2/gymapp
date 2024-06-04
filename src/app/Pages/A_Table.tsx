@@ -1,23 +1,38 @@
 import { StyleSheet, ScrollView } from 'react-native';
 import { Text, View } from '../../components/Themed';
+
 import { GymTable } from '../../components/paper/GymTable';
 import { Provider } from 'react-native-paper';
 
 export default function TabOneScreen() {
   return (
-    <Provider>
+    <Provider theme={theme}>
+
       <ScrollView contentContainerStyle={styles.scrollView}>
         <View style={styles.container}>
+          
           <Text style={styles.title}>Logged Data</Text>
-          <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
-          <ScrollView horizontal>
+          
+          {/* <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" /> */}
+          
+          {/* <ScrollView horizontal> */}
             <GymTable />
-          </ScrollView>
+          {/* </ScrollView> */}
+
         </View>
       </ScrollView>
+    
     </Provider>
   );
 }
+
+
+const theme = {
+  colors: {
+    primary: 'green',
+  },
+};
+
 
 const styles = StyleSheet.create({
   container: {

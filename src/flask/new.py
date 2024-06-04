@@ -58,6 +58,8 @@ def get_pairs(criteria="Bench"):
             "x": entry[0],
             "y": entry[1],
             })
+        
+
     return jsonify(temp)
 
 
@@ -78,28 +80,33 @@ def options():
             })
 
     return jsonify(temp)
-    key = "activity"
-    unique_values = set()
-    for s in data:
-        if key in s:
-            unique_values.add(s[key])
-    unique_values_list = list(unique_values)
-    temp = []
-    for entry in unique_values_list:
-        temp.append(
-            {
-            "label": entry, 
-            "value": entry
-            })
+
+
+
+    # key = "activity"
+    # unique_values = set()
+    # for s in data:
+    #     if key in s:
+    #         unique_values.add(s[key])
+    # unique_values_list = list(unique_values)
+    # temp = []
+    # for entry in unique_values_list:
+    #     temp.append(
+    #         {
+    #         "label": entry, 
+    #         "value": entry
+    #         })
    
 
 
 @app.route('/receive_data', methods=['POST'])
 def receive_data():
-    data = request.get_json()  # Assuming data is sent as JSON
+    data = request.get_json().get('selected')  # Assuming data is sent as JSON
     
+    print(data)
     # Process the received data here
-    return data
+    # return data
+    return "success"
 
 
 

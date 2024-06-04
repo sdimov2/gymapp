@@ -1,17 +1,11 @@
 import * as React from 'react';
-import { useState } from 'react';
 import { StyleSheet } from 'react-native';
 import { Text, View } from '../../components/Themed';
-import { Avatar, Button, Card, Chip } from 'react-native-paper';
-import { Dropdown } from 'react-native-element-dropdown';
-import AntDesign from '@expo/vector-icons/AntDesign';
 
 import BodyWeightGraph from '../../components/recharts/areachart';
+import VolumeGraph from '@/src/components/recharts/volumechart';
 import ChooseGraph from '../../components/paper/ChooseGraph';
 import WeightDropdown from '../../components/paper/Dropdown';
-import VolumeGraph from '@/src/components/recharts/volumechart';
-import SearchBar from '../../components/paper/SearchBar';
-import EditScreenInfo from '../../components/EditScreenInfo';
 
 
 export default function TabThreeScreen() {
