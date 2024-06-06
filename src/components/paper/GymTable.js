@@ -1,15 +1,15 @@
 import { useState, useEffect } from 'react';
 import { DataTable, Provider } from 'react-native-paper';
-import { SafeAreaView, ActivityIndicator, ScrollView, Text, View } from 'react-native';
+import { SafeAreaView, ActivityIndicator, ScrollView, Text, View, Pressable } from 'react-native';
 import { baseUrl } from '@/src/constants/Fixed_Vars';
 
 import axios from 'axios';
 import tw from 'twrnc';
 
 const TableCell = ({ text, last }) => (
-  <DataTable.Cell style={tw`flex-1 p-2 border-r border-gray-200 ${last ? 'border-r-0' : ''}`}>
+  <DataTable.Cell style={tw`flex-1 p-2 border-r border-gray-200  ${last ? 'border-r-0' : ''}`}>
     <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-      <Text style={tw`text-base text-center text-gray-700`}>{text}</Text>
+      <Text style={tw`text-center text-gray-700`}>{text}</Text>
     </ScrollView>
   </DataTable.Cell>
 );
@@ -53,6 +53,28 @@ export default function GymTable() {
     setLoading(false);
   };
 
+  // const handleAddLog = () => {
+  //   // Get the last log in the items array
+  //   const lastLog = items[items.length - 1];
+  //   const currentDate = new Date();
+  
+  //  // Format the date and time as "6/1/2024 18:33:05"
+  //   const formattedTimestamp = currentDate.toLocaleString('en-US', {
+  //     month: 'numeric',
+  //     day: 'numeric',
+  //     year: 'numeric', // THIS STRING LEAVES IN AN EXTRA COMMA AFTER IT WHICH IS NOT PRESENT IN ANY OF THE PREVIOUS DATA, USING THIS AS A DISTINGUISHER FOR NOW
+  //     hour: 'numeric',
+  //     minute: 'numeric',
+  //     second: 'numeric',
+  //     hour12: false // Use 24-hour format (military time)
+  //   });
+  // }
+
+  const handleDeleteLog = (timestamp) => {
+    setData(items.filter(item => item.timestamp !== timestamp));
+  };
+
+
   useEffect(() => {
     setPage(0);
     render();
@@ -63,15 +85,15 @@ export default function GymTable() {
 
   return (
     <Provider>
-      <SafeAreaView style={tw`flex-1 p-4 bg-blue-50 rounded-lg w-100` }>
+      <SafeAreaView style={tw`flex-1 p-4 bg-blue-50 rounded-lg` }>
         <View >
           {!isLoading ? (
             <ScrollView  horizontal={true} >
               <DataTable style={tw`max-h-200`}>
                 
                 <DataTable.Header style={tw`bg-blue-500 border-b-2 rounded-t-lg`}>
-                  {['Timestamp', 'User', 'Body Weight', 'Workout', 'Lift', 'Resistance', 'Set', 'Weight', 'Reps', 'RPE'].map((title, index) => (
-                    <DataTable.Title key={index} style={tw`font-helvetica text-lg font-bold text-white p-2 border-r border-blue-300 ${index === 9 ? 'border-r-0' : ''}`}>
+                  {['Timestamp', 'User', 'Body Weight', 'Workout', 'Lift', 'Resistance', 'Set', 'Weight', 'Reps', 'RPE', 'Actions'].map((title, index) => (
+                    <DataTable.Title key={index} style={tw`font-bold text-white border-r border-blue-300 justify-center ${index === 10 ? 'border-r-0' : ''}`}>
                       {title}
                     </DataTable.Title>
                   ))}
@@ -88,9 +110,38 @@ export default function GymTable() {
                     <TableCell text={item.set_n} />
                     <TableCell text={item.weight} />
                     <TableCell text={item.reps} />
-                    <TableCell text={item.rpe} last={true} />
+                    <TableCell text={item.rpe} />
+                    <DataTable.Cell>
+                      <Pressable 
+                        style={tw`flex-row items-center bg-white border border-gray-300 rounded-lg `}
+                        onPress={() => handleDeleteLog(item.timestamp)}
+                      >
+                        <Text>DELETE</Text>
+                      </Pressable>
+                    </DataTable.Cell>
                   </DataTable.Row>
                 ))}
+
+                <DataTable.Row>
+                  <TableCell text={"1"} />
+                  <TableCell text={"1"} />
+                  <TableCell text={"1"} />
+                  <TableCell text={"1"} />
+                  <TableCell text={"1"} />
+                  <TableCell text={"1"} />
+                  <TableCell text={"1"} />
+                  <TableCell text={"1"} />
+                  <TableCell text={"1"} />
+                  <TableCell text={"1"} last={true} />
+                  <DataTable.Cell>
+                    <Pressable 
+                      style={tw`flex-row items-center rounded-lg justify-center`}
+                      onPress={() => handleDeleteLog(item.timestamp)}
+                    >
+                      <Text> DELETE 1</Text>
+                    </Pressable>
+                  </DataTable.Cell>
+                </DataTable.Row>
 
               </DataTable>
             </ScrollView>
@@ -111,7 +162,8 @@ export default function GymTable() {
             selectPageDropdownLabel={'Rows per page'}
 
           />
-        </View>        
+        </View>      
+        {/* <Pressable onPress={handleAddLog}>Add Log</Pressable>   */}
       </SafeAreaView>
     </Provider>
   );

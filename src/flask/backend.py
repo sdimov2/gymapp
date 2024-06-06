@@ -27,7 +27,7 @@ credentials = ServiceAccountCredentials.from_json_keyfile_name("./gscredentials.
 client = gspread.authorize(credentials)
 
 # Open the Google Sheet
-sheet_id = '1CxCLvg2CGSHYNWskSa8JlBOPmF4th4XPEQQfy6AouYw'
+sheet_id = '1GE8h-5e1UEw5bk-5aOSiyy-VdrloM7C2w6hYb6GLohc'
 
 sheet = client.open_by_key(sheet_id)
 

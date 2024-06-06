@@ -28,9 +28,16 @@ def return_global_data():
     return jsonify(temp)
 
 
-@app.route("/bw")
+@app.route("/bw", methods=['POST'])
 def bw():
-    bw = filter_entries(global_data[1:], "users", ["sdimov77@gmail.com"])
+
+    email = request.get_json().get('email')
+
+    # print(email)
+
+    # print(global_data)
+
+    bw = filter_entries(global_data[1:], "users", [str(email)])
     bw = filter_entries(bw, "body_weight_ranges", [[0,999]])
     bw = get_data_from_entries(bw, 0, 2, "string", "float")[0]
     temp = []
@@ -40,6 +47,10 @@ def bw():
             "date": entry[0],
             "weight": entry[1],
             })
+    
+    # print("Hi")
+    print(temp)
+
     return jsonify(temp)
 
 
@@ -102,6 +113,16 @@ def options():
 @app.route('/receive_data', methods=['POST'])
 def receive_data():
     data = request.get_json().get('selected')  # Assuming data is sent as JSON
+    
+    print(data)
+    # Process the received data here
+    # return data
+    return "success"
+
+
+@app.route('/test-akhil', methods=['POST'])
+def passData():
+    data = request.get_json().get('email')  # Assuming data is sent as JSON
     
     print(data)
     # Process the received data here

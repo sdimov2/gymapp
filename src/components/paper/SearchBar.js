@@ -12,6 +12,7 @@ export default function SearchBar() {
 
   const onChangeSearch = (query) => {
     setSearchQuery(query);
+    // setData([query])
     // console.log(query)
     // console.log(data)
   }

@@ -2,9 +2,9 @@ import { useEffect, useState } from 'react'
 import { useRouter } from 'expo-router'
 import { KeyboardAvoidingView, Text, TextInput, Pressable, View, Image } from 'react-native'
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signInWithPopup } from "firebase/auth";
-import {GoogleAuthProvider, TwitterAuthProvider } from "firebase/auth";
+// import {GoogleAuthProvider, TwitterAuthProvider } from "firebase/auth";
 
-import googleLogo from '../assets/images/google.png';
+// import googleLogo from '../assets/images/google.png';
 
 import tw from 'twrnc';
 
@@ -35,17 +35,17 @@ const AuthButton = ({ onPress, label, backgroundColor, textColor }: any) => {
   );
 };
 
-const GoogleSignInButton = ({ onPress }: any) => {
-  return (
-    <Pressable 
-      style={tw`flex-row items-center bg-white border border-gray-300 rounded-lg py-3 mt-3 justify-center`}
-      onPress={onPress}
-    >
-      <Image source={googleLogo} style={tw`w-6 h-6 mr-4`} />
-      <Text style={tw`text-black text-center font-semibold text-lg`}>Sign in with Google</Text>
-    </Pressable>
-  );
-};
+// const GoogleSignInButton = ({ onPress }: any) => {
+//   return (
+//     <Pressable 
+//       style={tw`flex-row items-center bg-white border border-gray-300 rounded-lg py-3 mt-3 justify-center`}
+//       onPress={onPress}
+//     >
+//       <Image source={googleLogo} style={tw`w-6 h-6 mr-4`} />
+//       <Text style={tw`text-black text-center font-semibold text-lg`}>Sign in with Google</Text>
+//     </Pressable>
+//   );
+// };
 
 
 export default function LoginScreen() {
@@ -72,14 +72,14 @@ export default function LoginScreen() {
       .catch(() => { console.log("INVALID CREDENTIALS") })
   }
 
-  const googleSignIn = async () => {    
-    var provider = new GoogleAuthProvider();
-    provider.addScope('profile');
-    provider.addScope('email');
+  // const googleSignIn = async () => {    
+  //   var provider = new GoogleAuthProvider();
+  //   provider.addScope('profile');
+  //   provider.addScope('email');
     
-    await signInWithPopup(auth, provider)
-      .catch(() => { console.log("Something messed up idk") })
-  }
+  //   await signInWithPopup(auth, provider)
+  //     .catch(() => { console.log("Something messed up idk") })
+  // }
 
   return (
     <KeyboardAvoidingView style={tw`flex-1 justify-center items-center`} behavior="padding">
@@ -114,9 +114,9 @@ export default function LoginScreen() {
           textColor="#0782F9"
         />
 
-        <GoogleSignInButton 
+        {/* <GoogleSignInButton 
           onPress={googleSignIn} 
-        />
+        /> */}
 
       </View>
     </KeyboardAvoidingView>
