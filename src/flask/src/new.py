@@ -1,6 +1,6 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
-from backend import get_data_from_entries, filter_entries, global_data
+from flask.src.backend import get_data_from_entries, filter_entries, global_data
 
 
 app = Flask(__name__)
@@ -70,7 +70,6 @@ def get_pairs(criteria="Bench"):
             "y": entry[1],
             })
         
-
     return jsonify(temp)
 
 
@@ -79,10 +78,14 @@ def get_pairs(criteria="Bench"):
 def options():
     data = global_data[1:]
     unique_values = set()
+    
     for s in data:
         unique_values.add(s[3])
+
     unique_values_list = list(unique_values)
+    
     temp = []
+    
     for entry in unique_values_list:
         temp.append(
             {
@@ -94,40 +97,14 @@ def options():
 
 
 
-    # key = "activity"
-    # unique_values = set()
-    # for s in data:
-    #     if key in s:
-    #         unique_values.add(s[key])
-    # unique_values_list = list(unique_values)
-    # temp = []
-    # for entry in unique_values_list:
-    #     temp.append(
-    #         {
-    #         "label": entry, 
-    #         "value": entry
-    #         })
-   
-
-
 @app.route('/receive_data', methods=['POST'])
 def receive_data():
     data = request.get_json().get('selected')  # Assuming data is sent as JSON
     
-    print(data)
     # Process the received data here
-    # return data
-    return "success"
 
 
-@app.route('/test-akhil', methods=['POST'])
-def passData():
-    data = request.get_json().get('email')  # Assuming data is sent as JSON
-    
-    print(data)
-    # Process the received data here
     # return data
-    return "success"
 
 
 

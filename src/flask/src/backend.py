@@ -1,22 +1,21 @@
 import gspread
 from oauth2client.service_account import ServiceAccountCredentials
-import pandas as pd
 import numpy as np
-import matplotlib.pyplot as plt 
 from datetime import datetime
-from matplotlib.ticker import MaxNLocator
-import matplotlib.cbook as cbook
-import matplotlib.dates as mdates
-#from sklearn.model_selection import train_test_split
-#from sklearn.linear_model import LinearRegression
+
+
 from sklearn.metrics import mean_squared_error, r2_score
 import scipy.stats as stats
 from itertools import groupby
 from datetime import datetime, timedelta
-#import tabulate
-#import csv
+
 from dateutil import parser
 import json
+
+#from sklearn.model_selection import train_test_split
+#from sklearn.linear_model import LinearRegression
+#import tabulate
+#import csv
 
 # Connect to Google
 # Scope: Enable access to specific links
