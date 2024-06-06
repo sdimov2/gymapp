@@ -7,7 +7,7 @@ import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContai
 import { baseUrl } from '@/src/constants/Fixed_Vars';
 
 
-const BodyWeightGraph = () => {
+export default function BodyWeightGraph() {
     const [data, setData] = React.useState([]);
      
     const getData = async () => {
@@ -44,6 +44,3 @@ const BodyWeightGraph = () => {
     );
         
 }
-
-
-export default BodyWeightGraph;

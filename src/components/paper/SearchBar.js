@@ -1,57 +1,58 @@
-import * as React from 'react';
+import { useState, useEffect } from 'react';
+import { View, Text } from 'react-native'
+import { Searchbar, Chip } from 'react-native-paper';
+import { baseUrl } from '@/src/constants/Fixed_Vars';
 
-import { Searchbar } from 'react-native-paper';
-import { Chip } from 'react-native-paper';
-
-import { useState } from 'react';
-
-
-const SearchBar = () => {
-  
-  const [searchQuery, setSearchQuery] = useState('');
-
-  const onChangeSearch = query => setSearchQuery(query);
-
-  const [data, setData] = useState([])
-
-  // 'apple', 'banana', 'cow', 'dex', 'zee', 'orange', 'air', 'bottle'
+import tw from 'twrnc'
 
 
-  const movieURL = "http://127.0.0.1:5000/options";
-  // similar to 'componentDidMount', gets called once
-  React.useEffect(() => {
+export default function SearchBar() {
+  const [data, setData] = useState(["akhil", "was", "here"])
+  const [searchQuery, setSearchQuery] = useState("");
 
-    console.log(data)
+  const onChangeSearch = (query) => {
+    setSearchQuery(query);
+    // console.log(query)
+    // console.log(data)
+  }
 
-    // fetch(movieURL)
-    //   .then((response) => response.json()) // get response, convert to json
-    //   .then((json) => {
-    //     setData(json);
-        
-    //   })
-    //   .catch((error) => console.log(error)) // display errors
+  useEffect(() => {
+
   }, []);
 
   return (
-    <div><Searchbar
-      placeholder="search"
-      onChangeText={onChangeSearch}
-      value={searchQuery}
-    /> 
-    
-    {
-      // data.map((item, index) => {
-      //   return (
-      //     <Chip icon="information" onPress={() => console.log('Pressed')}>{item}</Chip>
-         
-      //   )
-      // })
+    <View 
+    style={tw`mb-3`}
+    >
+      <Searchbar
+        placeholder="Search"
+        onChangeText={onChangeSearch}
+        value={searchQuery}
+        style={tw`w-full rounded-full bg-white rounded-sm shadow-md p-3 mt-3 min-w-70`}
+        inputStyle={tw`text-lg`}
+      />
+        {
+          data.map((item, index) => {
+            return (
+              <Chip 
+                key={index}
+                style={tw`bg-gray-200 border border-gray-300 rounded-sm px-3 py-1 min-w-70`}
+                onPress={() => console.log('Pressed: ', item)}
+                textStyle={tw`text-gray-800 text-lg`}
+              >
+                  {item}
+              </Chip>
+            )
+          })
+        }
 
-      data
-    }
 
-    </div>
+        {/* Helpers */}
+        <Text
+          style={tw`w-full bg-white max-w-70`}
+        >
+          YOUR SEARCH QUERY: {searchQuery}
+        </Text>
+    </View>
   );
 };
-
-export default SearchBar;

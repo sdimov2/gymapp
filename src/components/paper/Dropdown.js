@@ -1,48 +1,48 @@
-import axios from 'axios'
-import React, { useState, useEffect } from 'react';
-import { StyleSheet, View } from 'react-native';
-import { MultiSelect } from 'react-native-element-dropdown';
-import AntDesign from '@expo/vector-icons/AntDesign';
+import { useState, useEffect } from 'react';
+import { View } from 'react-native';
+import { MultiSelect} from 'react-native-element-dropdown';
 
 import { baseUrl } from '@/src/constants/Fixed_Vars';
+
+import AntDesign from '@expo/vector-icons/AntDesign';
+import axios from 'axios'
+import tw from 'twrnc';
+
+
+const getOptions = async (setData) => {
+  try {
+    const res = (await axios.get(baseUrl + "/options")).data;
+    setData(res)
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+const getData = async (selected) => {
+  try {
+    const res = (await axios.post(baseUrl + "/receive_data", {selected})).data;
+    // updateGraph(res)
+  } catch (error) {
+    console.log(error)
+  }
+};
 
 const WeightDropdown = ({updateGraph}) => {
     const [selected, setSelected] = useState([]);
     const [data, setData] = useState([])
-  
+
     useEffect(() => {
-      getOptions()
-    }, []);
-
-    const getOptions = async () => {
-      try {
-        const res = (await axios.get(baseUrl + "/options")).data;
-        setData(res)
-      } catch (error) {
-        console.log(error)
-      }
-    }
-
-    const getData = async (selected) => {
-      try {
-        const res = (await axios.post(baseUrl + "/receive_data", {selected})).data;
-        // updateGraph(res)
-
-      } catch (error) {
-        console.log(error)
-      }
-    };
-
+      getOptions(setData)
+    }, [setData]);
 
     return (
-      <View style={styles.container}>
+      <View style={tw`w-80`}>
         <MultiSelect
-          style={styles.dropdown}
-          selectedStyle={styles.selectedStyle}
-          placeholderStyle={styles.placeholderStyle}
-          selectedTextStyle={styles.selectedTextStyle}
-          inputSearchStyle={styles.inputSearchStyle}
-          iconStyle={styles.iconStyle}
+          style={tw`m-4 border-b border-gray-500`}
+          selectedStyle={tw`rounded-lg`}
+          placeholderStyle={tw`text-base`}
+          selectedTextStyle={tw`text-sm`}
+          inputSearchStyle={tw`h-10 text-base`}
           search
           data={data}
           labelField="label"
@@ -52,16 +52,8 @@ const WeightDropdown = ({updateGraph}) => {
           value={selected}
           onSelectedItemsChange={ getData(selected) }
           onChange={item => { setSelected(item) }}
-          
-          // updateGraph = {props.updateGraph}
-          
           renderLeftIcon={() => (
-            <AntDesign
-              style={styles.icon}
-              color="black"
-              name="Safety"
-              size={20}
-            />
+            <AntDesign style={tw`mr-1`} color="black" name="Safety" size={20} />
           )}
         />
       </View>
@@ -69,35 +61,3 @@ const WeightDropdown = ({updateGraph}) => {
   };
 
   export default WeightDropdown;
-
-
-
-  const styles = StyleSheet.create({
-    container: { padding: 16 },
-    dropdown: {
-      height: 50,
-      backgroundColor: 'transparent',
-      borderBottomColor: 'gray',
-      borderBottomWidth: 0.5,
-    },
-    placeholderStyle: {
-      fontSize: 16,
-    },
-    selectedTextStyle: {
-      fontSize: 14,
-    },
-    iconStyle: {
-      width: 20,
-      height: 20,
-    },
-    inputSearchStyle: {
-      height: 40,
-      fontSize: 16,
-    },
-    icon: {
-      marginRight: 5,
-    },
-    selectedStyle: {
-      borderRadius: 12,
-    },
-  });

@@ -6,12 +6,15 @@
       "@/*": [
         "./*"
       ]
-    }
+    },
+    "typeRoots" : ["node_modules/@types", "src/types"]
   },
   "include": [
     "**/*.ts",
     "**/*.tsx",
+    "**/*.png",
+    "src/app/email.js",
     ".expo/types/**/*.ts",
     "expo-env.d.ts"
-  ]
+, "src/app/Pages/Logout.js"  ]
 }

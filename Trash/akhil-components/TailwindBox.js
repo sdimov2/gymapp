@@ -1,5 +1,5 @@
 import { StatusBar } from "expo-status-bar";
-import { Text, View, TouchableOpacity, TextInput } from "react-native";
+import { Text, View, TextInput, Pressable } from "react-native";
 
 const Box = () => {
     return (
@@ -26,23 +26,23 @@ const Box = () => {
               />
             </View>
     
-            <TouchableOpacity className='bg-orange-300 p-3 mt-4'>
+            <Pressable className='bg-orange-300 p-3 mt-4'>
               <Text className='text-center text-base text-white'>Login</Text>
-            </TouchableOpacity>
+            </Pressable>
     
-            <Text className='text-center font-normal text-gray-500 text-base mt-3'>
+            {/* <Text className='text-center font-normal text-gray-500 text-base mt-3'>
               OR
-            </Text>
+            </Text> */}
             <View className='mt-4'>
-              <TouchableOpacity className='flex flex-row items-center justify-center p-2 bg-orange-300'>
+              <Pressable className='flex flex-row items-center justify-center p-2 bg-orange-300'>
                 <Text className='text-white mx-2 text-sm'>Sign In With Google</Text>
-              </TouchableOpacity>
+              </Pressable>
             </View>
             <View className='mt-6 flex-row justify-center'>
               <Text className=''>New to FreeCodeCamp? </Text>
-              <TouchableOpacity>
+              <Pressable>
                 <Text className='text-amber-500'>Create an Account</Text>
-              </TouchableOpacity>
+              </Pressable>
             </View>
           </View>
         </View>

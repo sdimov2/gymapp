@@ -1,14 +1,14 @@
-import React from 'react';
-import { View, Text } from 'react-native';
-import EditScreenInfo from '@/src/akhil-components/EditScreenInfo';
+import { View, Text, ScrollView } from 'react-native';
+
+import Logout from "@/src/components/Buttons/Logout"
+
 import tw from 'twrnc';
 
-export default function TabTwoScreen() {
+export default function Links() {
   return (
-    <View style={tw`flex-1 items-center justify-center`}>
-      <Text style={tw`text-lg font-bold`}>Tab Two</Text>
-      <View style={tw`my-7 h-px w-4/5 bg-gray-200 dark:bg-gray-800`} />
-      <EditScreenInfo path="app/Pages/two.tsx" />
-    </View>
+    <ScrollView contentContainerStyle={tw`flex-grow justify-center items-center bg-orange-100`}>
+      <Text style={tw`text-lg font-bold`}>LINKS</Text>
+      <Logout/>
+    </ScrollView>
   );
 }

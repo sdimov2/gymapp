@@ -1,15 +1,13 @@
-import axios from 'axios';
-
-import React, { PureComponent, useState, useEffect } from 'react';
-
+import { PureComponent, useState, useEffect } from 'react';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend } from 'recharts';
-
 import { baseUrl } from '@/src/constants/Fixed_Vars';
 
-const Volumegraph = () => {
+import axios from 'axios';
+import tw from 'twrnc'
 
-  const [data, setData] = React.useState([]);
-     
+export default function Volumegraph() {
+
+  const [data, setData] = useState([]);
     const getData = async () => {
       try {
         const res = (await axios.get(baseUrl + "/get_pairs")).data;
@@ -32,7 +30,7 @@ const Volumegraph = () => {
           data={data}
           margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
         >
-        
+
           <CartesianGrid strokeDasharray="3 3" />
           <XAxis dataKey="x" />
           <YAxis />
@@ -44,6 +42,3 @@ const Volumegraph = () => {
     </ResponsiveContainer>
     );
 }
-
-
-export default Volumegraph;
