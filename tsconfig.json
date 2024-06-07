@@ -16,5 +16,5 @@
     "src/app/email.js",
     ".expo/types/**/*.ts",
     "expo-env.d.ts"
-, "src/app/Pages/Logout.js"  ]
+, "./src/app/Pages/Logout.js"  ]
 }

@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { ScrollView, Pressable, Text } from 'react-native';
 import { getAuth, signOut } from "firebase/auth";
-import { app } from "@/firebase.config";
+import { app } from "@/config/firebase.config";
 import { useRouter } from 'expo-router';
 
 import tw from 'twrnc';

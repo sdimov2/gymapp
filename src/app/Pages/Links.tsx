@@ -8,7 +8,7 @@ import { baseUrl } from '@/src/constants/Fixed_Vars';
 
 import tw from 'twrnc';
 
-import { app } from "@/firebase.config"
+import { app } from "@/config/firebase.config"
 const auth = getAuth(app);
 
 

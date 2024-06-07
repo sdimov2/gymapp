@@ -10,7 +10,7 @@ export default function Volumegraph() {
   const [data, setData] = useState([]);
     const getData = async () => {
       try {
-        const res = (await axios.get(baseUrl + "/get_pairs")).data;
+        const res = (await axios.post(baseUrl + "/get_pairs")).data;
         setData(res)
 
       } catch (error) {

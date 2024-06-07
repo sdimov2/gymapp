@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { DataTable, Provider } from 'react-native-paper';
 import { SafeAreaView, ActivityIndicator, ScrollView, Text, View, Pressable } from 'react-native';
 import { baseUrl } from '@/src/constants/Fixed_Vars';
+import { dummyData } from '@/src/constants/Fixed_Vars';
 
 import axios from 'axios';
 import tw from 'twrnc';
@@ -19,31 +20,11 @@ export default function GymTable() {
   const [numberOfItemsPerPageList] = useState([10, 11, 12, 13, 14, 15]);
   const [itemsPerPage, setItemsPerPage] = useState(numberOfItemsPerPageList[2]);
   const [isLoading, setLoading] = useState(true);
-  const [items, setData] = useState([
-    {activity: 'Bench', lift: '', reps: '8', resistance_method: 'barbell', rpe: '8'},
-    {activity: 'Bench', lift: '', reps: '8', resistance_method: 'barbell', rpe: '8'},
-    {activity: 'Bench', lift: '', reps: '8', resistance_method: 'barbell', rpe: '8'},
-    {activity: 'Bench', lift: '', reps: '8', resistance_method: 'barbell', rpe: '8'},
-    {activity: 'Bench', lift: '', reps: '8', resistance_method: 'barbell', rpe: '8'},
-    {activity: 'Bench', lift: '', reps: '8', resistance_method: 'barbell', rpe: '8'},
-    {activity: 'Bench', lift: '', reps: '8', resistance_method: 'barbell', rpe: '8'},
-    {activity: 'Bench', lift: '', reps: '8', resistance_method: 'barbell', rpe: '8'},
-    {activity: 'Bench', lift: '', reps: '8', resistance_method: 'barbell', rpe: '8'},
-    {activity: 'Bench', lift: '', reps: '8', resistance_method: 'barbell', rpe: '8'},
-    {activity: 'Bench', lift: '', reps: '8', resistance_method: 'barbell', rpe: '8'},
-    {activity: 'Bench', lift: '', reps: '8', resistance_method: 'barbell', rpe: '8'},
-    {activity: 'Bench', lift: '', reps: '8', resistance_method: 'barbell', rpe: '8'},
-    {activity: 'Bench', lift: '', reps: '8', resistance_method: 'barbell', rpe: '8'},
-    {activity: 'Bench', lift: '', reps: '8', resistance_method: 'barbell', rpe: '8'},
-    {activity: 'Bench', lift: '', reps: '8', resistance_method: 'barbell', rpe: '8'},
-    {activity: 'Bench', lift: '', reps: '8', resistance_method: 'barbell', rpe: '8'},
-    {activity: 'Bench', lift: '', reps: '8', resistance_method: 'barbell', rpe: '8'},
-    {activity: 'Bench', lift: '', reps: '8', resistance_method: 'barbell', rpe: '8'},
-  ]);
+  const [items, setData] = useState(dummyData);
 
   const render = async () => {
     try {
-      const res = (await axios.get(baseUrl + '/api')).data;
+      const res = (await axios.post(baseUrl + '/api')).data;
       setData(res);
       // console.log(res)
     } catch (error) {
