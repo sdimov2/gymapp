@@ -5,7 +5,7 @@ import React, { PureComponent, useState, useEffect } from 'react';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend } from 'recharts';
 
 import { baseUrl } from '@/src/constants/Fixed_Vars';
-import { app } from "@/firebase.config"
+import { app } from "@/config/firebase.config"
 import { getAuth } from "firebase/auth";
 const auth = getAuth(app);
 

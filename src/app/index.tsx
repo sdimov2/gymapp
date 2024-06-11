@@ -8,7 +8,7 @@ import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, on
 
 import tw from 'twrnc';
 
-import { app } from "@/firebase.config"
+import { app } from "@/config/firebase.config"
 const auth = getAuth(app);
 
 
