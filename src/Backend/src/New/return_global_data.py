@@ -1,6 +1,8 @@
-from flask import Flask, request, jsonify
-from flask_cors import CORS
-from backend import get_data_from_entries, filter_entries, global_data
+from flask import jsonify
+
+from Backend.filter import filter_entries
+from Backend.get_data import get_data_from_entries
+from info import global_data
 
 
 def GetApi(email):

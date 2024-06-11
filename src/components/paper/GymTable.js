@@ -119,7 +119,7 @@ export default function GymTable() {
                       style={tw`flex-row items-center rounded-lg justify-center`}
                       onPress={() => handleDeleteLog(item.timestamp)}
                     >
-                      <Text> DELETE 1</Text>
+                      <Text> ADD</Text>
                     </Pressable>
                   </DataTable.Cell>
                 </DataTable.Row>

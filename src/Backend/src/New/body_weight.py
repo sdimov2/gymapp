@@ -1,5 +1,8 @@
 from flask import jsonify
-from backend import get_data_from_entries, filter_entries, global_data
+
+from Backend.filter import filter_entries
+from Backend.get_data import get_data_from_entries
+from info import global_data
 
 
 def GetBodyWeight(email):
