@@ -20,7 +20,7 @@ web-build/
 expo-env.d.ts
 # @end expo-cli
 
-firebase.config.js
+# firebase.config.js
 
 Trash
 
