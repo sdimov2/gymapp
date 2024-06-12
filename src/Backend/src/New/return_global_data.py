@@ -6,15 +6,20 @@ from info import global_data
 
 
 def GetApi(email):
-
     data = filter_entries(global_data[1:], "users", [email])
     temp = []
+
+    prevEntry = None
+    toggle = False
+    
     for entry in data:
+
+        if (prevEntry and prevEntry[0].split(' ')[0] != entry[0].split(' ')[0]):
+            toggle = not toggle
+
         temp.append(
             {
-            "timestamp": entry[0], 
-            "user":	entry[1],		
-            "lift": entry[2],	
+            "timestamp": entry[0], 		
             "activity": entry[3],
             "variants": entry[4],	
             "resistance_method": entry[5],
@@ -22,7 +27,11 @@ def GetApi(email):
             "weight": entry[7],
             "reps": entry[8],
             "rpe": entry[9],
+            "toggle": toggle,
+            "isEditing": False,
             })
+        
+        prevEntry = entry
         
     return jsonify(temp)
 

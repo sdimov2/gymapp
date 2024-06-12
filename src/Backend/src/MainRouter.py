@@ -17,8 +17,10 @@ CORS(app, supports_credentials=True)
 @app.route("/api", methods=['POST'])
 def api0():
 
-    email = "sdimov77@gmail.com"
-    # email = request.get_json().get('email') 
+    # email = "sdimov77@gmail.com"
+    email = request.get_json().get('email') 
+
+    print(email)
 
     data = GetApi(email)
 
@@ -63,6 +65,18 @@ def api4():
     data = ProcessData(selected)
 
     return data
+
+
+@app.route('/akhil', methods=['POST'])
+def api5():
+
+    print("HI")
+
+    selected = request.get_json().get('newRow') 
+
+    print(selected)
+
+    return "success"
 
 
 if __name__ == '__main__':
