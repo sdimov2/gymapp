@@ -8,8 +8,8 @@ import tw from 'twrnc';
 export default function Table() {
   return (
     <ScrollView contentContainerStyle={tw`flex-grow justify-center items-center bg-orange-100`}>
-      <View style={tw`flex-1 items-center justify-center p-4 bg-gray-800`}>
-        <Text style={tw`text-xl font-bold text-blue-800`}>Logged Data</Text>
+      <View style={tw`flex-1 items-center justify-center p-4 bg-gray-700`}>
+        <Text style={tw`text-xl font-bold text-red-300`}>Logged Data</Text>
         <SearchBar/>
         <GymTable />
       </View>
