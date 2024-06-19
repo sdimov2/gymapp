@@ -19,6 +19,7 @@ def GetApi(email):
 
         temp.append(
             {
+            "id": entry[0],
             "timestamp": entry[0], 		
             "activity": entry[3],
             "variants": entry[4],	
@@ -29,6 +30,7 @@ def GetApi(email):
             "rpe": entry[9],
             "toggle": toggle,
             "isEditing": False,
+            "bodyweight": entry[2],
             })
         
         prevEntry = entry

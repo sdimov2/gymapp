@@ -6,17 +6,4 @@ export const dummyData = [{activity: 'Bench', lift: '', reps: '8', resistance_me
     {activity: 'Bench', lift: '', reps: '8', resistance_method: 'barbell', rpe: '8'},
     {activity: 'Bench', lift: '', reps: '8', resistance_method: 'barbell', rpe: '8'},
     {activity: 'Bench', lift: '', reps: '8', resistance_method: 'barbell', rpe: '8'},
-    {activity: 'Bench', lift: '', reps: '8', resistance_method: 'barbell', rpe: '8'},
-    {activity: 'Bench', lift: '', reps: '8', resistance_method: 'barbell', rpe: '8'},
-    {activity: 'Bench', lift: '', reps: '8', resistance_method: 'barbell', rpe: '8'},
-    {activity: 'Bench', lift: '', reps: '8', resistance_method: 'barbell', rpe: '8'},
-    {activity: 'Bench', lift: '', reps: '8', resistance_method: 'barbell', rpe: '8'},
-    {activity: 'Bench', lift: '', reps: '8', resistance_method: 'barbell', rpe: '8'},
-    {activity: 'Bench', lift: '', reps: '8', resistance_method: 'barbell', rpe: '8'},
-    {activity: 'Bench', lift: '', reps: '8', resistance_method: 'barbell', rpe: '8'},
-    {activity: 'Bench', lift: '', reps: '8', resistance_method: 'barbell', rpe: '8'},
-    {activity: 'Bench', lift: '', reps: '8', resistance_method: 'barbell', rpe: '8'},
-    {activity: 'Bench', lift: '', reps: '8', resistance_method: 'barbell', rpe: '8'},
-    {activity: 'Bench', lift: '', reps: '8', resistance_method: 'barbell', rpe: '8'},
-    {activity: 'Bench', lift: '', reps: '8', resistance_method: 'barbell', rpe: '8'},
-    {activity: 'Bench', lift: '', reps: '8', resistance_method: 'barbell', rpe: '8'}]
+    ]

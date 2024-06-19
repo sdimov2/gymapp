@@ -50,12 +50,37 @@ export default function TabLayout() {
       />
 
       <Tabs.Screen
-        name="Links"
+        name="Logout"
         options={{
-          title: 'Links',
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+          title: 'Logout',
+          tabBarIcon: ({ color }) => <TabBarIcon name="sign-out" color={color} />,
         }}
       />
+
+      <Tabs.Screen
+        name="Graph"
+        options={{
+          title: 'Graph',
+          tabBarIcon: ({ color }) => <TabBarIcon name="line-chart" color={color} />,
+        }}
+      />
+
+      <Tabs.Screen
+        name="Table"
+        options={{
+          title: 'Table',
+          tabBarIcon: ({ color }) => <TabBarIcon name="table" color={color} />,
+        }}
+      />
+      
+      <Tabs.Screen
+        name="Logs"
+        options={{
+          title: 'Logs',
+          tabBarIcon: ({ color }) => <TabBarIcon name="sticky-note" color={color} />,
+        }}
+      />
+
     </Tabs>
   );
 }

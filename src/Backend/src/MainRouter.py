@@ -64,6 +64,8 @@ def api4():
 
     data = ProcessData(selected)
 
+    # print(data)
+
     return data
 
 
