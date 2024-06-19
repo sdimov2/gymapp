@@ -18,19 +18,17 @@ export default function Graph() {
   };
 
   return (
-    <Provider>
-      <ScrollView contentContainerStyle={tw`flex-grow justify-center items-center bg-gray-100`}>
-        
-        <Text style={tw`text-xl font-bold`}>Data Analytics</Text>
+    <ScrollView contentContainerStyle={tw`flex-grow justify-center items-center bg-gray-100`}>
+      
+      <Text style={tw`text-xl font-bold`}>Data Analytics</Text>
 
-        <View style={tw`flex-row items-start justify-between px-2`}>
-          <WeightDropdown updateGraph={updateGraph} />
-          <ChooseGraph setIsAreaGraph={setIsAreaGraph} />
-        </View>
+      <View style={tw`flex-row items-start justify-between px-2`}>
+        <WeightDropdown updateGraph={updateGraph} />
+        <ChooseGraph setIsAreaGraph={setIsAreaGraph} />
+      </View>
 
-        {isAreaGraph ? <BodyWeightGraph /> : <VolumeGraph />}
-        
-      </ScrollView>
-    </Provider>
+      {isAreaGraph ? <BodyWeightGraph /> : <VolumeGraph />}
+      
+    </ScrollView>
   );
 }

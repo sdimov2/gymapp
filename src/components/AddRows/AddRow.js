@@ -4,7 +4,7 @@ import tw from 'twrnc';
 import { useState } from 'react';
 import { View, Text, TextInput, Pressable } from 'react-native';
 
-import { baseUrl } from '@/src/constants/Fixed_Vars';
+import { baseUrl } from '@/src/assets/constants/Fixed_Vars';
 
 
 const Input = ({ value, onChangeText }) => (

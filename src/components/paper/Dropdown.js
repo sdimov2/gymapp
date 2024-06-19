@@ -7,7 +7,7 @@ import { useState, useEffect } from 'react';
 import { View } from 'react-native';
 import { MultiSelect} from 'react-native-element-dropdown';
 
-import { baseUrl } from '@/src/constants/Fixed_Vars';
+import { baseUrl } from '@/src/assets/constants/Fixed_Vars';
 
 
 

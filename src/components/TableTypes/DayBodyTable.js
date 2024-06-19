@@ -3,7 +3,6 @@ import tw from 'twrnc';
 
 import { useState, useEffect } from 'react';
 import { ActivityIndicator, Text, View, Pressable } from 'react-native';
-import { DataTable } from 'react-native-paper';
 
 import { AddRowBody } from "@/src/components/AddRows/AddRowBody";
 import { EditRowBody } from "@/src/components/EditRows/EditRowBody";
@@ -11,7 +10,7 @@ import { EditRowBody } from "@/src/components/EditRows/EditRowBody";
 // HELPER METHODS
 import { formatDateSlashes, isCurrentDate } from '@/src/components/Helpers/Dates'; 
 
-import { baseUrl } from '@/src/constants/Fixed_Vars';
+import { baseUrl } from '@/src/assets/constants/Fixed_Vars';
 
 import { app } from "@/config/firebase.config";
 import { getAuth } from "firebase/auth";
@@ -20,14 +19,9 @@ const auth = getAuth(app);
 
 
 export default function BodyWeightTable({ currScreen, currDate }) {
-  const [page, setPage] = useState(0);
-  const [numberOfItemsPerPageList] = useState([10, 11, 12, 13, 14, 15]);
-  const [itemsPerPage, setItemsPerPage] = useState(numberOfItemsPerPageList[2]);
   const [isLoading, setLoading] = useState(true);
   const [items, setData] = useState([]);
 
-  const from = page * itemsPerPage;
-  const to = Math.min((page + 1) * itemsPerPage, items.length);
 
   // Get Data
   const fetchData = async () => {
@@ -55,7 +49,6 @@ export default function BodyWeightTable({ currScreen, currDate }) {
   };
 
   useEffect(() => {
-    setPage(0);
     fetchData();
   }, [currDate, currScreen]);
 
@@ -78,7 +71,7 @@ export default function BodyWeightTable({ currScreen, currDate }) {
           </View>
 
           {/* Logs */}
-          {items.slice(from, to).map((item, index) => (
+          {items.map((item, index) => (
             <View key={index} style={tw`flex-row border-b border-gray-400`}>
               {!item.isEditing ? (
                 <>
@@ -108,19 +101,6 @@ export default function BodyWeightTable({ currScreen, currDate }) {
       ) : (
         <ActivityIndicator size="large" color="#0000ff" />
       )}
-
-      <DataTable.Pagination
-        style={tw`flex text-white justify-between items-center py-1 px-2 bg-white border-t border-blue-300 rounded-b-lg w-98.2`}
-        page={page}
-        numberOfPages={Math.ceil(items.length / itemsPerPage)}
-        onPageChange={(page) => setPage(page)}
-        label={`${from + 1}-${to} of ${items.length}`}
-        showFastPaginationControls
-        numberOfItemsPerPageList={numberOfItemsPerPageList}
-        numberOfItemsPerPage={itemsPerPage}
-        onItemsPerPageChange={setItemsPerPage}
-        selectPageDropdownLabel={'Rows per page'}
-      />
 
     </View>
   );

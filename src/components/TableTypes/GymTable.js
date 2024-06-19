@@ -5,8 +5,8 @@ import { useState, useEffect } from 'react'
 import { ActivityIndicator, ScrollView, Text, View, Pressable } from 'react-native';
 import { DataTable } from 'react-native-paper';
 
-import { baseUrl } from '@/src/constants/Fixed_Vars';
-import { dummyData } from '@/src/constants/Fixed_Vars';
+import { baseUrl } from '@/src/assets/constants/Fixed_Vars';
+import { dummyData } from '@/src/assets/constants/Fixed_Vars';
 
 import { AddRow } from "@/src/components/AddRows/AddRow"
 import { EditRow } from "@/src/components/EditRows/EditRow"

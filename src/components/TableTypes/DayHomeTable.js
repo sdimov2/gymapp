@@ -3,7 +3,7 @@ import tw from 'twrnc';
 
 import { useState, useEffect } from 'react';
 import { ActivityIndicator, ScrollView, Text, View, Pressable } from 'react-native';
-import { DataTable, IconButton } from 'react-native-paper';
+import { IconButton } from 'react-native-paper';
 
 import { AddRowHome } from "@/src/components/AddRows/AddRowHome";
 import { EditRowHome } from "@/src/components/EditRows/EditRowHome";
@@ -12,8 +12,8 @@ import { EditRowHome } from "@/src/components/EditRows/EditRowHome";
 import { formatDateSlashes, isCurrentDate } from '@/src/components/Helpers/Dates'; 
 import { groupBy, getVolume } from '@/src/components/Helpers/Grouping'; 
 
-import { baseUrl } from '@/src/constants/Fixed_Vars';
-import { dummyData } from '@/src/constants/Fixed_Vars';
+import { baseUrl } from '@/src/assets/constants/Fixed_Vars';
+import { dummyData } from '@/src/assets/constants/Fixed_Vars';
 
 import { getAuth } from "firebase/auth";
 import { app } from "@/config/firebase.config";
@@ -49,21 +49,12 @@ const TableCell = ({ text, numeric }) => (
 
 
 export default function HomeTable({ currScreen, currDate }) {
-  const [page, setPage] = useState(0);
-  const [numberOfItemsPerPageList] = useState([10, 11, 12, 13, 14, 15]);
-  const [itemsPerPage, setItemsPerPage] = useState(numberOfItemsPerPageList[2]);
   const [isLoading, setLoading] = useState(true);
   const [items, setData] = useState(dummyData);
-  const [expandedGroups, setExpandedGroups] = useState({});
-
-  // Pagination Variables
-  const from = page * itemsPerPage;
-  const to = Math.min((page + 1) * itemsPerPage, items.length);
-
+  
   // Grouping Variables
-  const paginatedItems = items.slice(from, to);
-  const groupedItems = groupBy(paginatedItems, ['activity', 'variants', 'resistance_method']);
-
+  const [expandedGroups, setExpandedGroups] = useState({});
+  const groupedItems = groupBy(items, ['activity', 'variants', 'resistance_method']);
 
   // Get Data
   const fetchData = async () => {
@@ -103,7 +94,6 @@ export default function HomeTable({ currScreen, currDate }) {
 
 
   useEffect(() => {
-    setPage(0);
     fetchData();
   }, [currDate, currScreen]);
 
@@ -132,13 +122,13 @@ export default function HomeTable({ currScreen, currDate }) {
               {/* Dropdown */}
               <Pressable style={tw`flex-row flex-wrap bg-teal-500 p-1 mt-0.5`} onPress={() => toggleGroup(groupKey)}>
                 <Text style={tw`text-white bg-black px-3 rounded-full mr-1 mb-1`}>
-                  Activity: {groupKey}
+                  {groupKey}
                 </Text>
                 <Text style={tw`text-white bg-green-800 px-3 rounded-full mr-1 mb-1`}>
-                  Set Count: {groupedItems[groupKey].length}
+                  {groupedItems[groupKey].length}
                 </Text>
                 <Text style={tw`text-white bg-red-800 px-3 rounded-full mr-3 mb-1`}>
-                  Volume: {getVolume(groupedItems[groupKey])}
+                  {getVolume(groupedItems[groupKey])}
                 </Text>
 
                 <IconButton
@@ -187,19 +177,6 @@ export default function HomeTable({ currScreen, currDate }) {
       ) : (
         <ActivityIndicator size="large" color="#0000ff" />
       )}
-
-      <DataTable.Pagination
-        style={tw`flex-row justify-between items-center py-2 px-4 bg-white border-t border-blue-500 rounded-b-lg w-98.2 shadow-md`}
-        page={page}
-        numberOfPages={Math.ceil(items.length / itemsPerPage)}
-        onPageChange={page => setPage(page)}
-        label={`${from + 1}-${to} of ${items.length}`}
-        showFastPaginationControls
-        numberOfItemsPerPageList={numberOfItemsPerPageList}
-        numberOfItemsPerPage={itemsPerPage}
-        onItemsPerPageChange={setItemsPerPage}
-        selectPageDropdownLabel={'Rows per page'}
-      />
     </View>
   );
 }

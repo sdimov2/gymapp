@@ -4,7 +4,7 @@ import { View, Text, ScrollView, SafeAreaView, Pressable } from 'react-native';
 import { getAuth } from "firebase/auth";
 
 import LogType from '@/src/components/Logs/LogTableNavigate';
-import { baseUrl } from '@/src/constants/Fixed_Vars';
+import { baseUrl } from '@/src/assets/constants/Fixed_Vars';
 
 import tw from 'twrnc';
 
