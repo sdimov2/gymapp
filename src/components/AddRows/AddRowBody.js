@@ -30,12 +30,10 @@ const AddCell = ({ numeric, value, onChangeText }) => (
 
 
 const AddRowBody = ({setData}) => {
-  const [workout, setWorkout] = useState('');
   const [bodyWeight, setBodyWeight] = useState('');
 
 
   const resetInputs = () => {
-    setWorkout('');
     setBodyWeight('')
   };
 
@@ -46,9 +44,11 @@ const AddRowBody = ({setData}) => {
     
     const newRow = {
       id: timestamp,
-      timestamp: timestamp.toDateString(),
+      timestamp: timestamp.toLocaleTimeString().split(' ')[0],  // FIX TIME DISPLAY
       bodyweight: bodyWeight
     };
+
+    console.log(timestamp)
 
     // try {
     //   const res = (await axios.post(baseUrl + '/akhil', { newRow: newRow })).data;
@@ -69,7 +69,7 @@ const AddRowBody = ({setData}) => {
       <View style={tw`w-32 border-l bg-black border-gray-400`}/>
       
       {/* Input Cell */}
-      <AddCell numeric={false} value={workout} onChangeText={setWorkout} />
+      <AddCell numeric={false} value={bodyWeight} onChangeText={setBodyWeight} />
       
       {/* Action Button */}
       <View style={tw`flex-row w-34 border-blue-700 border-r border-gray-400 justify-center py-2`}>

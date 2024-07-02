@@ -1,6 +1,8 @@
 import axios from 'axios';
 import tw from 'twrnc';
 
+import { Provider } from 'react-native-paper';
+
 import { useState, useEffect } from 'react'
 import { ActivityIndicator, ScrollView, Text, View, Pressable } from 'react-native';
 import { DataTable } from 'react-native-paper';
@@ -106,82 +108,84 @@ export default function GymTable() {
 
 
   return (
-    <View style={tw`bg-gray-100 p-1 px-1 shadow rounded-lg w-98`}>
-      {!isLoading ? (
-          <>
+    <Provider>
+      <View style={tw`bg-gray-100 p-1 px-1 shadow rounded-lg w-98`}>
+        {!isLoading ? (
+            <>
 
-            {/* HEADER */}
-            <View style={tw`flex-row border-b-2 border-t-2 border border-red-300 bg-gray-200`}>
-              <TableHeader title={'Timestamp'} size={"large"} />
-              <TableHeader title={'Workout'} size={"med"} />
-              <TableHeader title={'Variants'} size={"med"} />
-              <TableHeader title={'Resistance'} size={"med"} />
-              <TableHeader title={'Set'} size={"small"} />
-              <TableHeader title={'lbs'} size={"small"} />
-              <TableHeader title={'Reps'} size={"small"} />
-              <TableHeader title={'RPE'} size={"small"} />
-              <TableHeader title={'Actions'} size={"large"} />
-            </View>
-            
-
-            {/* LOGS */}
-            {items.slice(from, to).map((item, index) => (
-              <View key={index} style={tw`border border-t-0 border-gray-400 flex-row ${item.toggle ? 'bg-blue-100' : 'bg-blue-50'}`}> 
-                {!item.isEditing ? ( // Render default row if not editing
-                  <>
-                    <TableCell text={item.timestamp} size={"large"}/>
-                    <TableCell text={item.activity} />
-                    <TableCell text={item.variants} />
-                    <TableCell text={item.resistance_method} />
-                    <TableCell text={item.set_n} size={"small"} />
-                    <TableCell text={item.weight} size={"small"} />
-                    <TableCell text={item.reps} size={"small"} />
-                    <TableCell text={item.rpe} size={"small"} />
-
-                    <View style={tw`flex-row w-7 py-2 px-0.75 border- justify-center border-r border-gray-300`}>
-                      <Pressable
-                        style={tw`bg-red-500 border border-red-700 rounded-lg px-1.5 py-1`}
-                        onPress={() => handleDeleteLog(item.id)}
-                      >
-                        <Text style={tw`text-white text-center text-1.5`} numberOfLines={1} ellipsizeMode="tail">D</Text>
-                      </Pressable>
-                    </View>
-
-                    <View style={tw`flex-row w-7 py-2 px-0.75 border-l justify-center border- border-gray-300`}>
-                      <Pressable
-                        style={tw`bg-red-500 border border-red-700 rounded-lg px-1.5 py-1`}
-                        onPress={() => editDataLog(item)}
-                      >
-                        <Text style={tw`text-white text-center text-1.5`} numberOfLines={1} ellipsizeMode="tail">E</Text>
-                      </Pressable>
-                    </View>
-                  </>
-                ) : ( // Render inputs if editing
-                  <EditRow setData={setData} items={items} item={item} editDataLog={editDataLog}/>
-                )}
+              {/* HEADER */}
+              <View style={tw`flex-row border-b-2 border-t-2 border border-red-300 bg-gray-200`}>
+                <TableHeader title={'Timestamp'} size={"large"} />
+                <TableHeader title={'Workout'} size={"med"} />
+                <TableHeader title={'Variants'} size={"med"} />
+                <TableHeader title={'Resistance'} size={"med"} />
+                <TableHeader title={'Set'} size={"small"} />
+                <TableHeader title={'lbs'} size={"small"} />
+                <TableHeader title={'Reps'} size={"small"} />
+                <TableHeader title={'RPE'} size={"small"} />
+                <TableHeader title={'Actions'} size={"large"} />
               </View>
-            ))}
+              
 
-            <AddRow setData={setData}/>
-          
-          </>
-      ) : (
-        <ActivityIndicator size="large" color="#0000ff" />
-      )}
+              {/* LOGS */}
+              {items.slice(from, to).map((item, index) => (
+                <View key={index} style={tw`border border-t-0 border-gray-400 flex-row ${item.toggle ? 'bg-blue-100' : 'bg-blue-50'}`}> 
+                  {!item.isEditing ? ( // Render default row if not editing
+                    <>
+                      <TableCell text={item.timestamp} size={"large"}/>
+                      <TableCell text={item.activity} />
+                      <TableCell text={item.variants} />
+                      <TableCell text={item.resistance_method} />
+                      <TableCell text={item.set_n} size={"small"} />
+                      <TableCell text={item.weight} size={"small"} />
+                      <TableCell text={item.reps} size={"small"} />
+                      <TableCell text={item.rpe} size={"small"} />
 
-      <DataTable.Pagination
-        style={tw`flex-row justify-between items-center py-1 bg-blue-50 border-t border-blue-300 rounded-b-lg`}
-        page={page}
-        numberOfPages={Math.ceil(items.length / itemsPerPage)}
-        onPageChange={page => setPage(page)}
-        label={`${from + 1}-${to} of ${items.length}`}
-        showFastPaginationControls
-        numberOfItemsPerPageList={numberOfItemsPerPageList}
-        numberOfItemsPerPage={itemsPerPage}
-        onItemsPerPageChange={setItemsPerPage}
-        selectPageDropdownLabel={'Rows per page'}
-      />
-      
-    </View>
+                      <View style={tw`flex-row w-7 py-2 px-0.75 border- justify-center border-r border-gray-300`}>
+                        <Pressable
+                          style={tw`bg-red-500 border border-red-700 rounded-lg px-1.5 py-1`}
+                          onPress={() => handleDeleteLog(item.id)}
+                        >
+                          <Text style={tw`text-white text-center text-1.5`} numberOfLines={1} ellipsizeMode="tail">D</Text>
+                        </Pressable>
+                      </View>
+
+                      <View style={tw`flex-row w-7 py-2 px-0.75 border-l justify-center border- border-gray-300`}>
+                        <Pressable
+                          style={tw`bg-red-500 border border-red-700 rounded-lg px-1.5 py-1`}
+                          onPress={() => editDataLog(item)}
+                        >
+                          <Text style={tw`text-white text-center text-1.5`} numberOfLines={1} ellipsizeMode="tail">E</Text>
+                        </Pressable>
+                      </View>
+                    </>
+                  ) : ( // Render inputs if editing
+                    <EditRow setData={setData} items={items} item={item} editDataLog={editDataLog}/>
+                  )}
+                </View>
+              ))}
+
+              <AddRow setData={setData}/>
+            
+            </>
+        ) : (
+          <ActivityIndicator size="large" color="#0000ff" />
+        )}
+
+        <DataTable.Pagination
+          style={tw`flex-row justify-between items-center py-1 bg-blue-50 border-t border-blue-300 rounded-b-lg`}
+          page={page}
+          numberOfPages={Math.ceil(items.length / itemsPerPage)}
+          onPageChange={page => setPage(page)}
+          label={`${from + 1}-${to} of ${items.length}`}
+          showFastPaginationControls
+          numberOfItemsPerPageList={numberOfItemsPerPageList}
+          numberOfItemsPerPage={itemsPerPage}
+          onItemsPerPageChange={setItemsPerPage}
+          selectPageDropdownLabel={'Rows per page'}
+        />
+        
+      </View>
+    </Provider>
   );
 }

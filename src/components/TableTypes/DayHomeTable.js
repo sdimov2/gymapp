@@ -92,6 +92,11 @@ export default function HomeTable({ currScreen, currDate }) {
     }));
   };
 
+  const imagePopup = (groupKey) => {    // FIX FOR IMAGE POPUP
+    console.log("HERE")
+    console.log(groupKey)
+  }
+
 
   useEffect(() => {
     fetchData();
@@ -120,10 +125,18 @@ export default function HomeTable({ currScreen, currDate }) {
             <View key={index}>
               
               {/* Dropdown */}
-              <Pressable style={tw`flex-row flex-wrap bg-teal-500 p-1 mt-0.5`} onPress={() => toggleGroup(groupKey)}>
-                <Text style={tw`text-white bg-black px-3 rounded-full mr-1 mb-1`}>
-                  {groupKey}
-                </Text>
+              <Pressable 
+                style={tw`flex-row flex-wrap bg-teal-500 p-1 mt-0.5`} 
+                onPress={() => toggleGroup(groupKey)}
+              >
+                <Pressable 
+                  style={tw`text-white bg-black px-3 rounded-full mr-1 mb-1`}
+                  onStartShouldSetResponder={() => true}
+                  onPress={() => imagePopup(groupKey)}
+                >
+                  <Text style={tw`text-white`}>{groupKey}</Text>
+                </Pressable>
+
                 <Text style={tw`text-white bg-green-800 px-3 rounded-full mr-1 mb-1`}>
                   {groupedItems[groupKey].length}
                 </Text>

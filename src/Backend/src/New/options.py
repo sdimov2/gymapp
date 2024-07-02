@@ -5,7 +5,7 @@ from Backend.get_data import get_data_from_entries
 from info import global_data
 
 
-def GetOptions():
+def GetOptions():  # Add a image to options
 
     data = global_data[1:]
     unique_values = set()
@@ -20,8 +20,8 @@ def GetOptions():
     for entry in unique_values_list:
         temp.append(
             {
-            "label": entry, 
-            "value": entry
+                "label": entry, 
+                "value": entry
             })
 
     return jsonify(temp)
