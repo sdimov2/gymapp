@@ -69,7 +69,7 @@ const WorkoutCalander = () => {
             }}
             style={tw`w-100`}
             theme={{
-              calendarBackground: '#45B4DE',
+              calendarBackground: '#45B4DD',
               textSectionTitleColor: 'white',
               selectedDayBackgroundColor: 'orange',
               todayTextColor: 'white',
@@ -91,7 +91,6 @@ const WorkoutCalander = () => {
                   backgroundColor: '#DE5545', // Change the header background color
                   justifyContent: 'center',
                   alignItems: 'center',
-                  // height: 50,
                 },
                 arrow: {
                   paddingHorizontal: 20, // Reduce padding to bring arrows closer to the date

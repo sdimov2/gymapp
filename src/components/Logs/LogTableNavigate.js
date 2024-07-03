@@ -5,12 +5,12 @@ import { View, Text, Pressable } from 'react-native';
 // Fixed Colors
 const clickedText = 'text-white'
 const clicked = 'bg-black'
-const unclicked = 'bg-gray-200'
+const unclicked = 'bg-gray-100'
 
 
 const LogType = ({ currentScreen, setCurrentScreen }) => {
   return (
-    <View style={tw`flex-row items-center justify-between bg-gray-100 p-2 mb-2`}>
+    <View style={tw`flex-row items-center justify-between bg-blue-600 p-2 mb-2 rounded-md`}>
   
       <Pressable
         style={[

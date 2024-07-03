@@ -54,16 +54,16 @@ export default function WebSocketCall({ toggleChat }) {
 
       // Event listeners for socket events
       socket.on("connect1", () => {
-        console.log("Connected:", socket.id);
+        // console.log("Connected:", socket.id);
       });
 
       socket.on("disconnect1", (data) => {
-        console.log("Disconnected:", data);
+        // console.log("Disconnected:", data);
       });
 
 
       socket.on("rooms", (data) => {
-        console.log("Available Rooms:", data.rooms);
+        // console.log("Available Rooms:", data.rooms);
         setRooms(data.rooms);
       });
 
@@ -112,7 +112,7 @@ export default function WebSocketCall({ toggleChat }) {
           <>
             <View style={tw`flex-row items-center mb-4 space-x-4`}>
               <Pressable 
-                style={tw`border p-2 bg-gray-200 rounded-lg flex-1`}
+                style={tw`border p-2 bg-gray-100 rounded-lg flex-1`}
                 onPress={() => handleJoinRoom(auth.currentUser.email)}
               >
                 <Text style={tw`text-center text-lg text-gray-800`}>Create Room</Text>

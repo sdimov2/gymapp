@@ -79,7 +79,7 @@ const AddRow = ({setData}) => {
 
 
   return (
-    <View style={tw`flex-row text-0.5 text-center font-bold bg-gray-200`}>  
+    <View style={tw`flex-row text-0.5 text-center font-bold bg-gray-100`}>  
       
       {/* Placeholder */}
       <View style={tw`w-14 border-r bg-black`}/>

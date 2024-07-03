@@ -14,18 +14,10 @@ const Input = ({ value, onChangeText }) => (
     maxLength={40}
     onChangeText={onChangeText}
     value={value}
-    style={{ padding: 10 }}
+    style={tw`h-6.5 w-27.5 p-2 justify-center`}
     fontSize={10}
     textAlign={'left'}
   />
-);
-
-
-// Input Cells
-const AddCell = ({ numeric, value, onChangeText }) => (
-  <View style={tw`${!numeric ? 'w-32' : 'w-10'} border-l border-r border-blue-700`}>
-    <Input value={value} onChangeText={onChangeText} />
-  </View>
 );
 
 
@@ -48,7 +40,7 @@ const AddRowBody = ({setData}) => {
       bodyweight: bodyWeight
     };
 
-    console.log(timestamp)
+    // console.log(timestamp)
 
     // try {
     //   const res = (await axios.post(baseUrl + '/akhil', { newRow: newRow })).data;
@@ -63,16 +55,18 @@ const AddRowBody = ({setData}) => {
 
 
   return (
-    <View style={tw` flex-row text-0.5 text-center font-bold bg-gray-200`}>  
+    <View style={tw`mt-1 flex-row text-0.5 text-center font-bold bg-gray-100 border border-gray-500`}>  
       
       {/* Placeholder */}
-      <View style={tw`w-32 border-l bg-black border-gray-400`}/>
+      <View style={tw`items-center justify-center p-1 w-32 bg-black border-gray-500`}/>
       
       {/* Input Cell */}
-      <AddCell numeric={false} value={bodyWeight} onChangeText={setBodyWeight} />
+      <View style={tw`items-center justify-center border-l border-r border-gray-500 w-32`}>
+        <Input value={bodyWeight} onChangeText={setBodyWeight} />
+      </View>
       
       {/* Action Button */}
-      <View style={tw`flex-row w-34 border-blue-700 border-r border-gray-400 justify-center py-2`}>
+      <View style={tw`flex-row w-34 border-blue-700 justify-center py-2`}>
         <Pressable
           style={tw`bg-blue-500 border border-blue-700 rounded-lg px-5 justify-center`}
           onPress={handleValues}
