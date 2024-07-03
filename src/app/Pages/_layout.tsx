@@ -1,5 +1,6 @@
 import React from 'react';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
+import { AntDesign } from '@expo/vector-icons';
 import { Link, Tabs } from 'expo-router';
 import { Pressable } from 'react-native';
 
@@ -13,6 +14,15 @@ function TabBarIcon(props: {
 }) {
   return <FontAwesome size={28} style={{ marginBottom: -3 }} {...props} />;
 }
+
+function AntBarIcon(props: {
+  name: React.ComponentProps<typeof AntDesign>['name'];
+  color: string;
+}) {
+  return <AntDesign size={28} style={{ marginBottom: -3 }} {...props} />;
+}
+
+
 
 export default function TabLayout() {
   const colorScheme = useColorScheme();
@@ -48,11 +58,20 @@ export default function TabLayout() {
         }}
       /> */}
 
+      
+      <Tabs.Screen
+        name="index"
+        options={{
+          title: 'index',
+          tabBarIcon: ({ color }) => <TabBarIcon name="sign-out" color={color} />,
+        }}
+      />
+      
       <Tabs.Screen
         name="Profile"
         options={{
           title: 'Profile',
-          tabBarIcon: ({ color }) => <TabBarIcon name="sign-out" color={color} />,
+          tabBarIcon: ({ color }) => <AntBarIcon name="profile" color={color} />,
         }}
       />
 
