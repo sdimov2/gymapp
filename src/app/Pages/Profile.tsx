@@ -54,8 +54,8 @@ const endDate = new Date();
 let data = {
   dataPoints: {
       1426744959: 20,
-      1463673055: 113,
-      1476892421: 57,
+      1719824400: 113,
+      1719910800: 57,
   },
   start: startDate, // a JS date object
   end: endDate,
@@ -68,13 +68,13 @@ export default function LogoutPage() {
     setComponentsList(!componentsList);
   }
   return (
-    
     <ScrollView contentContainerStyle={{ alignItems: 'center', padding: 12, backgroundColor: 'white' }}>
       <Header>
       <Avatar src={avatar || defaultAvatar} alt="User Avatar" />
       <Info >
         <Name>{name}</Name>
-        <Bio>{bio}</Bio>
+        <Bio>Bio: {bio}</Bio>
+        <text>Body weight: {}</text>
       </Info>
     </Header>
     <HeatmapChart data={data}></HeatmapChart>
