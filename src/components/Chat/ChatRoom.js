@@ -86,10 +86,10 @@ export default function WebSocketCall({ toggleChat }) {
 
   return (
     < >
-      <View style={tw`flex space-x-4 mb-4`}>
+      <View style={tw`flex mb-4`}>
         <Text style={tw`text-2xl font-bold mb-4`}>ChatRoom!</Text>
         
-        <View style={tw`flex-row space-x-4 mb-4`}>
+        <View style={tw`flex-row mb-4`}>
           <Pressable onPress={exitAll}>
             <View style={tw`p-4 bg-blue-500 rounded-lg`}>
               <Text style={tw`text-white text-center text-lg font-bold`}>GO BACK</Text>

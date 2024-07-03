@@ -30,7 +30,7 @@ export default function Logout() {
     
       onPress={handleSignOut}
     >
-      <Text style={tw`text-center font-semibold text-lg text-blue` }>Logout</Text>
+      <Text style={tw`text-center font-semibold text-lg text-blue bg-gray-300 p-2` }>Logout</Text>
     </Pressable>
   );
 }
