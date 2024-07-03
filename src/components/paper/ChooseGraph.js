@@ -1,39 +1,50 @@
-import { useState } from 'react';
-import { Dropdown } from 'react-native-element-dropdown';
+import React, { useState } from 'react';
+import { View, Text, Pressable, Animated } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
-
-import tw from 'twrnc'
-
-const graphOptions = [
-  { label: 'Area', value: '1' },
-  { label: 'Volume', value: '2' },
-];
+import tw from 'twrnc';
 
 const ChooseGraph = ({ setIsAreaGraph }) => {
-  const [value, setValue] = useState(null);
+  const [isArea, setIsArea] = useState(true);
+  const [animation] = useState(new Animated.Value(0));
 
-  const handleSelection = (value) => {
-    setIsAreaGraph(value === 'Area');
+  const toggleSwitch = () => {
+    const newValue = !isArea;
+    setIsArea(newValue);
+    setIsAreaGraph(newValue);
+
+    Animated.spring(animation, {
+      toValue: newValue ? 0 : 1,
+      useNativeDriver: false,
+    }).start();
   };
 
+  const backgroundColorInterpolation = animation.interpolate({
+    inputRange: [0, 1],
+    outputRange: ['#4CAF50', '#2196F3'], // Green for Area, Blue for Volume
+  });
+
   return (
-    <Dropdown
-      style={tw`m-4 border-b border-gray-500`}
-      data={graphOptions}
-      maxHeight={300}
-      labelField="label"
-      valueField="value"
-      placeholder="Select item"
-      searchPlaceholder="Search..."
-      value={value}
-      onChange={(item) => {
-        setValue(item.label);
-        handleSelection(item.label);
-      }}
-      renderLeftIcon={() => (
-        <AntDesign style={tw`mr-1`} color="black" name="Safety" size={20} />
-      )}
-    />
+    <View style={tw`m-4`}>
+      <Pressable 
+        onPress={toggleSwitch}
+        style={tw`flex-row items-center justify-between p-3 rounded-full shadow-md w-50`}
+      >
+        <Animated.View style={[
+          tw`absolute top-0 bottom-0 left-0 right-0 rounded-full`,
+          { backgroundColor: backgroundColorInterpolation }
+        ]} />
+        
+        <View style={tw`flex-row items-center z-10 mr-6`}>
+          <AntDesign name="areachart" size={24} color={isArea ? 'white' : 'rgba(255,255,255,0.5)'} />
+          <Text style={tw`ml-2 font-bold ${isArea ? 'text-white' : 'text-white opacity-50'}`}>Area</Text>
+        </View>
+
+        <View style={tw`flex-row items-center z-10`}>
+          <Text style={tw`mr-2 font-bold ${!isArea ? 'text-white' : 'text-white opacity-50'}`}>Volume</Text>
+          <AntDesign name="barschart" size={24} color={!isArea ? 'white' : 'rgba(255,255,255,0.5)'} />
+        </View>
+      </Pressable>
+    </View>
   );
 };
 

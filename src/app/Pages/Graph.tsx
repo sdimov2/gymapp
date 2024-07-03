@@ -19,12 +19,9 @@ export default function Graph() {
 
   return (
     <ScrollView contentContainerStyle={tw`flex-grow justify-center items-center bg-gray-100`}>
-      
-      <Text style={tw`text-xl font-bold`}>Data Analytics</Text>
-
       <View style={tw`flex-row items-start justify-between px-2`}>
+        {/* <ChooseGraph setIsAreaGraph={setIsAreaGraph} /> */}
         <WeightDropdown updateGraph={updateGraph} />
-        <ChooseGraph setIsAreaGraph={setIsAreaGraph} />
       </View>
 
       {isAreaGraph ? <BodyWeightGraph /> : <VolumeGraph />}
