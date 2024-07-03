@@ -26,7 +26,7 @@ export default function TabLayout() {
         headerShown: useClientOnlyValue(false, true),
       }}>
 
-      <Tabs.Screen
+      {/* <Tabs.Screen
         name="index"
         options={{
           title: 'Table',
@@ -46,7 +46,7 @@ export default function TabLayout() {
             </Link>
           ),
         }}
-      />
+      /> */}
 
       <Tabs.Screen
         name="Logout"

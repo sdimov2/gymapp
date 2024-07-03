@@ -13,7 +13,7 @@ const auth = getAuth(app);
 export default function Logs() {  
   return (
     <ScrollView contentContainerStyle={tw`items-center bg-orange-100 py-1`}>
-      <View style={tw`items-center p-2 bg-gray-200 p-1`}>
+      <View style={tw`items-center p-2 bg-red-500 p-1`}>
         <WorkoutCalander/>
       </View>
     </ScrollView>

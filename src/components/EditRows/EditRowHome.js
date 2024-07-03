@@ -10,24 +10,25 @@ import { baseUrl } from '@/src/assets/constants/Fixed_Vars';
 const Input = ({ value, onChangeText }) => (
   <TextInput
     editable
-    numberOfLines={1}
-    maxLength={40}
+    // numberOfLines={1}
+    multiline 
+    maxLength={10}
     onChangeText={onChangeText}
     value={value}
-    style={tw`text-3 py-2.5 px-1`}
+    style={tw`text-2.5 px-1`}
   />
 );
 
 
 // Input Cell
 const AddCell = ({ numeric, value, onChangeText }) => (
-  <View style={tw`${!numeric ? 'w-14' : 'w-10'} border-l border-gray-300`}>
+  <View style={tw`${!numeric ? 'w-17.5' : 'w-7.5'} border-r border-gray-400 justify-center`}>
     <Input value={value} onChangeText={onChangeText} />
   </View>
 );
 
 
-const EditRowHome = ({setData, item, items, editDataLog}) => {
+const EditRowHome = ({setData, item, items, editDataLog, index}) => {
   const [workout, setWorkout] = useState(item.activity);
   const [variants, setVariants] = useState(item.variants);
   const [resistance, setResistance] = useState(item.resistance_method);
@@ -69,7 +70,7 @@ const EditRowHome = ({setData, item, items, editDataLog}) => {
 
 
   return (
-    <View style={tw`flex-row text-center text-black-800 font-bold bg-gray-100`}>
+    <View style={tw`h-9 flex-row text-center text-black-800 font-bold bg-white px-0.5 ${index !== 0 && 'border-t border-gray-400'}`}>
       {/* Input Cells */}
       <AddCell numeric={false} value={workout} onChangeText={setWorkout} />
       <AddCell numeric={false} value={variants} onChangeText={setVariants} />
@@ -80,15 +81,15 @@ const EditRowHome = ({setData, item, items, editDataLog}) => {
       <AddCell numeric={true} value={rpe} onChangeText={setRpe} />
 
       {/* Action Buttons */}
-      <View style={tw`flex-row w-8 py-2 px-0.75 border-l border-r border-gray-300`}>
-        <Pressable style={tw`bg-purple-500 border border-black-700 rounded-lg px-2 py-1`} onPress={() => updateLog(item)}>
-          <Text style={tw`text-white text-center text-2`} numberOfLines={1} ellipsizeMode="tail">S</Text>
+      <View style={tw`flex-row w-8 py-1.3 px-0.75 border-r border-gray-400 justify-center`}>
+        <Pressable style={tw`bg-purple-500 border border-black rounded-lg px-1.4 py-0.95`} onPress={() => updateLog(item)}>
+          <Text style={tw`text-white text-center text-2.5`} numberOfLines={1} ellipsizeMode="tail">S</Text>
         </Pressable>
       </View>
 
-      <View style={tw`flex-row w-8 py-2 px-0.75 border-l border-r border-gray-300`}>
-        <Pressable style={tw`bg-gray-500 border border-black-700 rounded-lg px-2 py-1`} onPress={() => editDataLog(item)}>
-          <Text style={tw`text-white text-center text-2`} numberOfLines={1} ellipsizeMode="tail">C</Text>
+      <View style={tw`flex-row w-8 py-1.3 px-0.75 justify-center`}>
+        <Pressable style={tw`bg-gray-500 border border-black rounded-lg px-1.4 py-0.95 mr-0.4`} onPress={() => editDataLog(item)}>
+          <Text style={tw`text-white text-center text-2.5`} numberOfLines={1} ellipsizeMode="tail">C</Text>
         </Pressable>
       </View>
     </View>

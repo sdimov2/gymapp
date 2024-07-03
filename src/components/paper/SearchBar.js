@@ -36,7 +36,7 @@ export default function SearchBar() {
         return (
           <Chip 
             key={index}
-            style={tw`bg-gray-200 border border-gray-300 rounded-sm`}
+            style={tw`bg-gray-100 border border-gray-300 rounded-sm`}
             onPress={() => console.log('Pressed: ', item)}
             textStyle={tw`text-gray-800 text-lg`}
           >

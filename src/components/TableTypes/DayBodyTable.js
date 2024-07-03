@@ -28,7 +28,7 @@ export default function BodyWeightTable({ currScreen, currDate }) {
     try {
       let res = (await axios.post(`${baseUrl}/api`, { email: auth.currentUser?.email })).data;
       const formattedDate = formatDateSlashes(currDate);
-      const filteredData = res.filter(item => item.timestamp.split(' ')[0] === formattedDate && item.bodyweight !== 'workout');
+      const filteredData = res.filter(item => item.timestamp.split(' ')[0] === formattedDate && item.activity === '');
       setData(filteredData);
     } catch (error) {
       console.error(error);
@@ -58,44 +58,50 @@ export default function BodyWeightTable({ currScreen, currDate }) {
         <>
           
           {/* Headers */}
-          <View style={tw`flex-row bg-gray-300 border-b border-gray-400`}>
-            <View style={tw`items-center justify-center p-1 border border-r-0 border-gray-400 w-32`}>
+          <View style={tw`flex-row bg-gray-100 border border-black`}>
+            <View style={tw`items-center justify-center p-1  w-32`}>
               <Text style={tw`font-bold text-center`}>Timestamp</Text>
             </View>
-            <View style={tw`items-center justify-center p-1 border border-gray-400 w-32`}>
+            <View style={tw`items-center justify-center p-1 border-l border-r border-black w-32`}>
               <Text style={tw`font-bold text-center`}>Body Weight</Text>
             </View>
-            <View style={tw`items-center justify-center p-1 border border-l-0 border-gray-400 w-34`}>
+            <View style={tw`items-center justify-center p-1  w-34`}>
               <Text style={tw`font-bold text-center`}>Actions</Text>
             </View>
           </View>
 
           {/* Logs */}
-          {items.map((item, index) => (
-            <View key={index} style={tw`flex-row border-b border-gray-400`}>
-              {!item.isEditing ? (
-                <>
-                  <View style={tw`items-center justify-center border-l  border-gray-400 bg-gray-100 w-32`}>
-                    <Text style={tw`text-center`}>{item.timestamp}</Text>
-                  </View>
-                  <View style={tw`justify-center p-1 border-l border-r border-gray-400 bg-gray-100 w-32`}>
-                    <Text>{item.bodyweight}</Text>
-                  </View>
+          { items.length !== 0 && (
+            <View style={tw`border border-black`}>
+              {items.map((item, index) => (
+                <View key={index} style={tw`flex-row ${index !== 0 && 'border-t border-gray-500'}`}>
+                  {!item.isEditing ? (
+                    <>
+                      <View style={tw`items-center justify-center  border-black bg-gray-100 w-32`}>
+                        <Text style={tw`text-center`}>{item.timestamp}</Text>
+                      </View>
+                      
+                      <View style={tw`justify-center p-1 border-l border-r border-black bg-gray-100 w-32`}>
+                        <Text>{item.bodyweight}</Text>
+                      </View>
 
-                  <View style={tw`flex-row items-center justify-center p-1 border-r border-gray-400 bg-gray-100 w-34`}>
-                    <Pressable style={tw`bg-yellow-500 px-2 py-1 rounded-md mr-2`} onPress={() => editDataLog(item)}>
-                      <Text style={tw`text-white font-bold text-center`}>E</Text>
-                    </Pressable>
-                    <Pressable style={tw`bg-red-500 px-2 py-1 rounded-md`} onPress={() => handleDeleteLog(item.id)}>
-                      <Text style={tw`text-white font-bold text-center`}>D</Text>
-                    </Pressable>
-                  </View>
-                </>
-              ) : (
-                <EditRowBody setData={setData} items={items} item={item} editDataLog={editDataLog} />
-              )}
+                      <View style={tw`flex-row items-center justify-center p-1  border-black bg-gray-100 w-33`}>
+                        <Pressable style={tw`bg-yellow-500 px-2 py-1 rounded-md mr-2`} onPress={() => editDataLog(item)}>
+                          <Text style={tw`text-white font-bold text-center`}>E</Text>
+                        </Pressable>
+                        <Pressable style={tw`bg-red-500 px-2 py-1 rounded-md`} onPress={() => handleDeleteLog(item.id)}>
+                          <Text style={tw`text-white font-bold text-center`}>D</Text>
+                        </Pressable>
+                      </View>
+                    </>
+                  ) : (
+                    <EditRowBody setData={setData} items={items} item={item} editDataLog={editDataLog} />
+                  )}
+                </View>
+              ))}
             </View>
-          ))}
+          )}
+          
           {isCurrentDate(new Date(currDate)) && <AddRowBody setData={setData} />}
         </>
       ) : (
