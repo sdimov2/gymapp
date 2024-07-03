@@ -3,9 +3,8 @@ import FontAwesome from '@expo/vector-icons/FontAwesome';
 import { Link, Tabs } from 'expo-router';
 import { Pressable } from 'react-native';
 
-import Colors from '@/src/constants/Colors';
-import { useColorScheme } from '@/src/components/serverRenderHelpers';
-import { useClientOnlyValue } from '@/src/components/serverRenderHelpers';
+import Colors from '@/src/assets/constants/Colors';
+import { useColorScheme, useClientOnlyValue } from '@/src/components/Helpers/serverRenderHelpers';
 
 // You can explore the built-in icon families and icons on the web at https://icons.expo.fyi/
 function TabBarIcon(props: {
@@ -27,7 +26,7 @@ export default function TabLayout() {
         headerShown: useClientOnlyValue(false, true),
       }}>
 
-      <Tabs.Screen
+      {/* <Tabs.Screen
         name="index"
         options={{
           title: 'Table',
@@ -47,15 +46,40 @@ export default function TabLayout() {
             </Link>
           ),
         }}
+      /> */}
+
+      <Tabs.Screen
+        name="Logout"
+        options={{
+          title: 'Logout',
+          tabBarIcon: ({ color }) => <TabBarIcon name="sign-out" color={color} />,
+        }}
       />
 
       <Tabs.Screen
-        name="Links"
+        name="Graph"
         options={{
-          title: 'Links',
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+          title: 'Graph',
+          tabBarIcon: ({ color }) => <TabBarIcon name="line-chart" color={color} />,
         }}
       />
+
+      <Tabs.Screen
+        name="Table"
+        options={{
+          title: 'Table',
+          tabBarIcon: ({ color }) => <TabBarIcon name="table" color={color} />,
+        }}
+      />
+      
+      <Tabs.Screen
+        name="Logs"
+        options={{
+          title: 'Logs',
+          tabBarIcon: ({ color }) => <TabBarIcon name="sticky-note" color={color} />,
+        }}
+      />
+
     </Tabs>
   );
 }

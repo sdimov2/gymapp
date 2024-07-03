@@ -1,10 +1,11 @@
+import tw from 'twrnc';
+
 import { useEffect } from 'react';
-import { ScrollView, Pressable, Text } from 'react-native';
-import { getAuth, signOut } from "firebase/auth";
-import { app } from "@/config/firebase.config";
+import { Pressable, Text } from 'react-native';
 import { useRouter } from 'expo-router';
 
-import tw from 'twrnc';
+import { getAuth, signOut } from "firebase/auth";
+import { app } from "@/config/firebase.config";
 
 const auth = getAuth(app);
 
@@ -25,13 +26,11 @@ export default function Logout() {
   }
 
   return (
-    <ScrollView contentContainerStyle={tw`flex-grow justify-center items-center`}>
-      <Pressable 
-        style={tw`flex-row items-center bg-white border border-gray-300 rounded-lg py-3 mt-3 justify-center`}
-        onPress={handleSignOut}
-      >
-        <Text style={tw`text-center font-semibold text-lg` }>Logout</Text>
-      </Pressable>
-    </ScrollView>
+    <Pressable 
+      style={tw`flex-row items-center bg-white border border-gray-300 rounded-lg py-3 mt-3 justify-center`}
+      onPress={handleSignOut}
+    >
+      <Text style={tw`text-center font-semibold text-lg` }>Logout</Text>
+    </Pressable>
   );
 }

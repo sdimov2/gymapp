@@ -1,16 +1,20 @@
+import tw from 'twrnc';
+
 import { Text, View, ScrollView } from 'react-native';
 
-import GymTable from '@/src/components/paper/GymTable';
+import GymTable from '@/src/components/TableTypes/GymTable';
 import SearchBar from '@/src/components/paper/SearchBar';
-
-import tw from 'twrnc';
 
 export default function Table() {
   return (
-    <ScrollView contentContainerStyle={tw`flex-grow justify-center items-center bg-orange-100`}>
-      <View style={tw`flex-1 items-center justify-center p-4 bg-gray-700`}>
-        <Text style={tw`text-xl font-bold text-red-300`}>Logged Data</Text>
+    <ScrollView contentContainerStyle={tw`items-center bg-orange-100`}>
+      <View style={tw`items-center p-2 bg-gray-700`}>
+        <Text style={tw`text-xl mb-2 font-bold text-red-500`}>Logged Data</Text>
+        
         <SearchBar/>
+        
+        <View style={tw`mb-2`}/>
+        
         <GymTable />
       </View>
     </ScrollView>

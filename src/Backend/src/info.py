@@ -34,7 +34,7 @@ worksheet = sheet.get_worksheet(0)  # Assuming you want to work with the first w
 
 global_data = worksheet.get_all_values()
 
-
+active_rooms = {}
 
 
 #return global_data[1:]
@@ -184,17 +184,3 @@ global_data = worksheet.get_all_values()
 #             y.append(child.get_child(criteria).value)
 #             coord_pairs.append([currx, child.get_child("body_weight").value])
 #     return coord_pairs, x, y
-
-
-
-
-
-
-
-
-
-
-
-
-
-

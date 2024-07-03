@@ -1,6 +1,6 @@
 import { PureComponent, useState, useEffect } from 'react';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend } from 'recharts';
-import { baseUrl } from '@/src/constants/Fixed_Vars';
+import { baseUrl } from '@/src/assets/constants/Fixed_Vars';
 
 import axios from 'axios';
 import tw from 'twrnc'
