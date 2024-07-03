@@ -27,10 +27,10 @@ export default function Logout() {
 
   return (
     <Pressable 
-      style={tw`flex-row items-center bg-white border border-gray-300 rounded-lg py-3 mt-3 justify-center`}
+    
       onPress={handleSignOut}
     >
-      <Text style={tw`text-center font-semibold text-lg` }>Logout</Text>
+      <Text style={tw`text-center font-semibold text-lg text-blue` }>Logout</Text>
     </Pressable>
   );
 }
