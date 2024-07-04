@@ -8,6 +8,7 @@ from New.get_pairs import GetPairs
 from New.options import GetOptions
 from New.receive_data import ProcessData
 from New.return_global_data import GetApi
+from New.get_daily_volume import get_daily_volume
 
 from info import active_rooms
 
@@ -56,6 +57,7 @@ def api2():
     return data
 
 
+
 @app.route("/options")
 def api3():
     data = GetOptions()
@@ -82,7 +84,17 @@ def api5():
 
     return "success"
 
+@app.route("/daily_volume", methods=['POST'])
+def api6():
 
+    # email = "sdimov77@gmail.com"
+    email = request.get_json().get('email') 
+
+    print(email)
+
+    data = get_daily_volume(email)
+
+    return data
 
 @socketio.on("connect")
 def connected():

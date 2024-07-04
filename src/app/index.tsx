@@ -84,7 +84,6 @@ export default function LoginScreen() {
   return (
     <KeyboardAvoidingView style={tw`flex-1 justify-center items-center`} behavior="padding">
       <View style={tw`w-4/5`}>
-        
         <AuthInput
           placeholder="Email"
           value={email}

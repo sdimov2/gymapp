@@ -84,6 +84,7 @@ def fit_curve(Set, degree, linspace="default"):
             x.append(pair[0])
         y.append(pair[1])
     # Fit a polynomial of specified degree
+    print(x)
     coeffs = np.polyfit(x, y, degree)
     if type(linspace) == str:
         linspace = x

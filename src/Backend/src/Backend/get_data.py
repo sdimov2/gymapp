@@ -1,5 +1,8 @@
 from Backend.line_graph import fit_curve
-
+from datetime import datetime, timedelta
+#import tabulate
+#import csv
+from dateutil import parser
 
 def match_data_type(input, data_type):
     match data_type:
@@ -10,10 +13,13 @@ def match_data_type(input, data_type):
         case "list":
             print("list type invoked! leaving data as is")
             return input
+        case "timestamp":
+            return datetime.strptime(input, '%m/%d/%Y %H:%M:%S')
+        case "unix_timestamp":
+              return int(datetime.strptime(input, '%m/%d/%Y %H:%M:%S').timestamp())
         case _:
             #leave as string
             return str(input)
-        
 
 def get_data_from_entries(data, criteria1, criteria2, data_type1, data_type2):
     #enumerate, for now its just indecies
@@ -21,12 +27,13 @@ def get_data_from_entries(data, criteria1, criteria2, data_type1, data_type2):
     x = []
     y = []
     for entry in data:
-
         x.append(match_data_type(entry[criteria1], data_type1))
         y.append(match_data_type(entry[criteria2], data_type2))
         coord_pairs.append([match_data_type(entry[criteria1], data_type1), match_data_type(entry[criteria2], data_type2)])
               
     return coord_pairs, x, y
+
+
 
 
 # def get_bw_by_date(user, date):
