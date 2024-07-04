@@ -5,10 +5,9 @@ import { useState, useEffect } from 'react';
 import { ActivityIndicator, ScrollView, Text, View, Pressable } from 'react-native';
 import { IconButton } from 'react-native-paper';
 
-import { DropRowHome } from "@/src/components/AddRows/DropRowHome";
-import { AddRowHome } from "@/src/components/AddRows/AddRowHome";
+import { DropRowHome } from "@/src/components/AddRows/AddRowHome";
 import { EditRowHome } from "@/src/components/EditRows/EditRowHome";
-import { ImagePopup } from '@/src/components/paper/ImagePopup';
+import { ImagePopup } from '@/src/components/Custom/ImagePopup';
 
 // HELPER METHODS
 import { formatDateSlashes, isCurrentDate } from '@/src/components/Helpers/Dates'; 
@@ -27,13 +26,13 @@ const TableHeader = ({ title, size, start, end }) => (
   <View 
     style={[
       tw`py-1 ${!end ? 'border-r' : ''}`,
-      size === "med" && tw`w-17.5`,
+      size === "large" && tw`w-17.5`,
+      size === "med" && tw`w-15`,
       size === "small" && tw`w-7.5`,
-      size === "large" && tw`w-15`,
     ]}
   >
     <ScrollView horizontal showsHorizantalScrollIndicator={false}>
-      <Text style={tw`ml-1 text-2.4 font-bold`} numberOfLines={1} ellipsizeMode="tail">{title}</Text>
+      <Text style={tw`ml-1 text-2.4 font-bold`}>{title}</Text>
     </ScrollView>
   </View>
 );
@@ -56,13 +55,11 @@ export default function HomeTable({ currScreen, currDate }) {
   
   // Grouping Variables
   const [expandedGroups, setExpandedGroups] = useState({});
+  const [currGroupKey, setCurrGroupKey] = useState(null);
+  const [whichHovered, setWhichHovered] = useState(null);
   let groupedItems = groupBy(items, ['activity', 'variants', 'resistance_method']);
 
-  const [currGroupKey, setCurrGroupKey] = useState(null);
-
-
-  const [whichHovered, setWhichHovered] = useState(null);
-
+  
   const handlePressIn = (index) => {
     setWhichHovered(index)
   };
@@ -113,11 +110,12 @@ export default function HomeTable({ currScreen, currDate }) {
     }));
   };
 
-
-  // Handle Image Click
+  
+  // Image Pop-up
   const handleImageClick = (groupKey) => {
     setCurrGroupKey(groupKey);
   };
+
 
   useEffect(() => {
     setExpandedGroups({})
@@ -125,27 +123,22 @@ export default function HomeTable({ currScreen, currDate }) {
   }, [currDate, currScreen]);
 
 
-  // useEffect(() => {
-    
-  // }, []);
-
-
   return (
     <>
       <View style={tw`p-0.75 bg-purple-800 w-100`}>
         {!isLoading ? (
-          <View style={tw`border border-black bg-white`}>
+          <View style={tw`border border-black`}>
 
             {/* Headers */}
             <View style={tw`flex-row border-b border-black bg-gray-100 px-0.5`}>
-              <TableHeader title={'Workout'} size={"med"} start={true}/>
-              <TableHeader title={'Variants'} size={"med"} />
-              <TableHeader title={'Resistance'} size={"med"} />
+              <TableHeader title={'Workout'} size={"large"} start={true}/>
+              <TableHeader title={'Variants'} size={"large"} />
+              <TableHeader title={'Resistance'} size={"large"} />
               <TableHeader title={'Set'} size={"small"} />
               <TableHeader title={'lbs'} size={"small"} />
               <TableHeader title={'Reps'} size={"small"} />
               <TableHeader title={'RPE'} size={"small"} />
-              <TableHeader title={'Actions'} size={"large"} end={true}/>
+              <TableHeader title={'Actions'} size={"med"} end={true}/>
             </View>
 
             
@@ -159,30 +152,32 @@ export default function HomeTable({ currScreen, currDate }) {
                   onPress={() => toggleGroup(groupKey)}
                 >
                   <Pressable 
-                    style={tw`${whichHovered === index ? 'bg-gray-900' : 'bg-gray-800'} w-7/8px-3 rounded-lg mr-1 mb-1`}
+                    style={tw`${whichHovered === index ? 'bg-gray-900' : 'bg-gray-800'} w-10/13 px-3 rounded-lg h-10`}
                     onStartShouldSetResponder={() => true}
                     onPress={() => handleImageClick(groupKey)}
                     onHoverIn={() => handlePressIn(index)}
                     onHoverOut={() => handlePressOut()}
                   >
-                    <Text style={tw`text-white text-3 py-2 px-1`}>{groupKey}</Text>
+                    <Text style={tw`text-white text-3 py-1`}>{groupKey}</Text>
                   </Pressable>
 
-                  <View style={tw`flex-wrap justify-center`}>
-                    <Text style={tw`text-white bg-green-800 px-3 rounded-full mr-3 mb-1`}>
+                  <View style={tw`mr-3 justify-between`}>
+                    <Text style={tw`text-white bg-green-800 px-3 rounded-full`}>
                       {groupedItems[groupKey].length}
                     </Text>
-                    <Text style={tw`text-white bg-red-800 px-3 rounded-full mr-3 mb-1`}>
+                    <Text style={tw`text-white bg-red-800 px-3 rounded-full`}>
                       {getVolume(groupedItems[groupKey])}
                     </Text>
                   </View>
 
-                  <IconButton
-                    icon={expandedGroups[groupKey] ? 'chevron-up' : 'chevron-down'}
-                    size={20}
-                    onPress={() => toggleGroup(groupKey)}
-                    style={tw`absolute top--4 right--4`}
-                  />  
+                  <View style={tw`absolute w-3 h-3 top-0 right-0 bg-black justify-center items-center`}>
+                    <IconButton
+                      icon={expandedGroups[groupKey] ? 'chevron-up' : 'chevron-down'}
+                      size={10}
+                      onPress={() => toggleGroup(groupKey)}
+                      iconColor='white'
+                    />  
+                  </View>
                 </Pressable>
                 
 
@@ -201,13 +196,13 @@ export default function HomeTable({ currScreen, currDate }) {
                             <TableCell text={item.reps} numeric={true} />
                             <TableCell text={item.rpe} numeric={true} />
                             
-                            <View style={tw`flex-row w-8 py-1.3 px-0.75 border-r border-gray-400 justify-center`}>
+                            <View style={tw`flex-row w-7.5 h-8.5 py-1.3 border-r border-gray-400 justify-center`}>
                               <Pressable style={tw`bg-cyan-500 border border-black rounded-lg px-1.4 py-0.95 `} onPress={() => editDataLog(item)}>
                                 <Text style={tw`text-white text-center text-2.5`} numberOfLines={1} ellipsizeMode="tail">E</Text>
                               </Pressable>
                             </View>
 
-                            <View style={tw`flex-row w-8 py-1.3  justify-center`}>
+                            <View style={tw`flex-row w-8 h-8.5 py-1.3 justify-center`}>
                               <Pressable style={tw`bg-red-500 border border-black rounded-lg px-1.3 py-0.95 mr-0.4`} onPress={() => handleDeleteLog(item.id)}>
                                 <Text style={tw`text-white text-center text-2.5`} numberOfLines={1} ellipsizeMode="tail">D</Text>
                               </Pressable>
@@ -225,7 +220,6 @@ export default function HomeTable({ currScreen, currDate }) {
 
             <View style={tw`border-b border-black bg-green-800 p-0.5`}>
               {isCurrentDate(currDate) && <DropRowHome setData={setData} />}
-              {isCurrentDate(currDate) && <AddRowHome setData={setData} />}
             </View>
 
           </View>
@@ -241,7 +235,6 @@ export default function HomeTable({ currScreen, currDate }) {
           onClose={() => setCurrGroupKey(null)} 
         />
       )}
-
     </>
   );
 }

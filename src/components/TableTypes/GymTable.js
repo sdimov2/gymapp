@@ -23,13 +23,12 @@ const TableHeader = ({ title, size, end }) => (
   <View 
     style={[
       tw`py-1 ${!end && 'border-r '} border-black items-center`,
-      size === "med" && tw`w-14`,
       size === "small" && tw`w-6.5`,
       size === "large" && tw`w-14`,
     ]}
   >
     <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-      <Text style={tw`ml-0.5 text-2.5 font-bold font-sans `} numberOfLines={1} ellipsizeMode="tail">{title}</Text>
+      <Text style={tw`ml-0.5 text-2.5 font-bold font-sans `}> {title} </Text>
     </ScrollView>
   </View>
 );
@@ -40,11 +39,10 @@ const TableCell = ({ text, size }) => (
       tw`py-1 border-r border-gray-200 justify-center`,
       !size && tw`w-14`,
       size === "small" && tw`w-6.5`,
-      size === "large" && tw`w-14`,
     ]}
   >
     <ScrollView horizontal showsHorizontalScrollIndicator={false} >
-      <Text style={tw`text-2.8 ml-0.5 font-sans justify-center`} numberOfLines={1} ellipsizeMode="tail">{text}</Text>
+      <Text style={tw`ml-0.25 w-full text-2.8 font-sans justify-center mt-1`}> {text} </Text>
     </ScrollView>
   </View>
 );
@@ -81,6 +79,7 @@ export default function GymTable() {
     setData(items.filter(item => item.id !== id));
   };
 
+
   // Edit Row
   const editDataLog = (itemToUpdate) => {
     itemToUpdate.isEditing = !itemToUpdate.isEditing;
@@ -104,21 +103,20 @@ export default function GymTable() {
   useEffect(() => {
     setPage(0);
     render();
-  }, [auth]);
+  }, [auth]); 
 
 
   return (
     <Provider>
-      <View style={tw`bg-gray-100 p-1 px-1 shadow rounded-lg w-98`}>
+      <View style={tw`bg-gray-100 p-1 rounded-lg w-100`}>
         {!isLoading ? (
             <>
-
               {/* HEADER */}
               <View style={tw`flex-row border-b-2 border-t-2 border border-black bg-gray-100`}>
                 <TableHeader title={'Timestamp'} size={"large"} />
-                <TableHeader title={'Workout'} size={"med"} />
-                <TableHeader title={'Variants'} size={"med"} />
-                <TableHeader title={'Resistance'} size={"med"} />
+                <TableHeader title={'Workout'} size={"large"} />
+                <TableHeader title={'Variants'} size={"large"} />
+                <TableHeader title={'Resistance'} size={"large"} />
                 <TableHeader title={'Set'} size={"small"} />
                 <TableHeader title={'lbs'} size={"small"} />
                 <TableHeader title={'Reps'} size={"small"} />
@@ -132,7 +130,7 @@ export default function GymTable() {
                 <View key={index} style={tw`border border-t-0 border-gray-400 flex-row ${item.toggle ? 'bg-gray-300' : 'bg-white'}`}> 
                   {!item.isEditing ? ( // Render default row if not editing
                     <>
-                      <TableCell text={item.timestamp} size={"large"}/>
+                      <TableCell text={item.timestamp} />
                       <TableCell text={item.activity} />
                       <TableCell text={item.variants} />
                       <TableCell text={item.resistance_method} />
@@ -141,7 +139,7 @@ export default function GymTable() {
                       <TableCell text={item.reps} size={"small"} />
                       <TableCell text={item.rpe} size={"small"} />
 
-                      <View style={tw`flex-row w-7 py-1 px-0.75 justify-center border-r border-gray-200`}>
+                      <View style={tw`flex-row w-7.75 py-1 px-0.75 justify-center border-r border-gray-200`}>
                         <Pressable
                           style={tw`bg-cyan-500 border border-black rounded-lg px-1.5 py-1`}
                           onPress={() => editDataLog(item)}
@@ -150,7 +148,7 @@ export default function GymTable() {
                         </Pressable>
                       </View>
 
-                      <View style={tw`flex-row w-7 py-1 px-0.75 justify-center`}>
+                      <View style={tw`flex-row w-7.75 py-1 px-0.75 justify-center`}>
                         <Pressable
                           style={tw`bg-red-500 border border-black rounded-lg px-1.5 py-1`}
                           onPress={() => handleDeleteLog(item.id)}

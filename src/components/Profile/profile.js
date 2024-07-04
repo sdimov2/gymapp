@@ -1,6 +1,6 @@
 import tw from 'twrnc';
 
-import { View, Text, ScrollView, Pressable, Image } from 'react-native';
+import { View, Text, Image } from 'react-native';
 
 // FIX: CREATE A PROFILE DATABASE (FIREBASE OR SQL?)
 import { avatar, bio, name, defaultAvatar } from "@/src/assets/profile_data/profile_vals";

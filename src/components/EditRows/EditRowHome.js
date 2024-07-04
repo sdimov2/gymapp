@@ -81,13 +81,13 @@ const EditRowHome = ({setData, item, items, editDataLog, index}) => {
       <AddCell numeric={true} value={rpe} onChangeText={setRpe} />
 
       {/* Action Buttons */}
-      <View style={tw`flex-row w-8 py-1.3 px-0.75 border-r border-gray-400 justify-center`}>
+      <View style={tw`flex-row w-7.5 h-8.5 py-1.3 px-0.75 border-r border-gray-400 justify-center`}>
         <Pressable style={tw`bg-purple-500 border border-black rounded-lg px-1.4 py-0.95`} onPress={() => updateLog(item)}>
           <Text style={tw`text-white text-center text-2.5`} numberOfLines={1} ellipsizeMode="tail">S</Text>
         </Pressable>
       </View>
 
-      <View style={tw`flex-row w-8 py-1.3 px-0.75 justify-center`}>
+      <View style={tw`flex-row w-8 h-8.5 py-1.3 px-0.75 justify-center`}>
         <Pressable style={tw`bg-gray-500 border border-black rounded-lg px-1.4 py-0.95 mr-0.4`} onPress={() => editDataLog(item)}>
           <Text style={tw`text-white text-center text-2.5`} numberOfLines={1} ellipsizeMode="tail">C</Text>
         </Pressable>

@@ -84,6 +84,11 @@ def api5():
 
 
 
+
+
+
+
+
 @socketio.on("connect")
 def connected():
     # print(request.sid)

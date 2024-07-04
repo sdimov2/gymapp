@@ -2,27 +2,22 @@ import axios from 'axios';
 import tw from 'twrnc';
 
 import { useState, useEffect } from 'react';
-import { View, Text, TextInput, Pressable } from 'react-native';
+import { View, Text, TextInput, Pressable, ScrollView } from 'react-native';
 
 import { baseUrl } from '@/src/assets/constants/Fixed_Vars';
-
-
-const Input = ({ value, onChangeText }) => (
-  <TextInput
-    editable
-    numberOfLines={1}
-    maxLength={40}
-    onChangeText={onChangeText}
-    value={value}
-    style={tw`text-3 py-2 px-1`}
-  />
-);
 
 
 // Input Cell
 const AddCell = ({ numeric, value, onChangeText }) => (
   <View style={tw`${!numeric ? 'w-14' : 'w-6.5'}  border-r border-gray-300`}>
-    <Input value={value} onChangeText={onChangeText} />
+    <TextInput
+      editable
+      numberOfLines={1}
+      maxLength={40}
+      onChangeText={onChangeText}
+      value={value}
+      style={tw`text-2.8 font-sans justify-center py-1 px-1 text-wrap h-full`}
+    />
   </View>
 );
 
@@ -68,13 +63,14 @@ const EditRow = ({setData, item, items, editDataLog}) => {
 
 
   return (
-    <View style={tw`flex-row text-center text-black-800 font-bold bg-gray-100`}>
-      
+    <View style={tw`flex-row bg-blue-200`}>  
       {/* Timestamp */}
-      <View style={tw`text-0.5 w-14 border-l border-r border-gray-300 text-sm`}>
-          <Text style={tw`text-2.5 text-center `}>  
+      <View style={tw`text-0.5 w-14 border-r border-gray-300 text-sm justify-center`}>
+        <ScrollView horizontal showsHorizontalScrollIndicator={false} >
+          <Text style={tw` text-2.8 font-sans justify-center py-1 px-1 text-wrap mt-1`}>  
               {item.timestamp}
           </Text>
+        </ScrollView>
       </View>
       
       {/* Input Cells */}
@@ -88,25 +84,25 @@ const EditRow = ({setData, item, items, editDataLog}) => {
 
 
       {/* Action Buttons */}
-      <View style={tw`flex-row w-7 py-2 px-0.75  justify-center border-r border-gray-300`}>
+      <View style={tw`flex-row w-7.75 py-1 px-0.75  justify-center border-r border-gray-300`}>
         <Pressable
-          style={tw`bg-purple-500 border border-gray-700 rounded-lg px-1.5 py-1`}
+          style={tw`bg-purple-500 border border-black rounded-lg px-1.5 py-1`}
           onPress={() => updateLog(item)}
         >
-          <Text style={tw`text-white text-center text-1.5`} numberOfLines={1} ellipsizeMode="tail">S</Text>
+          <Text style={tw`text-white text-center text-1.8`} numberOfLines={1} ellipsizeMode="tail">S</Text>
         </Pressable>
       </View>
 
-      <View style={tw`flex-row w-7 py-2 px-0.75 justify-center border-l border-gray-300`}>
+      <View style={tw`flex-row w-7.75 py-1 px-0.75 justify-center`}>
         <Pressable
-          style={tw`bg-gray-500 border border-gray-700 rounded-lg px-1.5 py-1`}
+          style={tw`bg-gray-500 border border-black rounded-lg px-1.5 py-1 `}
           onPress={() => editDataLog(item)}
         >
-          <Text style={tw`text-white text-center text-1.5`} numberOfLines={1} ellipsizeMode="tail">C</Text>
+          <Text style={tw`text-white text-center text-1.8`} numberOfLines={1} ellipsizeMode="tail">C</Text>
         </Pressable>
       </View>
 
-    </View>
+      </View>
   );
 };
 

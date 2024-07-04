@@ -6,8 +6,8 @@ import { Provider } from 'react-native-paper';
 
 import BodyWeightGraph from '@/src/components/recharts/areachart';
 import VolumeGraph from '@/src/components/recharts/volumechart';
-import ChooseGraph from '@/src/components/paper/ChooseGraph';
-import WeightDropdown from '@/src/components/paper/Dropdown';
+import ChooseGraph from '@/src/components/Custom/ChooseGraph';
+import WeightDropdown from '@/src/components/Custom/Dropdown';
 
 
 export default function Graph() {
@@ -19,9 +19,9 @@ export default function Graph() {
 
   return (
     <ScrollView contentContainerStyle={tw`flex-grow justify-center items-center bg-gray-100`}>
-      <View style={tw`flex-row items-start justify-between px-2`}>
-        {/* <ChooseGraph setIsAreaGraph={setIsAreaGraph} /> */}
+      <View style={tw`items-start justify-between px-2 items-center`}>
         <WeightDropdown updateGraph={updateGraph} />
+        <ChooseGraph setIsAreaGraph={setIsAreaGraph} />
       </View>
 
       {isAreaGraph ? <BodyWeightGraph /> : <VolumeGraph />}

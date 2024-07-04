@@ -3,9 +3,9 @@
 
 import tw from 'twrnc';
 
-import { View, Text, ScrollView, Pressable, Image } from 'react-native';
+import { View, Text } from 'react-native';
 
-import HeatmapChart from '@/src/components/Frappe/heatmap';
+import HeatmapChart from './heatmap';
 
 const { currentCount } = useStreak(localStorage, new Date());
 

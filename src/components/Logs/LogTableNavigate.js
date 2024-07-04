@@ -22,7 +22,7 @@ const LogType = ({ currentScreen, setCurrentScreen }) => {
         <Text 
           style={[
             tw`text-sm text-center text-gray-800`,
-            currentScreen === 'Home' ? tw`${clickedText}` : ''
+            currentScreen === 'Home' && tw`${clickedText}`
           ]}>
           Home
         </Text>
@@ -39,7 +39,7 @@ const LogType = ({ currentScreen, setCurrentScreen }) => {
         <Text 
           style={[
             tw`text-sm text-center text-gray-800`,
-            currentScreen === 'Body Weight' ? tw`${clickedText}` : ''
+            currentScreen === 'Body Weight' && tw`${clickedText}`
           ]}>
           Body Weight
         </Text>
@@ -56,7 +56,7 @@ const LogType = ({ currentScreen, setCurrentScreen }) => {
         <Text 
           style={[
             tw`text-sm text-center text-gray-800`,
-            currentScreen === 'Cardio?' ? tw`${clickedText}` : ''
+            currentScreen === 'Cardio?' && tw`${clickedText}`
           ]}>
           Cardio?
         </Text>

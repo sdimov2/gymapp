@@ -85,11 +85,11 @@ export default function BodyWeightTable({ currScreen, currDate }) {
                         <Text>{item.bodyweight}</Text>
                       </View>
 
-                      <View style={tw`flex-row items-center justify-center p-1  border-black bg-gray-100 w-33`}>
-                        <Pressable style={tw`bg-yellow-500 px-2 py-1 rounded-md mr-2`} onPress={() => editDataLog(item)}>
+                      <View style={tw`flex-row items-center justify-center py-1 bg-gray-100 w-33.5`}>
+                        <Pressable style={tw`w-7 bg-yellow-500 px-2 py-1 rounded-md border border-black mr-2`} onPress={() => editDataLog(item)}>
                           <Text style={tw`text-white font-bold text-center`}>E</Text>
                         </Pressable>
-                        <Pressable style={tw`bg-red-500 px-2 py-1 rounded-md`} onPress={() => handleDeleteLog(item.id)}>
+                        <Pressable style={tw`w-7 bg-red-500 px-2 py-1 rounded-md border border-black`} onPress={() => handleDeleteLog(item.id)}>
                           <Text style={tw`text-white font-bold text-center`}>D</Text>
                         </Pressable>
                       </View>

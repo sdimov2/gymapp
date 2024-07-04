@@ -7,29 +7,24 @@ import { View, Text, TextInput, Pressable } from 'react-native';
 import { baseUrl } from '@/src/assets/constants/Fixed_Vars';
 
 
-const Input = ({ value, onChangeText }) => (
-  <TextInput
-    editable
-    numberOfLines={1}
-    maxLength={40}
-    onChangeText={onChangeText}
-    value={value}
-    style={tw`p-2`}
-  />
-);
-
 
 // Input Cell
 const AddCell = ({ value, onChangeText }) => (
-  <View style={tw`w-32 bg-gray-100 border-l border-r border-gray-400`}>
-    <Input value={value} onChangeText={onChangeText} />
+  <View style={tw`w-32 bg-gray-300 border-l border-r border-black`}>
+    <TextInput
+      editable
+      numberOfLines={1}
+      maxLength={40}
+      onChangeText={onChangeText}
+      value={value}
+      style={tw`p-2`}
+    />
   </View>
 );
 
 
 const EditRowBody = ({ setData, item, items, editDataLog }) => {
   const [bodyWeight, setBodyWeight] = useState(item.bodyweight);
-
 
   // Save Row
   const updateLog = (itemToUpdate) => {
@@ -40,27 +35,35 @@ const EditRowBody = ({ setData, item, items, editDataLog }) => {
       item.id === itemToUpdate.id ? itemToUpdate : item
     );
 
+    // SEND TO BACKEND ?
+    // try {
+    //   const res = (await axios.post(baseUrl + '/akhil', { newRow: newRow })).data;
+    //   console.log(res);
+    // } catch (error) {
+    //   console.log(error);
+    // }
+
     setData(updatedItems);
     editDataLog(itemToUpdate);
   };
 
-
   return (
     <>
-      <View style={tw`items-center justify-center border-l border-gray-400 bg-gray-100 w-32`}>
+      <View style={tw`items-center justify-center bg-gray-300 w-32`}>
         <Text style={tw`text-center`}>{item.timestamp}</Text>
       </View>
     
       <AddCell value={bodyWeight} onChangeText={setBodyWeight} />
 
-      <View style={tw`flex-row items-center justify-center p-1  border-r border-gray-400 bg-gray-100 w-34`}>
-        <Pressable style={tw`bg-purple-500 px-2 py-1 rounded-md`} onPress={() => updateLog(item)}>
+      <View style={tw`flex-row items-center justify-center py-1 bg-gray-300 w-33.5`}>
+        <Pressable style={tw`w-7 bg-purple-500 px-2 py-1 rounded-md border border-black mr-2`} onPress={() => updateLog(item)}>
           <Text style={tw`text-white font-bold text-center`}>S</Text>
         </Pressable>
-        <Pressable style={tw`bg-gray-500 px-2 py-1 rounded-md ml-2`} onPress={() => editDataLog(item)}>
+        <Pressable style={tw`w-7 bg-gray-500 px-2 py-1 rounded-md border border-black`} onPress={() => editDataLog(item)}>
           <Text style={tw`text-white font-bold text-center`}>C</Text>
         </Pressable>
       </View>
+
     </>
   );
 };

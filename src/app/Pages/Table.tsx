@@ -3,7 +3,7 @@ import tw from 'twrnc';
 import { Text, View, ScrollView } from 'react-native';
 
 import GymTable from '@/src/components/TableTypes/GymTable';
-import SearchBar from '@/src/components/paper/SearchBar';
+import SearchBar from '@/src/components/Custom/SearchBar';
 
 export default function Table() {
   return (

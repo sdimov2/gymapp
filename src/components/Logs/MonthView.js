@@ -1,6 +1,6 @@
 import tw from 'twrnc';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Pressable, View, Text} from 'react-native';
 import { Calendar, LocaleConfig } from 'react-native-calendars';
 
@@ -29,6 +29,7 @@ LocaleConfig.locales['en'] = {
 LocaleConfig.defaultLocale = 'en';
 
 
+
 const WorkoutCalander = () => {
   const [selectedDate, setSelectedDate] = useState(null);
   const [view, setView] = useState('month');
@@ -52,11 +53,9 @@ const WorkoutCalander = () => {
 
   return (
     <>
-
       {/* Month View */}
       {view === 'month' ? (
         <>
-
           {/* Calendar Component */}
           <Calendar
             onDayPress={handleDayPress}
@@ -64,7 +63,7 @@ const WorkoutCalander = () => {
               [formatDateDashes(selectedDate)]: {
                 selected: true,
                 selectedColor: 'blue',
-                selectedTextColor: 'white', 
+                selectedTextColor: 'white',  
               },
             }}
             style={tw`w-100`}
@@ -110,7 +109,7 @@ const WorkoutCalander = () => {
           />
 
           {/* Today Button */}
-          <View style={tw`flex-row items-center justify-center m-2`}>
+          <View style={tw`flex-row items-center justify-center my-2`}>
             <Pressable
               style={tw`rounded-full bg-blue-600 shadow-md p-2 px-4`}
               onPress={GoToCurrent}

@@ -94,7 +94,7 @@ const AddRow = ({setData}) => {
       <AddCell numeric={true} value={rpe} onChangeText={setRpe} />
 
       {/* Action Button */}
-      <View style={tw`flex-row w-13.9 py-2 px-0.5  border- border-r border-gray-300 justify-center`}>
+      <View style={tw`flex-row w-15.8 py-2 px-0.5  border- border-r border-gray-300 justify-center`}>
         <Pressable
           style={tw`bg-blue-500 border border-blue-700 rounded-lg px-2.5 justify-center`}
           onPress={handleValues}

@@ -8,7 +8,7 @@ import HomeTable from '@/src/components/TableTypes/DayHomeTable';
 import BodyWeightTable from '@/src/components/TableTypes/DayBodyTable';
 
 import LogType from '@/src/components/Logs/LogTableNavigate';
-import SearchBar from '@/src/components/paper/SearchBar';
+import SearchBar from '@/src/components/Custom/SearchBar';
 
 // Helpers
 import { getDateObject } from '@/src/components/Helpers/Dates'; 
@@ -33,8 +33,9 @@ const DayView = ({ selectedDate, setSelectedDate, setView }) => {
     const nextDate = new Date(selectedDate);
     nextDate.setDate(nextDate.getDate() + 1);
 
-    if (nextDate > today) return;
-    setSelectedDate(nextDate);
+    if (nextDate <= today) {
+      setSelectedDate(nextDate);
+    }
   };
 
   // Get Data
@@ -45,8 +46,6 @@ const DayView = ({ selectedDate, setSelectedDate, setView }) => {
       case 'Body Weight':
         return <BodyWeightTable currScreen={currentScreen} currDate={selectedDate} />;
       case 'Cardio?':
-        return <HomeTable currScreen={currentScreen} currDate={selectedDate} />;
-      default:
         return <HomeTable currScreen={currentScreen} currDate={selectedDate} />;
     }
   };
@@ -89,24 +88,21 @@ const DayView = ({ selectedDate, setSelectedDate, setView }) => {
         
         {/* Back Button */}
         <Pressable style={tw`p-2 rounded-full bg-gray-100 shadow-md`} onPress={handlePreviousDay}>
-          <AntDesign name="left" size={14} color="#3366FF" />
+          <AntDesign name="left" size={12} color="#3366FF" />
         </Pressable>
 
         {/* Format Date */}
         <View style={tw`items-center`}>
-          <View>
             <Text style={tw`text-lg font-bold`}>{formattedData.dayOfWeek}</Text>
-          </View>
-          <View>
+
             <Text style={tw`text-sm font-bold`}>
               {formattedData.month} {formattedData.dayOfMonth} {formattedData.year}
             </Text>
-          </View>
         </View>
         
         {/* Next Button */}
         <Pressable style={tw`p-2 rounded-full bg-gray-100 shadow-md`} onPress={handleNextDay}>
-          <AntDesign name="right" size={14} color="#3366FF" />
+          <AntDesign name="right" size={12} color="#3366FF" />
         </Pressable>
       </View>
 

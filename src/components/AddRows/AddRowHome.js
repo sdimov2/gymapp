@@ -1,139 +1,84 @@
-import axios from 'axios';
 import tw from 'twrnc';
 
-import { useState } from 'react';
-import { View, Text, TextInput, Pressable, Modal, } from 'react-native';
+import { useState, useEffect } from 'react';
+import { View, Text, TextInput, Pressable } from 'react-native';
 
-import { baseUrl } from '@/src/assets/constants/Fixed_Vars';
-
-
-const Input = ({ value, onChangeText }) => (
-  <TextInput
-    editable
-    numberOfLines={1}
-    maxLength={40}
-    onChangeText={onChangeText}
-    value={value}
-    style={tw`h-11 w-23.5 p-2`}
-    fontSize={10}
-    textAlign={'left'}
-  />
-);
+import { CustomDropdown } from '@/src/components/Custom/CustomDropdown';
 
 
 // Input Cells
 const AddCell = ({ value, onChangeText }) => (
-  <View style={tw`h-13 w-27 border-r justify-center items-center border-black`}>
-    <Input value={value} onChangeText={onChangeText} />
+  <View style={tw`h-12.5 w-7.5 py-1 px-0.5 justify-center border-r border-black`}>
+    <TextInput
+      editable
+      numberOfLines={1}
+      maxLength={40}
+      onChangeText={onChangeText}
+      value={value}
+      style={tw`h-8.5 justify-center p-1 bg-transparent text-xs text-left`}
+      fontSize={10}
+      textAlign={'left'}
+    />
   </View>
 );
 
 
-const AddRowHome = ({setData}) => {
-  const [modalVisible, setModalVisible] = useState(false);
+const SelectCell = ({ selectedValue, onValueChange, type, setData }) => (
+  <View style={tw`h-12.5 w-17.5 p-2 justify-center border-r border-black`}>
+    <CustomDropdown selectedValue={selectedValue} onValueChange={onValueChange} type={type} setData={setData}/>
+  </View>
+);
 
-  const [workout, setWorkout] = useState('');
-  const [lift, setLift] = useState('');
-  const [resistance, setResistance] = useState('');
-  // const [set, setSet] = useState('');
-  // const [lbs, setlbs] = useState('');
-  // const [reps, setReps] = useState('');
-  // const [rpe, setRpe] = useState('');
+const DropRowHome = ({ setData }) => {
+  const [workout, setWorkout] = useState("");
+  const [lift, setLift] = useState("");
+  const [resistance, setResistance] = useState("");
+  const [set, setSet] = useState('');
+  const [lbs, setlbs] = useState('');
+  const [reps, setReps] = useState('');
+  const [rpe, setRpe] = useState('');
+
   
-
-  // Add New Row
   const handleValues = async () => {
     const timestamp = new Date();
-    
+
     const newRow = {
       id: timestamp,
       timestamp: timestamp.toDateString(),
       activity: workout,
       variants: lift,
       resistance_method: resistance,
-      set_n: "",
-      weight: "",
-      reps: "",
-      rpe: "",
+      set_n: set,
+      weight: lbs,
+      reps: reps,
+      rpe: rpe,
     };
 
-    // try {
-    //   const res = (await axios.post(baseUrl + '/akhil', { newRow: newRow })).data;
-    //   // console.log(res);
-    // } catch (error) {
-    //     console.log(error);
-    // }
-
     setData(prevItems => [newRow, ...prevItems]);
-    resetInputs()
   };
-
-  const resetInputs = () => {
-    setWorkout('');
-    setLift('');
-    setResistance('');
-  };
-
 
   return (
-    <>
-    <View style={tw`mt-0.5 flex-row text-center font-bold bg-gray-100 border-t border-b border-gray-500`}>  
-        
-      {/* Input Cells */}
-      <AddCell numeric={false} value={workout} onChangeText={setWorkout} />
-      <AddCell numeric={false} value={lift} onChangeText={setLift} />
-      <AddCell numeric={false} value={resistance} onChangeText={setResistance} />
-      {/* <AddCell numeric={true} value={set} onChangeText={setSet} />
+    <View style={tw`flex-row text-2 text-center font-bold bg-gray-100 border-t border-b border-gray-500`}>
+      <SelectCell selectedValue={workout} onValueChange={setWorkout} type={"workout"} />
+      <SelectCell selectedValue={lift} onValueChange={setLift} type={"variant"} />
+      <SelectCell selectedValue={resistance} onValueChange={setResistance} type={"resistance"} setData={setData}/>
+      <AddCell numeric={true} value={set} onChangeText={setSet} />
       <AddCell numeric={true} value={lbs} onChangeText={setlbs} />
       <AddCell numeric={true} value={reps} onChangeText={setReps} />
-      <AddCell numeric={true} value={rpe} onChangeText={setRpe} /> */}
-      
-      {/* Action Button */}
-      <View style={tw`w-16 flex-wrap text-wrap p-0.75 justify-center`}>
+      <AddCell numeric={true} value={rpe} onChangeText={setRpe} />
+
+      <View style={tw`flex-row w-16.5 px-2 py-3 justify-center`}>
         <Pressable
-          style={tw`w-15 bg-black rounded-lg border border-black `}
-          onPress={() => [handleValues(), setModalVisible(true)]}
+          style={tw`bg-blue-500 border border-blue-700 rounded-lg px-1.5 justify-center border border-black`}
+          onPress={handleValues}
         >
-          <Text style={tw`text-white font-bold text-2.5 flex-wrap text-center`} ellipsizeMode="tail">
-              CREATE NEW EXERCISE
+          <Text style={tw`text-white text-center text-2`} ellipsizeMode="tail">
+            SAVE
           </Text>
         </Pressable>
       </View>
     </View>
-
-
-    <Modal
-          transparent={true}
-          visible={modalVisible}
-          onRequestClose={() => setModalVisible(false)}
-        >
-          <View style={tw`flex-1 justify-center items-center bg-black bg-opacity-50 `}>
-            <View style={tw`w-100 bg-white rounded-lg p-4 max-h-1/2`}>
-              {/* <ScrollView>
-                <FlatList
-                  data={getData()}
-                  keyExtractor={(item, index) => index.toString()}
-                  renderItem={({ item }) => (
-                    <TouchableOpacity
-                      style={tw`py-2 border-b border-gray-200`}
-                      onPress={() => handleSelect(item)}
-                    >
-                      <Text style={tw`text-3`}>{item}</Text>
-                    </TouchableOpacity>
-                  )}
-                />
-              </ScrollView> */}
-              <Pressable
-                style={tw`bg-red-500 p-2 rounded-lg mt-4`}
-                onPress={() => setModalVisible(false)}
-              >
-                <Text style={tw`text-white text-center`}>Close</Text>
-              </Pressable>
-            </View>
-          </View>
-        </Modal>
-        </>
   );
 };
 
-export { AddRowHome };
+export { DropRowHome };
