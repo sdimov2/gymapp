@@ -19,8 +19,6 @@ export default function LogoutPage() {
   return (
     
     <ScrollView contentContainerStyle={{ alignItems: 'center', padding: 12, backgroundColor: 'white' }}>
-      
-      
 
       {componentsList ? ( <WebSocketCall  toggleChat={toggleChat}/>) : (
         <>

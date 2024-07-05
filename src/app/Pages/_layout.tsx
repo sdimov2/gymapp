@@ -2,7 +2,7 @@ import React from 'react';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import { Link, Tabs } from 'expo-router';
 import { Pressable } from 'react-native';
-
+import styled from 'styled-components';
 import Colors from '@/src/assets/constants/Colors';
 import { useColorScheme, useClientOnlyValue } from '@/src/components/Helpers/serverRenderHelpers';
 
@@ -13,6 +13,17 @@ function TabBarIcon(props: {
 }) {
   return <FontAwesome size={28} style={{ marginBottom: -3 }} {...props} />;
 }
+
+
+// replace with firebase as source information for the image
+const defaultAvatar = 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png';
+const avatar = defaultAvatar
+const Avatar = styled.img`
+  border-radius: 50%;
+  width: 35px;
+  height: 35px;
+ 
+`;
 
 export default function TabLayout() {
   const colorScheme = useColorScheme();
@@ -52,7 +63,7 @@ export default function TabLayout() {
         name="Profile"
         options={{
           title: 'Profile',
-          tabBarIcon: ({ color }) => <TabBarIcon name="sign-out" color={color} />,
+          tabBarIcon: ({ color }) => <Avatar src={avatar || defaultAvatar} alt="User Avatar" />,
         }}
       />
 

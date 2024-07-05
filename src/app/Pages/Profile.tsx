@@ -1,13 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, ScrollView, Pressable } from 'react-native';
 import axios from 'axios';
-
 import Logout from "@/src/components/Buttons/Logout";
 import WebSocketCall from "@/src/components/Chat/ChatRoom";
-
 import { baseUrl } from '@/src/assets/constants/Fixed_Vars';
-
-
 import styled from 'styled-components';
 import { useStreak } from "use-streak";
 import tw from 'twrnc';
@@ -26,6 +22,8 @@ const Header = styled.div`
   display: flex;
   align-items: center;
   margin-bottom: 20px;
+  fontSize: "2rem";
+   font-family: "Arial";
 `;
 
 const defaultAvatar = 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png';
@@ -43,10 +41,14 @@ const Info = styled.div``;
 
 const Name = styled.h1`
   margin: 0;
+   fontSize: "2rem";
+   fontFamily: "Arial";
 `;
 
 const Bio = styled.p`
   margin: 5px 0;
+   fontSize: "2rem";
+   fontFamily: "Arial";
 `;
 // const threeMonthsAgo = new Date();
 // const startDate = threeMonthsAgo.setMonth(today.getMonth() - 3);
@@ -126,7 +128,6 @@ heatmapdata.forEach(item => {
   const [timestamp, value] = item;
   data.dataPoints[timestamp] = value;
 });
-console.log(data.dataPoint)
 useEffect(() => {
   getData(),
   getheatmap()
@@ -138,17 +139,16 @@ useEffect(() => {
       <Info >
         <Name>{email}</Name>
         <Bio>Bio: {bio}</Bio>
-        <text>Body weight: {body_weight}</text>
+        <Text>Body weight: {body_weight}</Text>
+        <br></br>
+        <span style={{ fontSize: "1.2rem", fontFamily: "Arial"}} role="img" aria-label="fire emoji">🔥{currentCount} day{currentCount > 1 ? "s" : ""}</span>
       </Info>
     </Header>
+    
+  
     <HeatmapChart data={data}></HeatmapChart>
-    <div >
-      Gym streak:
-        <span style={{ fontSize: "3rem" }} role="img" aria-label="fire emoji">🔥</span>
-        <p style={{ fontSize: "1.5rem" }}>
-          {currentCount} days{currentCount > 1 ? "s" : ""}
-        </p>
-      </div>
+        
+   
 
       {componentsList ? ( <WebSocketCall  toggleChat={toggleChat}/>) : (
         <>
