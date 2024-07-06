@@ -1,26 +1,10 @@
-import React from 'react';
-import FontAwesome from '@expo/vector-icons/FontAwesome';
-import { AntDesign } from '@expo/vector-icons';
 import { Link, Tabs } from 'expo-router';
-import { Pressable } from 'react-native';
+import { AntDesign } from '@expo/vector-icons';
+import FontAwesome from '@expo/vector-icons/FontAwesome';
 
 import Colors from '@/src/assets/constants/Colors';
 import { useColorScheme, useClientOnlyValue } from '@/src/components/Helpers/serverRenderHelpers';
 
-// You can explore the built-in icon families and icons on the web at https://icons.expo.fyi/
-function TabBarIcon(props: {
-  name: React.ComponentProps<typeof FontAwesome>['name'];
-  color: string;
-}) {
-  return <FontAwesome size={28} style={{ marginBottom: -3 }} {...props} />;
-}
-
-function AntBarIcon(props: {
-  name: React.ComponentProps<typeof AntDesign>['name'];
-  color: string;
-}) {
-  return <AntDesign size={28} style={{ marginBottom: -3 }} {...props} />;
-}
 
 
 
@@ -35,35 +19,12 @@ export default function TabLayout() {
         // to prevent a hydration error in React Navigation v6.
         headerShown: useClientOnlyValue(false, true),
       }}>
-
-      {/* <Tabs.Screen
-        name="index"
-        options={{
-          title: 'Table',
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
-          headerRight: () => (
-            <Link href="/modal" asChild>
-              <Pressable>
-                {({ pressed }) => (
-                  <FontAwesome
-                    name="info-circle"
-                    size={25}
-                    color={Colors[colorScheme ?? 'light'].text}
-                    style={{ marginRight: 15, opacity: pressed ? 0.5 : 1 }}
-                  />
-                )}
-              </Pressable>
-            </Link>
-          ),
-        }}
-      /> */}
-
       
       <Tabs.Screen
         name="index"
         options={{
           title: 'index',
-          tabBarIcon: ({ color }) => <TabBarIcon name="sign-out" color={color} />,
+          tabBarIcon: ({ color }) => <FontAwesome name="sign-out" color={color} size={28}/>,
         }}
       />
       
@@ -71,7 +32,7 @@ export default function TabLayout() {
         name="Profile"
         options={{
           title: 'Profile',
-          tabBarIcon: ({ color }) => <AntBarIcon name="profile" color={color} />,
+          tabBarIcon: ({ color }) => <AntDesign name="profile" color={color} size={28} />,
         }}
       />
 
@@ -79,7 +40,7 @@ export default function TabLayout() {
         name="Graph"
         options={{
           title: 'Graph',
-          tabBarIcon: ({ color }) => <TabBarIcon name="line-chart" color={color} />,
+          tabBarIcon: ({ color }) => <FontAwesome name="line-chart" color={color} size={28}/>,
         }}
       />
 
@@ -87,7 +48,7 @@ export default function TabLayout() {
         name="Table"
         options={{
           title: 'Table',
-          tabBarIcon: ({ color }) => <TabBarIcon name="table" color={color} />,
+          tabBarIcon: ({ color }) => <FontAwesome name="table" color={color} size={28}/>,
         }}
       />
       
@@ -95,7 +56,7 @@ export default function TabLayout() {
         name="Logs"
         options={{
           title: 'Logs',
-          tabBarIcon: ({ color }) => <TabBarIcon name="sticky-note" color={color} />,
+          tabBarIcon: ({ color }) => <FontAwesome name="sticky-note" color={color} size={28}/>,
         }}
       />
 

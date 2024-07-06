@@ -10,7 +10,7 @@ import { app } from "@/config/firebase.config";
 const auth = getAuth(app);
 
 
-export default function Logout() {
+export default function Logout({style}) {
   const router = useRouter();
 
   useEffect(() => {  
@@ -27,10 +27,10 @@ export default function Logout() {
 
   return (
     <Pressable 
-    
+      style={tw`${style}`}
       onPress={handleSignOut}
     >
-      <Text style={tw`text-center font-semibold text-lg text-blue bg-gray-300 p-2` }>Logout</Text>
+      <Text style={tw`text-3 text-center` }>Logout</Text>
     </Pressable>
   );
 }

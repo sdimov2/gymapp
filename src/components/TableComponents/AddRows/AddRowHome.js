@@ -1,9 +1,9 @@
 import tw from 'twrnc';
 
 import { useState, useEffect } from 'react';
-import { View, Text, TextInput, Pressable } from 'react-native';
+import { View, Text, TextInput, Pressable, ScrollView } from 'react-native';
 
-import { CustomDropdown } from '@/src/components/Custom/CustomDropdown';
+import { CustomDropdown } from '@/src/components/TableComponents/Modals/ModalDropdown';
 
 
 // Input Cells
@@ -24,8 +24,10 @@ const AddCell = ({ value, onChangeText }) => (
 
 
 const SelectCell = ({ selectedValue, onValueChange, type, setData }) => (
-  <View style={tw`h-12.5 w-17.5 p-2 justify-center border-r border-black`}>
-    <CustomDropdown selectedValue={selectedValue} onValueChange={onValueChange} type={type} setData={setData}/>
+  <View style={tw`h-12.5 w-17.5 px-0.5 py-2 border-r border-black `}>
+    <ScrollView showsVerticalScrollIndicator={false}>
+      <CustomDropdown selectedValue={selectedValue} onValueChange={onValueChange} type={type} setData={setData}/>
+    </ScrollView>
   </View>
 );
 
@@ -59,8 +61,8 @@ const DropRowHome = ({ setData }) => {
 
   return (
     <View style={tw`flex-row text-2 text-center font-bold bg-gray-100 border-t border-b border-gray-500`}>
-      <SelectCell selectedValue={workout} onValueChange={setWorkout} type={"workout"} />
-      <SelectCell selectedValue={lift} onValueChange={setLift} type={"variant"} />
+      <SelectCell selectedValue={workout} onValueChange={setWorkout} type={"workout"} setData={setData}/>
+      <SelectCell selectedValue={lift} onValueChange={setLift} type={"variant"} setData={setData} />
       <SelectCell selectedValue={resistance} onValueChange={setResistance} type={"resistance"} setData={setData}/>
       <AddCell numeric={true} value={set} onChangeText={setSet} />
       <AddCell numeric={true} value={lbs} onChangeText={setlbs} />

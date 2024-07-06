@@ -4,8 +4,8 @@ import tw from 'twrnc';
 import { useState, useEffect } from 'react';
 import { ActivityIndicator, Text, View, Pressable } from 'react-native';
 
-import { AddRowBody } from "@/src/components/AddRows/AddRowBody";
-import { EditRowBody } from "@/src/components/EditRows/EditRowBody";
+import { AddRowBody } from "@/src/components/TableComponents/AddRows/AddRowBody";
+import { EditRowBody } from "@/src/components/TableComponents/EditRows/EditRowBody";
 
 // HELPER METHODS
 import { formatDateSlashes, isCurrentDate } from '@/src/components/Helpers/Dates'; 

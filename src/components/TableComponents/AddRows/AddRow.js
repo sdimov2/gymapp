@@ -23,7 +23,7 @@ const Input = ({ value, onChangeText }) => (
 
 // Input Cells
 const AddCell = ({ numeric, value, onChangeText }) => (
-  <View style={tw`${!numeric ? 'w-14.05' : 'w-6.5'} border-r border-gray-300`}>
+  <View style={tw`${!numeric ? 'w-14' : 'w-6.5'} border-r border-gray-300`}>
     <Input value={value} onChangeText={onChangeText} />
   </View>
 );
@@ -82,7 +82,7 @@ const AddRow = ({setData}) => {
     <View style={tw`flex-row text-0.5 text-center font-bold bg-gray-100`}>  
       
       {/* Placeholder */}
-      <View style={tw`w-14 border-r bg-black`}/>
+      <View style={tw`w-14.3 border-r border-gray-300 bg-black`}/>
       
       {/* Input Cells */}
       <AddCell numeric={false} value={workout} onChangeText={setWorkout} />
@@ -94,7 +94,7 @@ const AddRow = ({setData}) => {
       <AddCell numeric={true} value={rpe} onChangeText={setRpe} />
 
       {/* Action Button */}
-      <View style={tw`flex-row w-15.8 py-2 px-0.5  border- border-r border-gray-300 justify-center`}>
+      <View style={tw`flex-row w-15.8 py-2 px-0.5 border-r border-gray-300 justify-center`}>
         <Pressable
           style={tw`bg-blue-500 border border-blue-700 rounded-lg px-2.5 justify-center`}
           onPress={handleValues}

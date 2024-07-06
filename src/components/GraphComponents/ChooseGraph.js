@@ -24,7 +24,7 @@ const ChooseGraph = ({ setIsAreaGraph }) => {
   });
 
   return (
-    <View style={tw`m-4`}>
+    <View style={tw`my-2`}>
       <Pressable 
         onPress={toggleSwitch}
         style={tw`flex-row items-center justify-between p-3 rounded-full shadow-md w-50`}

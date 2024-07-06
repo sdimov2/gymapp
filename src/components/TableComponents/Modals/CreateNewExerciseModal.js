@@ -69,11 +69,10 @@ const CreateNewModal = ({ visible, onClose, onBack, handleValues }) => {
 
                 <Pressable
                     style={tw`bg-blue-500 p-2 rounded-lg mt-4`}
-                    onPress={() => [handleValues(workout2, lift2, resistance2), resetInputs()]}
+                    onPress={() => [handleValues(workout2, lift2, resistance2)]}
                 >
                     <Text style={tw`text-white text-center`}>Add Exercise</Text>
                 </Pressable>
-
 
                 <Pressable
                     style={tw`bg-gray-500 p-2 rounded-lg mt-2`}

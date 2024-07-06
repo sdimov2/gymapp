@@ -9,14 +9,14 @@ import { baseUrl } from '@/src/assets/constants/Fixed_Vars';
 
 // Input Cell
 const AddCell = ({ numeric, value, onChangeText }) => (
-  <View style={tw`${!numeric ? 'w-14' : 'w-6.5'}  border-r border-gray-300`}>
+  <View style={tw`${!numeric ? 'w-14' : 'w-6.5'}  border-r border-black`}>
     <TextInput
       editable
       numberOfLines={1}
       maxLength={40}
       onChangeText={onChangeText}
       value={value}
-      style={tw`text-2.8 font-sans justify-center py-1 px-1 text-wrap h-full`}
+      style={tw`text-2.8 font-sans justify-center py-1 px-1 h-full`}
     />
   </View>
 );
@@ -63,11 +63,11 @@ const EditRow = ({setData, item, items, editDataLog}) => {
 
 
   return (
-    <View style={tw`flex-row bg-blue-200`}>  
+    <View style={tw`flex-row bg-blue-300`}>  
       {/* Timestamp */}
-      <View style={tw`text-0.5 w-14 border-r border-gray-300 text-sm justify-center`}>
+      <View style={tw`text-0.5 w-14 border-r border-black text-sm justify-center`}>
         <ScrollView horizontal showsHorizontalScrollIndicator={false} >
-          <Text style={tw` text-2.8 font-sans justify-center py-1 px-1 text-wrap mt-1`}>  
+          <Text style={tw` text-2.8 font-sans justify-center py-1 px-1 mt-1`}>  
               {item.timestamp}
           </Text>
         </ScrollView>
@@ -89,7 +89,7 @@ const EditRow = ({setData, item, items, editDataLog}) => {
           style={tw`bg-purple-500 border border-black rounded-lg px-1.5 py-1`}
           onPress={() => updateLog(item)}
         >
-          <Text style={tw`text-white text-center text-1.8`} numberOfLines={1} ellipsizeMode="tail">S</Text>
+          <Text style={tw`text-white text-center text-2 font-bold`} numberOfLines={1} ellipsizeMode="tail">S</Text>
         </Pressable>
       </View>
 
@@ -98,7 +98,7 @@ const EditRow = ({setData, item, items, editDataLog}) => {
           style={tw`bg-gray-500 border border-black rounded-lg px-1.5 py-1 `}
           onPress={() => editDataLog(item)}
         >
-          <Text style={tw`text-white text-center text-1.8`} numberOfLines={1} ellipsizeMode="tail">C</Text>
+          <Text style={tw`text-white text-center text-2 font-bold`} numberOfLines={1} ellipsizeMode="tail">C</Text>
         </Pressable>
       </View>
 

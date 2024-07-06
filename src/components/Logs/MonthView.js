@@ -31,8 +31,8 @@ LocaleConfig.defaultLocale = 'en';
 
 
 const WorkoutCalander = () => {
-  const [selectedDate, setSelectedDate] = useState(null);
-  const [view, setView] = useState('month');
+  const [selectedDate, setSelectedDate] = useState(new Date());
+  const [view, setView] = useState('day');
 
   // Go to the day you clicked
   const handleDayPress = (day) => {

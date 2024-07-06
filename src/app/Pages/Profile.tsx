@@ -20,27 +20,28 @@ export default function LogoutPage() {
   }
 
   return (
-    <ScrollView contentContainerStyle={tw`items-center p-3 bg-white`}>
+    <View>
+    <ScrollView contentContainerStyle={tw`items-center p-2 bg-white`}>
       <Profile/>
       <Streak/>
 
-      <View
-        style={tw`p-3 bg-green-500 rounded-lg shadow-md`}
-      >
+      {/* CHAT ROOM */}
+      <View style={tw`p-3 bg-green-500 rounded-lg shadow-md w-90  p2-1 mb-10`}>
         {componentsList ? (
           <WebSocketCall toggleChat={toggleChat} />
         ) : (
-          <>
-            <Logout />
+          <View style={tw`flex-row justify-between justify-center mx-1 h-8 `}>
+            <Logout style={'bg-gray-300 rounded w-1/2 border border-black justify-center'}/>
             <Pressable 
               onPress={toggleChat}
-              style={tw`p-3 my-3 bg-blue-300 rounded`}
+              style={tw`bg-blue-300 rounded w-1/2 border border-black ml-3 justify-center `}
             >
-              <Text style={tw`text-base`}>CHAT WITH SOMEONE</Text>
+              <Text style={tw`text-3 text-center`}>CHAT WITH SOMEONE</Text>
             </Pressable>
-          </>
+          </View>
         )}
       </View>
     </ScrollView>
+    </View>
   );
 }

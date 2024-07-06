@@ -7,8 +7,7 @@ import { View, Text, Pressable } from 'react-native';
 import HomeTable from '@/src/components/TableTypes/DayHomeTable';
 import BodyWeightTable from '@/src/components/TableTypes/DayBodyTable';
 
-import LogType from '@/src/components/Logs/LogTableNavigate';
-import SearchBar from '@/src/components/Custom/SearchBar';
+import LogType from '@/src/components/Logs/LogBarNavigate';
 
 // Helpers
 import { getDateObject } from '@/src/components/Helpers/Dates'; 
@@ -62,7 +61,7 @@ const DayView = ({ selectedDate, setSelectedDate, setView }) => {
       
 
       {/* Search Bar & Filter */}
-      <View style={tw`flex-row`}>
+      {/* <View style={tw`flex-row`}>
           <SearchBar />
           
           <View style={tw`items-center justify-center`}>
@@ -70,7 +69,7 @@ const DayView = ({ selectedDate, setSelectedDate, setView }) => {
               <AntDesign name="filter" color="#000" size={30} />
             </Pressable>
           </View>
-      </View>
+      </View> */}
 
       
       {/* Home Button */}

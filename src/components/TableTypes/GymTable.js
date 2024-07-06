@@ -1,17 +1,16 @@
 import axios from 'axios';
 import tw from 'twrnc';
 
-import { Provider } from 'react-native-paper';
-
 import { useState, useEffect } from 'react'
 import { ActivityIndicator, ScrollView, Text, View, Pressable } from 'react-native';
-import { DataTable } from 'react-native-paper';
+// import { Provider, DataTable } from 'react-native-paper';
 
 import { baseUrl } from '@/src/assets/constants/Fixed_Vars';
 import { dummyData } from '@/src/assets/constants/Fixed_Vars';
 
-import { AddRow } from "@/src/components/AddRows/AddRow"
-import { EditRow } from "@/src/components/EditRows/EditRow"
+import { AddRow } from "@/src/components/TableComponents/AddRows/AddRow"
+import { EditRow } from "@/src/components/TableComponents/EditRows/EditRow"
+import { Pagination } from "@/src/components/TableComponents/Pagination"
 
 import { getAuth } from "firebase/auth";
 import { app } from "@/config/firebase.config";
@@ -19,19 +18,22 @@ import { app } from "@/config/firebase.config";
 const auth = getAuth(app);
 
 
-const TableHeader = ({ title, size, end }) => (
-  <View 
-    style={[
-      tw`py-1 ${!end && 'border-r '} border-black items-center`,
-      size === "small" && tw`w-6.5`,
-      size === "large" && tw`w-14`,
-    ]}
-  >
-    <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-      <Text style={tw`ml-0.5 text-2.5 font-bold font-sans `}> {title} </Text>
-    </ScrollView>
-  </View>
-);
+const TableHeader = ({ title, size, end=false }) => { 
+  const borderClass = !end ? 'border-r border-black' : '';
+  return (
+    <View 
+      style={[
+        tw`py-1 ${borderClass} items-center`,
+        size === "small" && tw`w-6.5`,
+        size === "large" && tw`w-14`,
+      ]}
+    >
+      <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+        <Text style={tw`text-2.5 font-bold font-sans `}> {title} </Text>
+      </ScrollView>
+    </View>
+  )
+};
 
 const TableCell = ({ text, size }) => (
   <View 
@@ -102,17 +104,17 @@ export default function GymTable() {
   // Use Effect
   useEffect(() => {
     setPage(0);
-    render();
+    render(); 
   }, [auth]); 
 
 
   return (
-    <Provider>
-      <View style={tw`bg-gray-100 p-1 rounded-lg w-100`}>
+    
+      <View style={tw`bg-gray-100 p-1 rounded-lg w-100 rounded-b-md`}>
         {!isLoading ? (
             <>
               {/* HEADER */}
-              <View style={tw`flex-row border-b-2 border-t-2 border border-black bg-gray-100`}>
+              <View style={tw`flex-row border-b-2 border-t-2 border border-black bg-gray-100 rounded-t`}>
                 <TableHeader title={'Timestamp'} size={"large"} />
                 <TableHeader title={'Workout'} size={"large"} />
                 <TableHeader title={'Variants'} size={"large"} />
@@ -139,12 +141,12 @@ export default function GymTable() {
                       <TableCell text={item.reps} size={"small"} />
                       <TableCell text={item.rpe} size={"small"} />
 
-                      <View style={tw`flex-row w-7.75 py-1 px-0.75 justify-center border-r border-gray-200`}>
+                      <View style={tw`flex-row w-7.75 py-1 px-0.75 justify-center border-r border-gray-300`}>
                         <Pressable
                           style={tw`bg-cyan-500 border border-black rounded-lg px-1.5 py-1`}
                           onPress={() => editDataLog(item)}
                         >
-                          <Text style={tw`text-white text-center text-1.8`} numberOfLines={1} ellipsizeMode="tail">E</Text>
+                          <Text style={tw`text-white text-center text-2 font-bold`} numberOfLines={1} ellipsizeMode="tail">E</Text>
                         </Pressable>
                       </View>
 
@@ -153,7 +155,7 @@ export default function GymTable() {
                           style={tw`bg-red-500 border border-black rounded-lg px-1.5 py-1`}
                           onPress={() => handleDeleteLog(item.id)}
                         >
-                          <Text style={tw`text-white text-center text-1.8`} numberOfLines={1} ellipsizeMode="tail">D</Text>
+                          <Text style={tw`text-white text-center text-2 font-bold`} numberOfLines={1} ellipsizeMode="tail">D</Text>
                         </Pressable>
                       </View>                      
                     </>
@@ -170,20 +172,17 @@ export default function GymTable() {
           <ActivityIndicator size="large" color="#0000ff" />
         )}
 
-        <DataTable.Pagination
-          style={tw`flex-row justify-between items-center py-1 bg-blue-50 border-t border-blue-300 rounded-b-lg`}
+
+        <Pagination 
           page={page}
           numberOfPages={Math.ceil(items.length / itemsPerPage)}
           onPageChange={page => setPage(page)}
-          label={`${from + 1}-${to} of ${items.length}`}
-          showFastPaginationControls
-          numberOfItemsPerPageList={numberOfItemsPerPageList}
-          numberOfItemsPerPage={itemsPerPage}
+          itemsPerPage={itemsPerPage}
           onItemsPerPageChange={setItemsPerPage}
-          selectPageDropdownLabel={'Rows per page'}
-        />
-        
+          totalItems={items.length}
+          numberOfItemsPerPageList={numberOfItemsPerPageList}
+        />        
       </View>
-    </Provider>
+    
   );
 }

@@ -3,11 +3,12 @@ import tw from 'twrnc';
 
 import { useState, useEffect } from 'react';
 import { ActivityIndicator, ScrollView, Text, View, Pressable } from 'react-native';
-import { IconButton } from 'react-native-paper';
 
-import { DropRowHome } from "@/src/components/AddRows/AddRowHome";
-import { EditRowHome } from "@/src/components/EditRows/EditRowHome";
-import { ImagePopup } from '@/src/components/Custom/ImagePopup';
+import { AntDesign } from '@expo/vector-icons';
+
+import { DropRowHome } from "@/src/components/TableComponents/AddRows/AddRowHome";
+import { EditRowHome } from "@/src/components/TableComponents/EditRows/EditRowHome";
+import { ImagePopup } from '@/src/components/Images/ImagePopup';
 
 // HELPER METHODS
 import { formatDateSlashes, isCurrentDate } from '@/src/components/Helpers/Dates'; 
@@ -22,20 +23,26 @@ import { app } from "@/config/firebase.config";
 const auth = getAuth(app);
 
 
-const TableHeader = ({ title, size, start, end }) => (
-  <View 
-    style={[
-      tw`py-1 ${!end ? 'border-r' : ''}`,
-      size === "large" && tw`w-17.5`,
-      size === "med" && tw`w-15`,
-      size === "small" && tw`w-7.5`,
-    ]}
-  >
-    <ScrollView horizontal showsHorizantalScrollIndicator={false}>
-      <Text style={tw`ml-1 text-2.4 font-bold`}>{title}</Text>
-    </ScrollView>
-  </View>
-);
+const TableHeader = ({ title, size, start, end }) => { 
+  
+  const borderState = !end ? 'border-r' : '';
+  
+  return (
+    <View 
+      style={[
+        tw`py-1 ${borderState}`,
+        size === "large" && tw`w-17.5`,
+        size === "med" && tw`w-15`,
+        size === "small" && tw`w-7.5`,
+      ]}
+    >
+      <ScrollView horizontal showsHorizantalScrollIndicator={false}>
+        <Text style={tw`ml-1 text-2.4 font-bold`}>{title}</Text>
+      </ScrollView>
+    </View>
+)
+}
+;
 
 
 const TableCell = ({ text, numeric }) => (
@@ -152,7 +159,7 @@ export default function HomeTable({ currScreen, currDate }) {
                   onPress={() => toggleGroup(groupKey)}
                 >
                   <Pressable 
-                    style={tw`${whichHovered === index ? 'bg-gray-900' : 'bg-gray-800'} w-10/13 px-3 rounded-lg h-10`}
+                    style={tw`${whichHovered === index ? 'bg-gray-900' : 'bg-gray-800'} w-4/5 px-3 rounded-lg h-10`}
                     onStartShouldSetResponder={() => true}
                     onPress={() => handleImageClick(groupKey)}
                     onHoverIn={() => handlePressIn(index)}
@@ -161,7 +168,7 @@ export default function HomeTable({ currScreen, currDate }) {
                     <Text style={tw`text-white text-3 py-1`}>{groupKey}</Text>
                   </Pressable>
 
-                  <View style={tw`mr-3 justify-between`}>
+                  <View style={tw`mr-4 justify-between`}>
                     <Text style={tw`text-white bg-green-800 px-3 rounded-full`}>
                       {groupedItems[groupKey].length}
                     </Text>
@@ -170,13 +177,8 @@ export default function HomeTable({ currScreen, currDate }) {
                     </Text>
                   </View>
 
-                  <View style={tw`absolute w-3 h-3 top-0 right-0 bg-black justify-center items-center`}>
-                    <IconButton
-                      icon={expandedGroups[groupKey] ? 'chevron-up' : 'chevron-down'}
-                      size={10}
-                      onPress={() => toggleGroup(groupKey)}
-                      iconColor='white'
-                    />  
+                  <View style={tw`absolute w-4 h-3 top-0 right-0 bg-black justify-center items-center`}>
+                    <AntDesign size={10} name={expandedGroups[groupKey] ? 'up' : 'down'} color={'white'}/>
                   </View>
                 </Pressable>
                 
