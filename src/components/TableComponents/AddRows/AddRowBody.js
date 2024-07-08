@@ -6,6 +6,8 @@ import { View, Text, TextInput, Pressable } from 'react-native';
 
 import { baseUrl } from '@/src/assets/constants/Fixed_Vars';
 
+import { formatTime } from '@/src/components/Helpers/Dates';
+
 
 const Input = ({ value, onChangeText }) => (
   <TextInput
@@ -32,11 +34,21 @@ const AddRowBody = ({setData}) => {
   
   // Add New Row
   const handleValues = async () => {
+    if (!bodyWeight) { 
+      console.log("NEED A VALUE") 
+      return;
+    }
+
+    if (!Number(bodyWeight)) { 
+      console.log("Has to be a number") 
+      return;
+    } //Fix:  Add notifications
+    
     const timestamp = new Date();
     
     const newRow = {
       id: timestamp,
-      timestamp: timestamp.toLocaleTimeString().split(' ')[0],  // FIX TIME DISPLAY
+      timestamp: formatTime(timestamp), 
       bodyweight: bodyWeight
     };
 

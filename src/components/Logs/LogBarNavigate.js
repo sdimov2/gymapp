@@ -14,7 +14,7 @@ const LogType = ({ currentScreen, setCurrentScreen }) => {
   
       <Pressable
         style={[
-          tw`rounded-full py-2 px-4 mx-5 ${unclicked} shadow-md`,
+          tw`rounded-full py-2 px-4 mx-5 ${unclicked} `,
           currentScreen === 'Home' && tw`${clicked}`,
         ]}
         onPress={() => setCurrentScreen('Home')}
@@ -31,7 +31,7 @@ const LogType = ({ currentScreen, setCurrentScreen }) => {
 
       <Pressable
         style={[
-          tw`rounded-full py-2 px-4 mx-5 ${unclicked} shadow-md`,
+          tw`rounded-full py-2 px-4 mx-5 ${unclicked} `,
           currentScreen === 'Body Weight' && tw`${clicked}`,
         ]}
         onPress={() => setCurrentScreen('Body Weight')}
@@ -48,7 +48,7 @@ const LogType = ({ currentScreen, setCurrentScreen }) => {
 
       <Pressable
         style={[
-          tw`rounded-full py-2 px-4 mx-5 ${unclicked} shadow-md`,
+          tw`rounded-full py-2 px-4 mx-5 ${unclicked} `,
           currentScreen === 'Cardio?' && tw`${clicked}`,
         ]}
         onPress={() => setCurrentScreen('Cardio?')}

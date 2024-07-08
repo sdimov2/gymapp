@@ -25,19 +25,21 @@ const ImagePopup = ({ groupKey, onClose }) => {
 
     useEffect(() => {
         const [var1, var2, var3] = groupKey.split('|');
-        var1 && setWorkout(var1);
-        var2 && setVariant(var2);
-        var3 && setResistance(var3);
+        
+        setWorkout(var1);
+        setVariant(var2);
+        setResistance(var3);
         
         fetchImages(var1);
-
     }, []);
 
     const ExpandPhotoLibrary = () => {
         setOpenLibrary(!openLibrary)
     }
 
-    const fetchImages = async (workout) => {
+    const fetchImages = async (workout) => { // Fix: How specific?
+        console.log(workout)
+
         const imagesRef = ref(storage, `${name}/workoutImages/${workout}`);
         try {
             const result = await listAll(imagesRef);
@@ -94,11 +96,11 @@ const ImagePopup = ({ groupKey, onClose }) => {
     return (
         <>
             <Pressable
-                style={[tw`fixed inset-0 bg-black bg-opacity-50`, { position: 'fixed' }]}
+                style={[tw`inset-0 bg-black bg-opacity-50`, { position: 'fixed' }]}
                 onPress={onClose}
             />
 
-            <View style={tw`absolute top-3/7 bg-white p-4 rounded-lg shadow-lg w-90 min-h-70 justify-between`}>
+            <View style={tw`absolute top-3/7 bg-white p-4 rounded-lg  w-90 min-h-70 justify-between`}>
                 {/* Header */}
                 <View>
                     <View style={tw`flex-row justify-between`}>
@@ -121,6 +123,7 @@ const ImagePopup = ({ groupKey, onClose }) => {
                 </View>
 
                 <Image source={{ uri: assignedImage }} style={tw`w-20 h-20 m-1 rounded-lg`} />
+
 
                 {/* Image Upload Section */}
                 <Pressable

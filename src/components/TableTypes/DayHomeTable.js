@@ -17,33 +17,26 @@ import { groupBy, getVolume } from '@/src/components/Helpers/Grouping';
 import { baseUrl } from '@/src/assets/constants/Fixed_Vars';
 import { dummyData } from '@/src/assets/constants/Fixed_Vars';
 
-import { getAuth } from "firebase/auth";
-import { app } from "@/config/firebase.config";
 
-const auth = getAuth(app);
-
-
-const TableHeader = ({ title, size, start, end }) => { 
+const TableHeader = ({ title, size, end }) => { 
   
   const borderState = !end ? 'border-r' : '';
   
   return (
-    <View 
-      style={[
-        tw`py-1 ${borderState}`,
-        size === "large" && tw`w-17.5`,
-        size === "med" && tw`w-15`,
-        size === "small" && tw`w-7.5`,
-      ]}
-    >
-      <ScrollView horizontal showsHorizantalScrollIndicator={false}>
-        <Text style={tw`ml-1 text-2.4 font-bold`}>{title}</Text>
-      </ScrollView>
-    </View>
-)
-}
-;
-
+      <View 
+        style={[
+          tw`py-1 ${borderState}`,
+          size === "large" && tw`w-17.5`,
+          size === "med" && tw`w-15`,
+          size === "small" && tw`w-7.5`,
+        ]}
+      >
+        <ScrollView horizontal showsHorizantalScrollIndicator={false}>
+          <Text style={tw`ml-1 text-2.4 font-bold`}>{title}</Text>
+        </ScrollView>
+      </View>
+  )
+};
 
 const TableCell = ({ text, numeric }) => (
   <View 
@@ -56,7 +49,7 @@ const TableCell = ({ text, numeric }) => (
 );
 
 
-export default function HomeTable({ currScreen, currDate }) {
+export default function HomeTable({ currScreen, currDate, currEmail }) {
   const [isLoading, setLoading] = useState(true);
   const [items, setData] = useState(dummyData);
   
@@ -79,16 +72,13 @@ export default function HomeTable({ currScreen, currDate }) {
   // Get Data
   const fetchData = async () => {
     try {
-      const res = (await axios.post(baseUrl + '/api', { email: auth.currentUser?.email })).data;
-
       const formattedDate = formatDateSlashes(currDate);
-      const filteredData = res.filter(item => item.timestamp.split(' ')[0] === formattedDate && item.activity !== '');
+      const res = (await axios.post(baseUrl + '/home_table', { email: currEmail, date: formattedDate })).data;
+      setData(res);
 
-      groupedItems = groupBy(filteredData, ['activity', 'variants', 'resistance_method']);
-
+      groupedItems = groupBy(res, ['activity', 'variants', 'resistance_method']);
       for (const groupKey of Object.keys(groupedItems)) toggleGroup(groupKey)
-      
-      setData(filteredData);
+        
     } catch (error) {
       console.error(error);
     }
@@ -127,12 +117,12 @@ export default function HomeTable({ currScreen, currDate }) {
   useEffect(() => {
     setExpandedGroups({})
     fetchData();
-  }, [currDate, currScreen]);
+  }, [currDate, currScreen, currEmail]);
 
 
   return (
     <>
-      <View style={tw`p-0.75 bg-purple-800 w-100`}>
+      <ScrollView style={tw`p-1 bg-purple-800 w-100 max-h-115`} showsVerticalScrollIndicator={false}>
         {!isLoading ? (
           <View style={tw`border border-black`}>
 
@@ -185,9 +175,9 @@ export default function HomeTable({ currScreen, currDate }) {
 
                 {/* Logs in the dropdown */}
                 {expandedGroups[groupKey] && (
-                  <View style={tw`border-t border-b border-gray-500`}>
+                  <View key={groupKey} style={tw`border-t border-b border-gray-500`}>
                     {groupedItems[groupKey].map((item, index) => (
-                      <>
+                      <View key={index}>
                         {!item.isEditing ? (
                           <View key={index} style={tw`${index !== 0 && 'border-t border-gray-400'} h-9 flex-row bg-gray-100 px-0.5`}>
                             <TableCell text={item.activity} />
@@ -213,7 +203,7 @@ export default function HomeTable({ currScreen, currDate }) {
                         ) : (
                           <EditRowHome setData={setData} items={items} item={item} editDataLog={editDataLog} index={index} />
                         )}
-                      </>
+                      </View>
                     ))}
                   </View>
                 )}
@@ -228,7 +218,7 @@ export default function HomeTable({ currScreen, currDate }) {
         ) : (
           <ActivityIndicator size="large" color="#0000ff" />
         )}
-      </View>
+      </ScrollView>
 
       {/* Image Popup (if invoked) */}
       { currGroupKey && (

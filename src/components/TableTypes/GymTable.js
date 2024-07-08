@@ -12,11 +12,6 @@ import { AddRow } from "@/src/components/TableComponents/AddRows/AddRow"
 import { EditRow } from "@/src/components/TableComponents/EditRows/EditRow"
 import { Pagination } from "@/src/components/TableComponents/Pagination"
 
-import { getAuth } from "firebase/auth";
-import { app } from "@/config/firebase.config";
-
-const auth = getAuth(app);
-
 
 const TableHeader = ({ title, size, end=false }) => { 
   const borderClass = !end ? 'border-r border-black' : '';
@@ -51,7 +46,7 @@ const TableCell = ({ text, size }) => (
 
 
 
-export default function GymTable() {
+export default function GymTable({currEmail}) {
   const [page, setPage] = useState(0);
   const [numberOfItemsPerPageList] = useState([10, 11, 12, 13, 14, 15]);
   const [itemsPerPage, setItemsPerPage] = useState(numberOfItemsPerPageList[2]);
@@ -66,8 +61,9 @@ export default function GymTable() {
   // Get Data
   const render = async () => {
     try {
-      const res = (await axios.post(baseUrl + '/api', { email: auth.currentUser?.email })).data;
+      const res = (await axios.post(baseUrl + '/full_table', { email: currEmail })).data;
       setData(res);
+
     } catch (error) {
       console.log(error);
     }
@@ -77,8 +73,8 @@ export default function GymTable() {
 
 
   // Delete Row
-  const handleDeleteLog = (id) => {
-    setData(items.filter(item => item.id !== id));
+  const handleDeleteLog = (timestamp) => {
+    setData(items.filter(item => item.timestamp !== timestamp));
   };
 
 
@@ -105,7 +101,7 @@ export default function GymTable() {
   useEffect(() => {
     setPage(0);
     render(); 
-  }, [auth]); 
+  }, [currEmail]); 
 
 
   return (
@@ -153,7 +149,7 @@ export default function GymTable() {
                       <View style={tw`flex-row w-7.75 py-1 px-0.75 justify-center`}>
                         <Pressable
                           style={tw`bg-red-500 border border-black rounded-lg px-1.5 py-1`}
-                          onPress={() => handleDeleteLog(item.id)}
+                          onPress={() => handleDeleteLog(item.timestamp)}
                         >
                           <Text style={tw`text-white text-center text-2 font-bold`} numberOfLines={1} ellipsizeMode="tail">D</Text>
                         </Pressable>

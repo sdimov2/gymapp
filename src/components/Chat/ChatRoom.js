@@ -8,13 +8,13 @@ import RoomCommunication from "@/src/components/Chat/WebSocket";
 
 import { baseUrl } from "@/src/assets/constants/Fixed_Vars";
 
-import { getAuth } from "firebase/auth";
-import { app } from "@/config/firebase.config";
+// import { getAuth } from "firebase/auth";
+// import { app } from "@/config/firebase.config";
 
-const auth = getAuth(app);
+// const auth = getAuth(app);
 
 
-export default function WebSocketCall({ toggleChat }) {
+export default function WebSocketCall({ toggleChat, currEmail }) {
   const [socketInstance, setSocketInstance] = useState(null);
   const [currentRoom, setCurrentRoom] = useState("");
   const [rooms, setRooms] = useState({});
@@ -98,7 +98,7 @@ export default function WebSocketCall({ toggleChat }) {
             </View>
           </Pressable>
 
-          {currentRoom === "" && auth.currentUser.email === "gogineni.akhil@hotmail.com" && (
+          {currentRoom === "" && currEmail === "gogineni.akhil@hotmail.com" && (
             <Pressable onPress={handleClearRooms}>
               <View style={tw`bg-red-500 rounded-lg p-2`}>
                 <Text style={tw`text-white text-center text-lg font-bold`}>Clear</Text>
@@ -110,13 +110,13 @@ export default function WebSocketCall({ toggleChat }) {
 
 
       {/* Input to join or leave a room */}
-      <View style={tw`flex-1 space-x-4 mb-4`}>
+      <View style={tw`flex-1 mb-4`}>
         {currentRoom === "" ? (
           <>
-            <View style={tw`flex-row items-center mb-4 space-x-4`}>
+            <View style={tw`flex-row items-center mb-4`}>
               <Pressable 
                 style={tw`border p-2 bg-gray-100 rounded-lg flex-1`}
-                onPress={() => handleJoinRoom(auth.currentUser.email)}
+                onPress={() => handleJoinRoom(currEmail)}
               >
                 <Text style={tw`text-center text-lg text-gray-800`}>Create Room</Text>
               </Pressable>
@@ -142,7 +142,7 @@ export default function WebSocketCall({ toggleChat }) {
                 <View style={tw`p-1 bg-yellow-400 rounded-t-lg`}>
                   <Text style={tw`text-lg font-bold text-center text-gray-800`}>ROOM: {currentRoom}</Text>
                 </View>
-                <RoomCommunication socket={socketInstance} room={currentRoom}/>
+                <RoomCommunication socket={socketInstance} room={currentRoom} currEmail={currEmail}/>
             </ScrollView>
         )}
       </View>

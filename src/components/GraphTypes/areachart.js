@@ -16,7 +16,8 @@ export default function BodyWeightGraph() {
      
     const getData = async () => {
       try {
-        const res = (await axios.post(baseUrl + "/bw", {email})).data;
+        const res = (await axios.post(baseUrl + "/area_chart", {email})).data;
+
         setData(res)
       } catch (error) {
         console.log(error)

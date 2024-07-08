@@ -8,7 +8,7 @@ import { CustomDropdown } from '@/src/components/TableComponents/Modals/ModalDro
 
 // Input Cells
 const AddCell = ({ value, onChangeText }) => (
-  <View style={tw`h-12.5 w-7.5 py-1 px-0.5 justify-center border-r border-black`}>
+  <View style={tw`h-15 w-7.5 py-1 px-0.5 justify-center border-r border-black`}>
     <TextInput
       editable
       numberOfLines={1}
@@ -24,7 +24,7 @@ const AddCell = ({ value, onChangeText }) => (
 
 
 const SelectCell = ({ selectedValue, onValueChange, type, setData }) => (
-  <View style={tw`h-12.5 w-17.5 px-0.5 py-2 border-r border-black `}>
+  <View style={tw`h-15 w-17.5 px-0.5 py-2 border-r border-black`}>
     <ScrollView showsVerticalScrollIndicator={false}>
       <CustomDropdown selectedValue={selectedValue} onValueChange={onValueChange} type={type} setData={setData}/>
     </ScrollView>
@@ -42,6 +42,11 @@ const DropRowHome = ({ setData }) => {
 
   
   const handleValues = async () => {
+    if (!workout) { 
+      console.log("NEED A VALUE") 
+      return;
+    }
+    
     const timestamp = new Date();
 
     const newRow = {
@@ -60,7 +65,7 @@ const DropRowHome = ({ setData }) => {
   };
 
   return (
-    <View style={tw`flex-row text-2 text-center font-bold bg-gray-100 border-t border-b border-gray-500`}>
+    <View style={tw`flex-row text-center font-bold bg-gray-100 border-t border-b border-gray-500`}>
       <SelectCell selectedValue={workout} onValueChange={setWorkout} type={"workout"} setData={setData}/>
       <SelectCell selectedValue={lift} onValueChange={setLift} type={"variant"} setData={setData} />
       <SelectCell selectedValue={resistance} onValueChange={setResistance} type={"resistance"} setData={setData}/>

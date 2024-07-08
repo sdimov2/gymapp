@@ -3,12 +3,6 @@ from oauth2client.service_account import ServiceAccountCredentials
 import numpy as np
 from datetime import datetime
 
-
-
-
-
-
-
 from dateutil import parser
 import json
 
@@ -19,22 +13,84 @@ import json
 
 # Connect to Google
 # Scope: Enable access to specific links
-scope = ['https://www.googleapis.com/auth/spreadsheets', "https://www.googleapis.com/auth/drive"]
+# scope = ['https://www.googleapis.com/auth/spreadsheets', "https://www.googleapis.com/auth/drive"]
 
-credentials = ServiceAccountCredentials.from_json_keyfile_name("./gscredentials.json", scope)
+# credentials = ServiceAccountCredentials.from_json_keyfile_name("./gscredentials.json", scope)
 
-client = gspread.authorize(credentials)
+# client = gspread.authorize(credentials)
 
-# Open the Google Sheet
-sheet_id = '1GE8h-5e1UEw5bk-5aOSiyy-VdrloM7C2w6hYb6GLohc'
+# # Open the Google Sheet
+# sheet_id = '1GE8h-5e1UEw5bk-5aOSiyy-VdrloM7C2w6hYb6GLohc'
 
-sheet = client.open_by_key(sheet_id)
+# sheet = client.open_by_key(sheet_id)
 
-worksheet = sheet.get_worksheet(0)  # Assuming you want to work with the first worksheet
+# worksheet = sheet.get_worksheet(0)  # Assuming you want to work with the first worksheet
 
-global_data = worksheet.get_all_values()
+# global_data = worksheet.get_all_values()
+
 
 active_rooms = {}
+
+
+import psycopg2
+import pandas as pd
+
+# Connection parameters
+conn_params = {
+    "dbname": "GymBro",
+    "user": "postgres",
+    "password": "rootAkhil",
+}
+
+# Connect to the database
+conn = psycopg2.connect(**conn_params)
+cur = conn.cursor()
+
+cur.execute('SELECT * FROM public."WorkoutLogs"')
+global_data = cur.fetchall()
+
+
+cur.close()
+conn.close()
+
+
+# import psycopg2
+# import pandas as pd
+
+# # Connection parameters
+# conn_params = {
+#     "dbname": "GymBro",
+#     "user": "postgres",
+#     "password": "rootAkhil",
+# }
+
+# # Connect to the database
+# conn = psycopg2.connect(**conn_params)
+# cur = conn.cursor()
+
+# cur.execute('SELECT * FROM public."WorkoutLogs"')
+# # one = cur.fetchone()
+# # global_data = cur.fetchall()
+
+# # print(one)
+# # print(all)
+
+
+# cur.close()
+# conn.close()
+
+
+
+
+# # Query the data
+# query = "SELECT * FROM WorkoutLogs"
+# df = pd.read_sql_query(query, conn)
+
+# # Close the connection
+# conn.close()
+
+# # Now df contains your data
+# print(df.head())
 
 
 #return global_data[1:]

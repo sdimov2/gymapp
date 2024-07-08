@@ -1,15 +1,14 @@
 import { useEffect, useState } from 'react'
 import { useRouter } from 'expo-router'
-import { KeyboardAvoidingView, Text, TextInput, Pressable, View, Image } from 'react-native'
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signInWithPopup } from "firebase/auth";
+import { KeyboardAvoidingView, Text, TextInput, Pressable, View } from 'react-native'
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signInWithPopup } from "firebase/auth";
 // import {GoogleAuthProvider, TwitterAuthProvider } from "firebase/auth";
 
 // import googleLogo from '../assets/images/google.png';
 
 import tw from 'twrnc';
 
-import { app } from "@/config/firebase.config"
-const auth = getAuth(app);
+import { app, auth } from "@/config/firebase.config"
 
 
 const AuthInput = ({ placeholder, value, onChangeText, secureTextEntry }: any) => {

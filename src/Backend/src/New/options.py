@@ -7,16 +7,14 @@ from info import global_data
 
 
 def GetOptions():  # Add a image to options
-
-    data = global_data[1:]
     workoutData = set()
     variantData = set()
     resistanceData = set()
     
-    for s in data:
-        if (s[3] != ""): workoutData.add(s[3])
-        if (s[4] != ""): variantData.add(s[4])
-        if (s[5] != ""): resistanceData.add(s[5])
+    for s in global_data[1:]:
+        if (s[2]): workoutData.add(s[2])
+        if (s[3]): variantData.add(s[3])
+        if (s[4]): resistanceData.add(s[4])
 
     workoutList = list(workoutData)
     workoutList.sort()

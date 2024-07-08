@@ -73,7 +73,6 @@ export const CustomDropdown = ({ selectedValue, onValueChange, type, setData }) 
         <Text style={tw`text-3`}>{selectedValue || 'Select an option'}</Text>
       </Pressable>
       
-      {/* FIX ADD SEARCHBAR */}
       <ListModal  
         visible={listModalVisible}
         onClose={() => setListModalVisible(false)}

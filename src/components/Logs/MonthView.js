@@ -30,7 +30,7 @@ LocaleConfig.defaultLocale = 'en';
 
 
 
-const WorkoutCalander = () => {
+const WorkoutCalander = ({currEmail}) => {
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [view, setView] = useState('day');
 
@@ -111,7 +111,7 @@ const WorkoutCalander = () => {
           {/* Today Button */}
           <View style={tw`flex-row items-center justify-center my-2`}>
             <Pressable
-              style={tw`rounded-full bg-blue-600 shadow-md p-2 px-4`}
+              style={tw`rounded-full bg-blue-600  p-2 px-4`}
               onPress={GoToCurrent}
             >
               <Text style={tw`text-white text-center`} numberOfLines={1} ellipsizeMode="tail">
@@ -124,7 +124,7 @@ const WorkoutCalander = () => {
       ) : (
       
         // Day View
-        <DayView selectedDate={selectedDate} setSelectedDate={setSelectedDate} setView={setView} />
+        <DayView selectedDate={selectedDate} setSelectedDate={setSelectedDate} setView={setView} currEmail={currEmail}/>
       
       )}
     </>

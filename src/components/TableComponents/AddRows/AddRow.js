@@ -52,6 +52,11 @@ const AddRow = ({setData}) => {
 
   // Add new row
   const handleValues = async () => {
+    if (!workout) { 
+      console.log("NEED A VALUE") 
+      return;
+    }
+    
     const timestamp = new Date();
     
     const newRow = {

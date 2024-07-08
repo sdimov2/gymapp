@@ -12,13 +12,8 @@ import { formatDateSlashes, isCurrentDate } from '@/src/components/Helpers/Dates
 
 import { baseUrl } from '@/src/assets/constants/Fixed_Vars';
 
-import { app } from "@/config/firebase.config";
-import { getAuth } from "firebase/auth";
 
-const auth = getAuth(app);
-
-
-export default function BodyWeightTable({ currScreen, currDate }) {
+export default function BodyWeightTable({ currScreen, currDate, currEmail }) {
   const [isLoading, setLoading] = useState(true);
   const [items, setData] = useState([]);
 
@@ -26,10 +21,10 @@ export default function BodyWeightTable({ currScreen, currDate }) {
   // Get Data
   const fetchData = async () => {
     try {
-      let res = (await axios.post(`${baseUrl}/api`, { email: auth.currentUser?.email })).data;
       const formattedDate = formatDateSlashes(currDate);
-      const filteredData = res.filter(item => item.timestamp.split(' ')[0] === formattedDate && item.activity === '');
-      setData(filteredData);
+      let res = (await axios.post(`${baseUrl}/bw`, { email: currEmail, date: formattedDate })).data;
+      setData(res)
+      
     } catch (error) {
       console.error(error);
     }
@@ -38,7 +33,7 @@ export default function BodyWeightTable({ currScreen, currDate }) {
 
   // Delete Row
   const handleDeleteLog = (id) => {
-    setData(items.filter((item) => item.id !== id));
+    setData(items.filter((item) => item.id !== id)); 
   };
 
   // Edit Row
@@ -50,7 +45,7 @@ export default function BodyWeightTable({ currScreen, currDate }) {
 
   useEffect(() => {
     fetchData();
-  }, [currDate, currScreen]);
+  }, [currDate, currScreen, currEmail]);
 
   return (
     <View style={tw`p-1 bg-white w-100`}>
@@ -77,12 +72,12 @@ export default function BodyWeightTable({ currScreen, currDate }) {
                 <View key={index} style={tw`flex-row ${index !== 0 && 'border-t border-gray-500'}`}>
                   {!item.isEditing ? (
                     <>
-                      <View style={tw`items-center justify-center  border-black bg-gray-100 w-32`}>
+                      <View style={tw`items-center justify-center bg-gray-100 w-32`}>
                         <Text style={tw`text-center`}>{item.timestamp}</Text>
                       </View>
                       
                       <View style={tw`justify-center p-1 border-l border-r border-black bg-gray-100 w-32`}>
-                        <Text>{item.bodyweight}</Text>
+                        <Text >{item.bodyweight}</Text>
                       </View>
 
                       <View style={tw`flex-row items-center justify-center py-1 bg-gray-100 w-33.5`}>

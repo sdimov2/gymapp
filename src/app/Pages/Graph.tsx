@@ -9,9 +9,15 @@ import VolumeGraph from '@/src/components/GraphTypes/volumechart';
 import ChooseGraph from '@/src/components/GraphComponents/ChooseGraph';
 import WeightDropdown from '@/src/components/GraphComponents/Dropdown';
 
+import { auth, onAuthStateChanged } from "@/config/firebase.config";
 
 export default function Graph() {
   const [isAreaGraph, setIsAreaGraph] = useState(false);
+  const [currEmail, setCurrEmail] = useState<string | null | undefined>(null)
+
+  onAuthStateChanged(auth, (user) => {
+    setCurrEmail(user?.email)
+  })
 
   const updateGraph = () => {
     // console.log("update invoked");
@@ -23,7 +29,7 @@ export default function Graph() {
       <View style={tw`items-center justify-between bg-white p-2`}>
         <Text style={tw`text-xl font-bold items-center flex`}>Data Analytics</Text>
         <ChooseGraph setIsAreaGraph={setIsAreaGraph} />
-        <WeightDropdown updateGraph={updateGraph} />  
+        <WeightDropdown updateGraph={updateGraph} currEmail={currEmail}/>  
       </View>
 
       {/* {isAreaGraph ? <BodyWeightGraph /> : <VolumeGraph />} */}

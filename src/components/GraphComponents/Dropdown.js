@@ -5,7 +5,8 @@ import { View, Text, Pressable, ScrollView, TextInput } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
 import { baseUrl } from '@/src/assets/constants/Fixed_Vars';
 
-const WeightSelector = ({ updateGraph }) => {
+
+const WeightSelector = ({ updateGraph, currEmail }) => {
   const [selected, setSelected] = useState([]);
   const [options, setOptions] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
@@ -31,7 +32,8 @@ const WeightSelector = ({ updateGraph }) => {
   
   useEffect(() => {
     getOptions();
-  }, []);
+  }, [currEmail]);
+
 
   const filteredData = useMemo(() => {
     return options.filter(item =>
