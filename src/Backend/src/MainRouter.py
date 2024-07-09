@@ -25,7 +25,7 @@ def api0():
 
     # email = "sdimov77@gmail.com"
     email = request.get_json().get('email') 
-    print(email)
+    # print(email)
 
     data = GetFull(email)
 

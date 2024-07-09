@@ -1,4 +1,4 @@
-from Backend.line_graph import fit_curve
+# from Backend.line_graph import fit_curve
 
 
 def match_data_type(input, data_type):

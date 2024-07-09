@@ -1,10 +1,11 @@
-import gspread
-from oauth2client.service_account import ServiceAccountCredentials
-import numpy as np
-from datetime import datetime
+# import gspread
+# from oauth2client.service_account import ServiceAccountCredentials
+# import numpy as np
+# from datetime import datetime
+# import pandas as pd
 
-from dateutil import parser
-import json
+# from dateutil import parser
+# import json
 
 #from sklearn.model_selection import train_test_split
 #from sklearn.linear_model import LinearRegression
@@ -33,7 +34,7 @@ active_rooms = {}
 
 
 import psycopg2
-import pandas as pd
+
 
 # Connection parameters
 conn_params = {

@@ -1,8 +1,8 @@
 from flask import jsonify
-from numpy import sort
+# from numpy import sort
 
-from Backend.filter import filter_entries
-from Backend.get_data import get_data_from_entries
+# from Backend.filter import filter_entries
+# from Backend.get_data import get_data_from_entries
 from info import global_data
 
 
