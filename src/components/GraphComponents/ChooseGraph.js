@@ -1,7 +1,10 @@
-import React, { useState } from 'react';
-import { View, Text, Pressable, Animated } from 'react-native';
-import { AntDesign } from '@expo/vector-icons';
 import tw from 'twrnc';
+import { AntDesign } from '@expo/vector-icons';
+
+import { useState } from 'react';
+import { View, Text, Pressable, Animated } from 'react-native';
+
+
 
 const ChooseGraph = ({ setIsAreaGraph }) => {
   const [isArea, setIsArea] = useState(true);

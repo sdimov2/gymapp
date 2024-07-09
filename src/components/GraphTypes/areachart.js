@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import React, { PureComponent, useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend } from 'recharts';
 
@@ -10,7 +10,7 @@ import { getAuth } from "firebase/auth";
 const auth = getAuth(app);
 
 export default function BodyWeightGraph() {
-    const [data, setData] = React.useState([]);
+    const [data, setData] = useState([]);
 
     const email = auth.currentUser?.email;
      

@@ -30,7 +30,7 @@ LocaleConfig.defaultLocale = 'en';
 
 
 
-const WorkoutCalander = ({currEmail}) => {
+const WorkoutCalander = () => {
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [view, setView] = useState('day');
 
@@ -124,7 +124,7 @@ const WorkoutCalander = ({currEmail}) => {
       ) : (
       
         // Day View
-        <DayView selectedDate={selectedDate} setSelectedDate={setSelectedDate} setView={setView} currEmail={currEmail}/>
+        <DayView selectedDate={selectedDate} setSelectedDate={setSelectedDate} setView={setView} />
       
       )}
     </>

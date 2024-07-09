@@ -1,15 +1,22 @@
 import axios from 'axios';
 import tw from 'twrnc';
+import { AntDesign } from '@expo/vector-icons';
+
 import { useState, useEffect, useMemo } from 'react';
 import { View, Text, Pressable, ScrollView, TextInput } from 'react-native';
-import { AntDesign } from '@expo/vector-icons';
+
 import { baseUrl } from '@/src/assets/constants/Fixed_Vars';
 
+import { useCurrEmail } from '@/src/context/emailContext';
 
-const WeightSelector = ({ updateGraph, currEmail }) => {
+
+const WeightSelector = ({ updateGraph }) => {
   const [selected, setSelected] = useState([]);
   const [options, setOptions] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
+  
+  const { currEmail } = useCurrEmail();
+
 
   const getOptions = async () => {
     try {

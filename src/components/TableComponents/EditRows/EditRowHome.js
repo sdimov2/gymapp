@@ -28,7 +28,7 @@ const AddCell = ({ numeric, value, onChangeText }) => (
 );
 
 
-const EditRowHome = ({setData, item, items, editDataLog, index}) => {
+const EditRowHome = ({item, editDataLog, index}) => {
   const [workout, setWorkout] = useState(item.activity);
   const [variants, setVariants] = useState(item.variants);
   const [resistance, setResistance] = useState(item.resistance_method);
@@ -47,10 +47,6 @@ const EditRowHome = ({setData, item, items, editDataLog, index}) => {
     itemToUpdate.weight = lbs
     itemToUpdate.reps = reps
     itemToUpdate.rpe = rpe
-  
-    const updatedItems = items.map(item => {
-      item.id === itemToUpdate.id ? itemToUpdate : item
-    });
 
     // SEND TO BACKEND ?
     // try {
@@ -60,9 +56,9 @@ const EditRowHome = ({setData, item, items, editDataLog, index}) => {
     //   console.log(error);
     // }
 
-    setData(updatedItems);
-    editDataLog(item)
+    editDataLog(itemToUpdate)
   };
+  
 
   useEffect(() => {
     // console.log(item)

@@ -1,9 +1,10 @@
 import tw from 'twrnc';
-import { useState, useEffect } from 'react';
-import { Pressable, View, Text, Image, FlatList } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
-import { app, getStorage, ref, uploadBytes, getDownloadURL, listAll } from "@/config/firebase.config";
 
+import { useState, useEffect } from 'react';
+import { Pressable, View, Text, Image } from 'react-native';
+
+import { app, getStorage, ref, uploadBytes, getDownloadURL, listAll } from "@/config/firebase.config";
 
 import PhotoLibrary from './PhotoLibrary.js';
 

@@ -9,14 +9,16 @@ import { EditRowBody } from "@/src/components/TableComponents/EditRows/EditRowBo
 
 // HELPER METHODS
 import { formatDateSlashes, isCurrentDate } from '@/src/components/Helpers/Dates'; 
-
 import { baseUrl } from '@/src/assets/constants/Fixed_Vars';
 
+import { useCurrEmail } from '@/src/context/emailContext';
 
-export default function BodyWeightTable({ currScreen, currDate, currEmail }) {
+
+export default function BodyWeightTable({ currScreen, currDate }) {
   const [isLoading, setLoading] = useState(true);
   const [items, setData] = useState([]);
 
+  const { currEmail } = useCurrEmail();
 
   // Get Data
   const fetchData = async () => {
@@ -33,15 +35,16 @@ export default function BodyWeightTable({ currScreen, currDate, currEmail }) {
 
   // Delete Row
   const handleDeleteLog = (id) => {
-    setData(items.filter((item) => item.id !== id)); 
+    setData(items.filter((item) => item.timestamp !== id)); 
   };
 
-  // Edit Row
+  // Edit & Save Row
   const editDataLog = (itemToUpdate) => {
     itemToUpdate.isEditing = !itemToUpdate.isEditing;
-    const updatedItems = items.map((item) => (item.id === itemToUpdate.id ? itemToUpdate : item));
+    const updatedItems = items.map((item) => (item.timestamp === itemToUpdate.timestamp ? itemToUpdate : item));
     setData(updatedItems);
   };
+
 
   useEffect(() => {
     fetchData();
@@ -84,13 +87,13 @@ export default function BodyWeightTable({ currScreen, currDate, currEmail }) {
                         <Pressable style={tw`w-7 bg-yellow-500 px-2 py-1 rounded-md border border-black mr-2`} onPress={() => editDataLog(item)}>
                           <Text style={tw`text-white font-bold text-center`}>E</Text>
                         </Pressable>
-                        <Pressable style={tw`w-7 bg-red-500 px-2 py-1 rounded-md border border-black`} onPress={() => handleDeleteLog(item.id)}>
+                        <Pressable style={tw`w-7 bg-red-500 px-2 py-1 rounded-md border border-black`} onPress={() => handleDeleteLog(item.timestamp)}>
                           <Text style={tw`text-white font-bold text-center`}>D</Text>
                         </Pressable>
                       </View>
                     </>
                   ) : (
-                    <EditRowBody setData={setData} items={items} item={item} editDataLog={editDataLog} />
+                    <EditRowBody item={item} editDataLog={editDataLog} />
                   )}
                 </View>
               ))}

@@ -23,17 +23,13 @@ const AddCell = ({ value, onChangeText }) => (
 );
 
 
-const EditRowBody = ({ setData, item, items, editDataLog }) => {
+const EditRowBody = ({ item, editDataLog }) => {
   const [bodyWeight, setBodyWeight] = useState(item.bodyweight);
 
   // Save Row
   const updateLog = (itemToUpdate) => {
     itemToUpdate.timestamp = item.timestamp;
     itemToUpdate.bodyweight = bodyWeight;
-
-    const updatedItems = items.map((item) =>
-      item.id === itemToUpdate.id ? itemToUpdate : item
-    );
 
     // SEND TO BACKEND ?
     // try {
@@ -43,7 +39,6 @@ const EditRowBody = ({ setData, item, items, editDataLog }) => {
     //   console.log(error);
     // }
 
-    setData(updatedItems);
     editDataLog(itemToUpdate);
   };
 

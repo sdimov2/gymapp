@@ -6,14 +6,13 @@ import { View, Text, Pressable } from 'react-native';
 
 import HomeTable from '@/src/components/TableTypes/DayHomeTable';
 import BodyWeightTable from '@/src/components/TableTypes/DayBodyTable';
-
 import LogType from '@/src/components/Logs/LogBarNavigate';
 
 // Helpers
 import { getDateObject } from '@/src/components/Helpers/Dates'; 
 
 
-const DayView = ({ selectedDate, setSelectedDate, setView, currEmail }) => {
+const DayView = ({ selectedDate, setSelectedDate, setView }) => {
   const [formattedData, setFormattedData] = useState('')
   const [currentScreen, setCurrentScreen] = useState('Home');
   const [today, setToday] = useState(new Date());
@@ -41,11 +40,11 @@ const DayView = ({ selectedDate, setSelectedDate, setView, currEmail }) => {
   const renderScreen = (selectedDate) => {
     switch (currentScreen) {
       case 'Home':
-        return <HomeTable currScreen={currentScreen} currDate={selectedDate} currEmail={currEmail}/>;
+        return <HomeTable currScreen={currentScreen} currDate={selectedDate}/>;
       case 'Body Weight':
-        return <BodyWeightTable currScreen={currentScreen} currDate={selectedDate} currEmail={currEmail}/>;
+        return <BodyWeightTable currScreen={currentScreen} currDate={selectedDate}/>;
       case 'Cardio?':
-        return <HomeTable currScreen={currentScreen} currDate={selectedDate} currEmail={currEmail}/>;
+        return <HomeTable currScreen={currentScreen} currDate={selectedDate}/>;
     }
   };
 

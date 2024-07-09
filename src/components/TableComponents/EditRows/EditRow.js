@@ -22,7 +22,7 @@ const AddCell = ({ numeric, value, onChangeText }) => (
 );
 
 
-const EditRow = ({setData, item, items, editDataLog}) => {
+const EditRow = ({ item, editDataLog}) => {
   const [workout, setWorkout] = useState(item.activity);
   const [variants, setVariants] = useState(item.variants);
   const [resistance, setResistance] = useState(item.resistance_method);
@@ -42,10 +42,6 @@ const EditRow = ({setData, item, items, editDataLog}) => {
     itemToUpdate.reps = reps
     itemToUpdate.rpe = rpe
   
-    const updatedItems = items.map((item) =>
-      item.id === itemToUpdate.id ? itemToUpdate : item
-    );
-
     // try {
     //   const res = (await axios.post(baseUrl + '/akhil', { newRow: newRow })).data;
     //   console.log(res);
@@ -53,9 +49,10 @@ const EditRow = ({setData, item, items, editDataLog}) => {
     //   console.log(error);
     // }
 
-    setData(updatedItems);
     editDataLog(item)
   };
+
+  
 
   useEffect(() => {
     // console.log(item)

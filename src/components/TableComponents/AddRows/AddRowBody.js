@@ -47,12 +47,9 @@ const AddRowBody = ({setData}) => {
     const timestamp = new Date();
     
     const newRow = {
-      id: timestamp,
       timestamp: formatTime(timestamp), 
       bodyweight: bodyWeight
     };
-
-    // console.log(timestamp)
 
     // try {
     //   const res = (await axios.post(baseUrl + '/akhil', { newRow: newRow })).data;

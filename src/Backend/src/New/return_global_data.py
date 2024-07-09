@@ -17,6 +17,7 @@ def GetHome(email, date):
     return filteredData(filtered_data)
 
 
+
 def filteredData(filtered_data):
     temp = []
 

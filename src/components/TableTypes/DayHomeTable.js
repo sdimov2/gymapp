@@ -17,6 +17,8 @@ import { groupBy, getVolume } from '@/src/components/Helpers/Grouping';
 import { baseUrl } from '@/src/assets/constants/Fixed_Vars';
 import { dummyData } from '@/src/assets/constants/Fixed_Vars';
 
+import { useCurrEmail } from '@/src/context/emailContext';
+
 
 const TableHeader = ({ title, size, end }) => { 
   
@@ -49,9 +51,10 @@ const TableCell = ({ text, numeric }) => (
 );
 
 
-export default function HomeTable({ currScreen, currDate, currEmail }) {
+export default function HomeTable({ currScreen, currDate }) {
   const [isLoading, setLoading] = useState(true);
   const [items, setData] = useState(dummyData);
+  
   
   // Grouping Variables
   const [expandedGroups, setExpandedGroups] = useState({});
@@ -59,6 +62,7 @@ export default function HomeTable({ currScreen, currDate, currEmail }) {
   const [whichHovered, setWhichHovered] = useState(null);
   let groupedItems = groupBy(items, ['activity', 'variants', 'resistance_method']);
 
+  const { currEmail } = useCurrEmail();
   
   const handlePressIn = (index) => {
     setWhichHovered(index)
@@ -88,13 +92,13 @@ export default function HomeTable({ currScreen, currDate, currEmail }) {
 
   // Delete Row
   const handleDeleteLog = (id) => {
-    setData(items.filter(item => item.id !== id));
+    setData(items.filter(item => item.timestamp !== id));
   };
 
-  // Edit Row
+  // Edit & Save Row
   const editDataLog = (itemToUpdate) => {
     itemToUpdate.isEditing = !itemToUpdate.isEditing;
-    const updatedItems = items.map(item => item.id === itemToUpdate.id ? itemToUpdate : item);
+    const updatedItems = items.map(item => item.timestamp === itemToUpdate.timestamp ? itemToUpdate : item);
     setData(updatedItems);
   };
 
@@ -195,13 +199,13 @@ export default function HomeTable({ currScreen, currDate, currEmail }) {
                             </View>
 
                             <View style={tw`flex-row w-8 h-8.5 py-1.3 justify-center`}>
-                              <Pressable style={tw`bg-red-500 border border-black rounded-lg px-1.3 py-0.95 mr-0.4`} onPress={() => handleDeleteLog(item.id)}>
+                              <Pressable style={tw`bg-red-500 border border-black rounded-lg px-1.3 py-0.95 mr-0.4`} onPress={() => handleDeleteLog(item.timestamp)}>
                                 <Text style={tw`text-white text-center text-2.5`} numberOfLines={1} ellipsizeMode="tail">D</Text>
                               </Pressable>
                             </View>
                           </View>
                         ) : (
-                          <EditRowHome setData={setData} items={items} item={item} editDataLog={editDataLog} index={index} />
+                          <EditRowHome  item={item} index={index} editDataLog={editDataLog}  />
                         )}
                       </View>
                     ))}

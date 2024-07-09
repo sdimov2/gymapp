@@ -5,12 +5,14 @@ import { useState, useEffect } from 'react'
 import { ActivityIndicator, ScrollView, Text, View, Pressable } from 'react-native';
 // import { Provider, DataTable } from 'react-native-paper';
 
-import { baseUrl } from '@/src/assets/constants/Fixed_Vars';
-import { dummyData } from '@/src/assets/constants/Fixed_Vars';
-
 import { AddRow } from "@/src/components/TableComponents/AddRows/AddRow"
 import { EditRow } from "@/src/components/TableComponents/EditRows/EditRow"
 import { Pagination } from "@/src/components/TableComponents/Pagination"
+
+import { baseUrl } from '@/src/assets/constants/Fixed_Vars';
+import { dummyData } from '@/src/assets/constants/Fixed_Vars';
+
+import { useCurrEmail } from '@/src/context/emailContext';
 
 
 const TableHeader = ({ title, size, end=false }) => { 
@@ -46,12 +48,15 @@ const TableCell = ({ text, size }) => (
 
 
 
-export default function GymTable({currEmail}) {
+export default function GymTable() {
   const [page, setPage] = useState(0);
   const [numberOfItemsPerPageList] = useState([10, 11, 12, 13, 14, 15]);
   const [itemsPerPage, setItemsPerPage] = useState(numberOfItemsPerPageList[2]);
   const [isLoading, setLoading] = useState(true);
   const [items, setData] = useState(dummyData);
+
+  const { currEmail } = useCurrEmail();
+
   
   // Pagination Variables
   const from = page * itemsPerPage;
@@ -78,21 +83,10 @@ export default function GymTable({currEmail}) {
   };
 
 
-  // Edit Row
+  // Edit & Save Row
   const editDataLog = (itemToUpdate) => {
     itemToUpdate.isEditing = !itemToUpdate.isEditing;
-  
-    const updatedItems = items.map(item => {
-      if (item.timestamp === itemToUpdate.timestamp) {
-        // console.log(item)
-        return itemToUpdate;
-      } else {
-        return item;
-      }
-    });
-
-    // console.log(updatedItems)
-  
+    const updatedItems = items.map((item) => (item.timestamp === itemToUpdate.timestamp ? itemToUpdate : item));
     setData(updatedItems);
   };
 
@@ -156,7 +150,7 @@ export default function GymTable({currEmail}) {
                       </View>                      
                     </>
                   ) : ( // Render inputs if editing
-                    <EditRow setData={setData} items={items} item={item} editDataLog={editDataLog}/>
+                    <EditRow item={item} editDataLog={editDataLog}/>
                   )}
                 </View>
               ))}

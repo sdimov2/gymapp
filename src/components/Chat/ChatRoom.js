@@ -1,23 +1,22 @@
 import tw from 'twrnc';
 
 import { useEffect, useState } from "react";
-import { View, Text, ScrollView, TextInput, Pressable } from "react-native";
+import { View, Text, ScrollView, Pressable } from "react-native";
 import { io } from "socket.io-client";
 
 import RoomCommunication from "@/src/components/Chat/WebSocket";
 
 import { baseUrl } from "@/src/assets/constants/Fixed_Vars";
 
-// import { getAuth } from "firebase/auth";
-// import { app } from "@/config/firebase.config";
-
-// const auth = getAuth(app);
+import { useCurrEmail } from '@/src/context/emailContext';
 
 
-export default function WebSocketCall({ toggleChat, currEmail }) {
+export default function WebSocketCall({ toggleChat  }) {
   const [socketInstance, setSocketInstance] = useState(null);
   const [currentRoom, setCurrentRoom] = useState("");
   const [rooms, setRooms] = useState({});
+
+  const { currEmail } = useCurrEmail();
 
 
   const exitAll = () => {

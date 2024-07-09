@@ -60,8 +60,7 @@ const AddRow = ({setData}) => {
     const timestamp = new Date();
     
     const newRow = {
-        id: timestamp,
-        timestamp: timestamp.toDateString(),
+        timestamp: timestamp.toISOString(),
         activity: workout,
         variants: lift,
         resistance_method: resistance,
