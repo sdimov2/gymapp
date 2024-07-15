@@ -66,11 +66,10 @@ export default function GymTable() {
   // Get Data
   const render = async () => {
     try {
-      const res = (await axios.post(baseUrl + '/full_table', { email: currEmail })).data;
+      const res = ((await axios.post(baseUrl + '/full_table', { email: currEmail })).data).reverse();
       setData(res);
-
     } catch (error) {
-      console.log(error);
+      console.log(error); 
     }
 
     setLoading(false);
@@ -78,8 +77,9 @@ export default function GymTable() {
 
 
   // Delete Row
-  const handleDeleteLog = (timestamp) => {
+  const handleDeleteLog = async (timestamp) => {
     setData(items.filter(item => item.timestamp !== timestamp));
+    await axios.post(baseUrl + '/delete_log', { id: timestamp });
   };
 
 
@@ -95,7 +95,7 @@ export default function GymTable() {
   useEffect(() => {
     setPage(0);
     render(); 
-  }, [currEmail]); 
+  }, [currEmail, itemsPerPage]); 
 
 
   return (

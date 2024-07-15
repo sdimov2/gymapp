@@ -6,7 +6,7 @@ from itertools import groupby
 def group_data_by_date2(data, date, grouping="daily"):
     # Convert date strings to datetime objects
     date_objects = [datetime.strptime(d, '%m/%d/%Y %H:%M:%S') for d in date]
-    print(date_objects)
+    # print(date_objects)
 
     # Combine data, date, and date objects into tuples
     combined_data = list(zip(date, date_objects, data))

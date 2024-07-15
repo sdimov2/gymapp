@@ -15,8 +15,8 @@ import { getDateObject } from '@/src/components/Helpers/Dates';
 const DayView = ({ selectedDate, setSelectedDate, setView }) => {
   const [formattedData, setFormattedData] = useState('')
   const [currentScreen, setCurrentScreen] = useState('Home');
-  const [today, setToday] = useState(new Date());
 
+  const today = new Date()
 
   // If "Back Button" is clicked
   const handlePreviousDay = () => {
@@ -50,7 +50,7 @@ const DayView = ({ selectedDate, setSelectedDate, setView }) => {
 
   useEffect(() => {
     setFormattedData(getDateObject(selectedDate));
-    setToday(new Date());
+
   }, [selectedDate]);
 
   return (

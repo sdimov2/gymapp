@@ -1,6 +1,6 @@
 const formatDateSlashes = (date) => {
   const adjustedDate = new Date(date);
-  adjustedDate.setDate(adjustedDate.getDate() - 1);
+  adjustedDate.setDate(adjustedDate.getDate());
 
   const components = adjustedDate.toISOString().split('T')[0].split('-');
 
@@ -10,7 +10,7 @@ const formatDateSlashes = (date) => {
 
 const formatDateDashes = (date) => {
   const adjustedDate = new Date(date);
-  adjustedDate.setDate(adjustedDate.getDate() - 1);
+  adjustedDate.setDate(adjustedDate.getDate());
 
   const components = adjustedDate.toISOString().split('T')[0].split('-');
   return `${components[0].replace(/^0+/, '')}-${components[1]}-${components[2]}`;
@@ -24,8 +24,7 @@ const isCurrentDate = (date) => {
 
 
 const getDateObject = (inputDate) => {
-  const date = new Date(inputDate);
-  date.setDate(date.getDate());
+  let date = inputDate
 
   const daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
   const monthsOfYear = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];

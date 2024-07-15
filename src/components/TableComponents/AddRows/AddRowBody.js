@@ -5,8 +5,8 @@ import { useState } from 'react';
 import { View, Text, TextInput, Pressable } from 'react-native';
 
 import { baseUrl } from '@/src/assets/constants/Fixed_Vars';
-
-import { formatTime } from '@/src/components/Helpers/Dates';
+import { useCurrEmail } from '@/src/context/emailContext';
+import { formatDateSlashes } from '@/src/components/Helpers/Dates';
 
 
 const Input = ({ value, onChangeText }) => (
@@ -25,6 +25,7 @@ const Input = ({ value, onChangeText }) => (
 
 const AddRowBody = ({setData}) => {
   const [bodyWeight, setBodyWeight] = useState('');
+  const { currEmail } = useCurrEmail();
 
 
   const resetInputs = () => {
@@ -44,21 +45,21 @@ const AddRowBody = ({setData}) => {
       return;
     } //Fix:  Add notifications
     
-    const timestamp = new Date();
+    let timestamp = new Date();
+    timestamp = formatDateSlashes(timestamp) + " " + timestamp.toLocaleTimeString()
     
     const newRow = {
-      timestamp: formatTime(timestamp), 
+      timestamp: timestamp,
       bodyweight: bodyWeight
     };
 
-    // try {
-    //   const res = (await axios.post(baseUrl + '/akhil', { newRow: newRow })).data;
-    //   // console.log(res);
-    // } catch (error) {
-    //     console.log(error);
-    // }
+    try {
+      await axios.post(baseUrl + '/insert_bw', { newRow: newRow, email: currEmail}).data;
+    } catch (error) {
+      console.log(error);
+    }
 
-    setData(prevItems => [newRow, ...prevItems]);
+    setData(prevItems => [...prevItems, newRow]);
     resetInputs()
   };
 
@@ -77,7 +78,7 @@ const AddRowBody = ({setData}) => {
       {/* Action Button */}
       <View style={tw`flex-row w-34 border-blue-700 justify-center py-2`}>
         <Pressable
-          style={tw`bg-blue-500 border border-blue-700 rounded-lg px-5 justify-center`}
+          style={tw`bg-blue-500 border border-blue-700 rounded-lg px-3 justify-center`}
           onPress={handleValues}
         >
           <Text style={tw`text-white text-center text-3`} numberOfLines={1} ellipsizeMode="tail">

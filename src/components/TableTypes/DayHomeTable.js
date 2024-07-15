@@ -74,7 +74,7 @@ export default function HomeTable({ currScreen, currDate }) {
 
 
   // Get Data
-  const fetchData = async () => {
+  const fetchData = async () => {    
     try {
       const formattedDate = formatDateSlashes(currDate);
       const res = (await axios.post(baseUrl + '/home_table', { email: currEmail, date: formattedDate })).data;
@@ -91,8 +91,10 @@ export default function HomeTable({ currScreen, currDate }) {
 
 
   // Delete Row
-  const handleDeleteLog = (id) => {
+  const handleDeleteLog = async (id) => {
     setData(items.filter(item => item.timestamp !== id));
+    
+    await axios.post(baseUrl + '/delete_log', { id: id });
   };
 
   // Edit & Save Row
@@ -192,14 +194,14 @@ export default function HomeTable({ currScreen, currDate }) {
                             <TableCell text={item.reps} numeric={true} />
                             <TableCell text={item.rpe} numeric={true} />
                             
-                            <View style={tw`flex-row w-7.5 h-8.5 py-1.3 border-r border-gray-400 justify-center`}>
-                              <Pressable style={tw`bg-cyan-500 border border-black rounded-lg px-1.4 py-0.95 `} onPress={() => editDataLog(item)}>
+                            <View style={tw`flex-row w-7.5 py-1.3 border-r border-gray-400 justify-center`}>
+                              <Pressable style={tw`h-6 bg-cyan-500 border border-black rounded-lg px-1.4 py-0.95 `} onPress={() => editDataLog(item)}>
                                 <Text style={tw`text-white text-center text-2.5`} numberOfLines={1} ellipsizeMode="tail">E</Text>
                               </Pressable>
                             </View>
 
-                            <View style={tw`flex-row w-8 h-8.5 py-1.3 justify-center`}>
-                              <Pressable style={tw`bg-red-500 border border-black rounded-lg px-1.3 py-0.95 mr-0.4`} onPress={() => handleDeleteLog(item.timestamp)}>
+                            <View style={tw`flex-row w-8 py-1.3 justify-center`}>
+                              <Pressable style={tw`h-6 bg-red-500 border border-black rounded-lg px-1.3 py-0.95 mr-0.4`} onPress={() => handleDeleteLog(item.timestamp)}>
                                 <Text style={tw`text-white text-center text-2.5`} numberOfLines={1} ellipsizeMode="tail">D</Text>
                               </Pressable>
                             </View>

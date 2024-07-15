@@ -1,6 +1,6 @@
 const groupBy = (array, keys) => {
   return array.reduce((result, currentValue) => {
-      const key = keys.map(k => currentValue[k]).join('|');
+      const key = keys.map(k => currentValue[k] === "" ? 'N/A' : currentValue[k]).join(' | ');
       (result[key] = result[key] || []).push(currentValue);
       return result;
   }, {});

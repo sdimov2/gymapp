@@ -8,7 +8,6 @@ def match_data_type(input, data_type):
         case "float":
             return float(input)
         case "list":
-            print("list type invoked! leaving data as is")
             return input
         case _:
             #leave as string

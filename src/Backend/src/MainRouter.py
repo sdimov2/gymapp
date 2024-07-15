@@ -3,11 +3,14 @@ from flask_cors import CORS
 from flask_socketio import SocketIO, join_room, leave_room, emit
 
 
-from New.body_weight import GetBodyWeight
+from PostgreSQL.delete_log import deleteLog
+from PostgreSQL.insert_log import insertLog
+from PostgreSQL.insert_bw import insertBW
+from PostgreSQL.body_weight import GetBodyWeight
 from New.charts import GetPairs, GetAreaChart
 from New.options import GetOptions
 from New.receive_data import ProcessData
-from New.return_global_data import GetFull, GetHome
+from PostgreSQL.return_global_data import GetFull, GetHome
 
 from info import active_rooms
 
@@ -98,15 +101,36 @@ def api6():
     return data
 
 
-@app.route('/akhil', methods=['POST'])
+@app.route('/insert_log', methods=['POST'])
 def api7():
 
     selected = request.get_json().get('newRow') 
+    email = request.get_json().get('email') 
 
-    print(selected)
+    insertLog(selected, email)
 
     return "success"
 
+
+@app.route('/insert_bw', methods=['POST'])
+def api8():
+
+    selected = request.get_json().get('newRow') 
+    email = request.get_json().get('email') 
+
+    insertBW(selected, email)
+
+    return "success"
+
+
+@app.route('/delete_log', methods=['POST'])
+def api9():
+
+    id = request.get_json().get('id') 
+
+    data = deleteLog(id)
+
+    return "success"
 
 
 

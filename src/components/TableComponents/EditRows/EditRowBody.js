@@ -31,6 +31,8 @@ const EditRowBody = ({ item, editDataLog }) => {
     itemToUpdate.timestamp = item.timestamp;
     itemToUpdate.bodyweight = bodyWeight;
 
+
+    // FIX EDIT IN BACKEND
     // SEND TO BACKEND ?
     // try {
     //   const res = (await axios.post(baseUrl + '/akhil', { newRow: newRow })).data;
@@ -45,7 +47,7 @@ const EditRowBody = ({ item, editDataLog }) => {
   return (
     <>
       <View style={tw`items-center justify-center bg-gray-300 w-32`}>
-        <Text style={tw`text-center`}>{item.timestamp}</Text>
+        <Text style={tw`text-center`}>{item.timestamp.split(' ')[1]}</Text>
       </View>
     
       <AddCell value={bodyWeight} onChangeText={setBodyWeight} />

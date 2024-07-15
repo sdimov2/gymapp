@@ -5,6 +5,8 @@ import { useState } from 'react';
 import { View, Text, TextInput, Pressable } from 'react-native';
 
 import { baseUrl } from '@/src/assets/constants/Fixed_Vars';
+import { useCurrEmail } from '@/src/context/emailContext';
+import { formatDateSlashes } from '@/src/components/Helpers/Dates';
 
 
 const Input = ({ value, onChangeText }) => (
@@ -38,6 +40,7 @@ const AddRow = ({setData}) => {
   const [reps, setReps] = useState('');
   const [rpe, setRpe] = useState('');
 
+  const { currEmail } = useCurrEmail();
 
   const resetInputs = () => {
     setWorkout('');
@@ -57,10 +60,11 @@ const AddRow = ({setData}) => {
       return;
     }
     
-    const timestamp = new Date();
+    let timestamp = new Date();
+    timestamp = formatDateSlashes(timestamp) + " " + timestamp.toLocaleTimeString()
     
     const newRow = {
-        timestamp: timestamp.toISOString(),
+        timestamp: timestamp,
         activity: workout,
         variants: lift,
         resistance_method: resistance,
@@ -70,12 +74,12 @@ const AddRow = ({setData}) => {
         rpe: rpe
     };
 
-    // try {
-    //   const res = (await axios.post(baseUrl + '/akhil', { newRow: newRow })).data;
-    //   // console.log(res);
-    // } catch (error) {
-    //     console.log(error);
-    // }
+    try {
+      const res = (await axios.post(baseUrl + '/insert_log', { newRow: newRow, email: currEmail})).data;
+      console.log(res);
+    } catch (error) {
+      console.log(error);
+    }
 
     setData(prevItems => [newRow, ...prevItems]);
     resetInputs()

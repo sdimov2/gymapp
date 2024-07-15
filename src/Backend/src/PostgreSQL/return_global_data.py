@@ -2,28 +2,41 @@ from flask import jsonify
 
 # from Backend.filter import filter_entries
 # from Backend.get_data import get_data_from_entries
-from info import global_data
+from info import sql_get
 
 
 def GetFull(email):
-    filtered_data = [row for row in global_data if row[1] in [email] and row[2]] # FIX: FILTER USING SQL
+    query = """
+        SELECT * FROM public."WorkoutLogs"
+        WHERE "Email Address" = %s
+        AND "Workout" IS NOT NULL 
+    """ # FIX: SHOULD WE REMOVE BODYWEIGHT FROM MAIN CHART? IT'S NOT EVEN DISPLAYED
 
-    return filteredData(filtered_data)
+
+    params = (email,)
+
+    return polishedData(sql_get(query, params))
 
 
 def GetHome(email, date):
-    filtered_data = [row for row in global_data if row[1] in [email] and row[2] and row[0].split(' ')[0] == date] # FIX: FILTER USING SQL
-    
-    return filteredData(filtered_data)
+    query = """
+        SELECT * FROM public."WorkoutLogs"
+        WHERE "Email Address" = %s
+        AND "Workout" IS NOT NULL
+        AND LEFT("Timestamp"::text, POSITION(' ' IN "Timestamp"::text) - 1) = %s
+    """
+
+    params = (email, date)
+
+    return polishedData(sql_get(query, params))
 
 
-
-def filteredData(filtered_data):
+def polishedData(filtered_data):
     temp = []
 
     prevEntry = None
     toggle = False
-    
+
     for entry in filtered_data:
 
         if (prevEntry and prevEntry[0].split(' ')[0] != entry[0].split(' ')[0]):

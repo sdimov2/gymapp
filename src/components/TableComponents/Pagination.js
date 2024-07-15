@@ -88,11 +88,16 @@ const Pagination = ({
 
 
       {/* Navigation Info */}
-      <View style={tw`flex-row justify-between justify-center items-center bg-white m-2 p-1 h-7 ml-4 w-25`}>
-        <Text style={tw`text-sm mr-1`}>
-          {from + 1}-{to} of 
+      <View style={tw`flex-row justify-between justify-center items-center bg-white m-2 p-1 h-7 ml-2 w-27`}>
+        <Text style={tw`text-2.75 mr-1 bg-yellow-200 p-0.5 rounded-md`}>
+          {from + 1}-{to} 
         </Text>
-        <Text style={tw`text-sm bg-yellow-300`}>
+        
+        <Text style={tw`text-2.75 mr-1`}>
+          of
+        </Text>
+        
+        <Text style={tw`font-bold text-3`}>
             {totalItems}
         </Text>
       </View>

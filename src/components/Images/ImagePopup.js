@@ -39,8 +39,6 @@ const ImagePopup = ({ groupKey, onClose }) => {
     }
 
     const fetchImages = async (workout) => { // Fix: How specific?
-        console.log(workout)
-
         const imagesRef = ref(storage, `${name}/workoutImages/${workout}`);
         try {
             const result = await listAll(imagesRef);
@@ -64,7 +62,7 @@ const ImagePopup = ({ groupKey, onClose }) => {
         try {
             await uploadBytes(storageRef, blob);
             const url = await getDownloadURL(storageRef);
-            console.log('Image uploaded. URL:', url);
+            // console.log('Image uploaded. URL:', url);
             setImages(prevImages => [...prevImages, url]);
             setAssignedImage(url);
         } catch (error) {

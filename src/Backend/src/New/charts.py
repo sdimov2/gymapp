@@ -22,7 +22,7 @@ def GetPairs(email, criteria):
             "y": entry[9],
             })
         
-    print("Temp: ", temp)
+    # print("Temp: ", temp)
         
     return jsonify(temp)
 

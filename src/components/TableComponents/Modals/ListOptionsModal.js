@@ -12,8 +12,6 @@ const ListModal = ({ visible, onClose, data, onSelect, onCreateNew }) => {
           item.toLowerCase().includes(searchTerm.toLowerCase())
         );
       }, [data, searchTerm]);
-
-
       
     
     return (

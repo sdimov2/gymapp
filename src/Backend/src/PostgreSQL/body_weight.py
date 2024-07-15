@@ -2,7 +2,7 @@ from flask import jsonify
 
 # from Backend.filter import filter_entries
 # from Backend.get_data import get_data_from_entries
-from info import global_data
+from info import sql_get
 
 
 def GetBodyWeight(email, date):
@@ -11,16 +11,23 @@ def GetBodyWeight(email, date):
     # bw = filter_entries(bw, "body_weight_ranges", [[0,999]])
     # bw = get_data_from_entries(bw, 0, 2, "string", "float")[0]
 
-    filtered_data = [row for row in global_data if row[1] in [email] and row[9] and date == row[0].split(' ')[0]]
+    query = """
+        SELECT * FROM public."WorkoutLogs"
+        WHERE "Email Address" = %s
+        AND "Bodyweight" IS NOT NULL
+        AND LEFT("Timestamp"::text, POSITION(' ' IN "Timestamp"::text) - 1) = %s
+    """
 
-    print(filtered_data)
+    params = (email, date)
+
+    filtered_data = sql_get(query, params)
 
     temp = []
     for entry in filtered_data:
         temp.append(
             {
-            "date": entry[0],
-            "weight": entry[9],
+            "timestamp": entry[0],
+            "bodyweight": entry[9],
             })    
 
     return jsonify(temp)

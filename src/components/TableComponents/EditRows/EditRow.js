@@ -42,6 +42,7 @@ const EditRow = ({ item, editDataLog}) => {
     itemToUpdate.reps = reps
     itemToUpdate.rpe = rpe
   
+    // FIX EDIT IN BACKEND
     // try {
     //   const res = (await axios.post(baseUrl + '/akhil', { newRow: newRow })).data;
     //   console.log(res);

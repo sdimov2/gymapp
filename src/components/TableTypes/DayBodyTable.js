@@ -34,8 +34,10 @@ export default function BodyWeightTable({ currScreen, currDate }) {
   };
 
   // Delete Row
-  const handleDeleteLog = (id) => {
+  const handleDeleteLog = async (id) => {
     setData(items.filter((item) => item.timestamp !== id)); 
+
+    await axios.post(baseUrl + '/delete_log', { id: id });
   };
 
   // Edit & Save Row
@@ -58,7 +60,7 @@ export default function BodyWeightTable({ currScreen, currDate }) {
           {/* Headers */}
           <View style={tw`flex-row bg-gray-100 border border-black`}>
             <View style={tw`items-center justify-center p-1  w-32`}>
-              <Text style={tw`font-bold text-center`}>Timestamp</Text>
+              <Text style={tw`font-bold text-center`}>Time Recorded</Text>
             </View>
             <View style={tw`items-center justify-center p-1 border-l border-r border-black w-32`}>
               <Text style={tw`font-bold text-center`}>Body Weight</Text>
@@ -75,12 +77,12 @@ export default function BodyWeightTable({ currScreen, currDate }) {
                 <View key={index} style={tw`flex-row ${index !== 0 && 'border-t border-gray-500'}`}>
                   {!item.isEditing ? (
                     <>
-                      <View style={tw`items-center justify-center bg-gray-100 w-32`}>
-                        <Text style={tw`text-center`}>{item.timestamp}</Text>
+                      <View style={tw`justify-center bg-gray-100 w-32`}>
+                        <Text style={tw`text-center`}>{item.timestamp.split(' ').slice(1).join(' ')}</Text>
                       </View>
                       
                       <View style={tw`justify-center p-1 border-l border-r border-black bg-gray-100 w-32`}>
-                        <Text >{item.bodyweight}</Text>
+                        <Text style={tw`text-center`}>{item.bodyweight}</Text>
                       </View>
 
                       <View style={tw`flex-row items-center justify-center py-1 bg-gray-100 w-33.5`}>

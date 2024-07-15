@@ -32,9 +32,9 @@ def calculate_prediction_intervals(Set, y_model, dynamic, confidence_level, y_fi
         for i in range(len(y)):
             
             critical_value = stats.t.ppf(1 - alpha/2, df=len(y_model)-1)
-            print("crit", critical_value)
-            print("std_err", std_error_curve[i])
-            print("y-model", y_model[i])
+            # print("crit", critical_value)
+            # print("std_err", std_error_curve[i])
+            # print("y-model", y_model[i])
             lower_bound = y_model[i] - (critical_value * std_error_curve[i])
             upper_bound = y_model[i] + (critical_value * std_error_curve[i])
             prediction_intervals.append((lower_bound, upper_bound))

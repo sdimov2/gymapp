@@ -35,7 +35,6 @@ active_rooms = {}
 
 import psycopg2
 
-
 # Connection parameters
 conn_params = {
     "dbname": "GymBro",
@@ -43,16 +42,60 @@ conn_params = {
     "password": "rootAkhil",
 }
 
+
 # Connect to the database
-conn = psycopg2.connect(**conn_params)
-cur = conn.cursor()
+def getConnection():
+    return psycopg2.connect(**conn_params)
 
-cur.execute('SELECT * FROM public."WorkoutLogs"')
-global_data = cur.fetchall()
+def execute_query(query, params, fetch):
+    conn = getConnection()
+    cur = conn.cursor()
+
+    cur.execute(query, params)
+
+    if fetch:
+        returnVal = cur.fetchall()
+    else:
+        conn.commit()
+        returnVal = cur.rowcount
+
+    cur.close()
+    conn.close()
+
+    return returnVal
+
+def sql_get(query, params=None):
+    return execute_query(query, params, fetch=True)
+
+def sql_change(query, params=None):
+    return execute_query(query, params, fetch=False)
+    
 
 
-cur.close()
-conn.close()
+
+columns =  """ 
+            "Timestamp", "Email Address", "Workout", "Variants", "Resistance", 
+            "Set #", "Weight", "Reps", "RPE", "Bodyweight", "Additional Info" 
+        """
+
+
+def getGlobalData():
+    conn = getConnection()
+    cur = conn.cursor()
+
+    cur.execute('SELECT * FROM public."WorkoutLogs"')
+    global_data = cur.fetchall()
+
+    cur.close()
+    conn.close()
+
+    return global_data
+
+global_data = getGlobalData() # FIX: THIS IS JUST TEMPORARY
+
+
+
+
 
 
 # import psycopg2
@@ -240,4 +283,5 @@ conn.close()
 #                 x.append(currx)
 #             y.append(child.get_child(criteria).value)
 #             coord_pairs.append([currx, child.get_child("body_weight").value])
-#     return coord_pairs, x, y
+#     return coord_pairs, x, y 
+#

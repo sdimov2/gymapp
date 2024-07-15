@@ -3,9 +3,12 @@ import axios from 'axios';
 import tw from 'twrnc';
 
 import { useState, useEffect } from 'react';
-import { View, Text, Pressable } from 'react-native';
+import { View, Text, Pressable, ScrollView } from 'react-native';
 
 import { baseUrl } from '@/src/assets/constants/Fixed_Vars';
+import { useCurrEmail } from '@/src/context/emailContext';
+import { formatDateSlashes } from '@/src/components/Helpers/Dates';
+
 import ListModal from './ListOptionsModal';
 import CreateNewModal from './CreateNewExerciseModal';
 
@@ -17,23 +20,29 @@ export const CustomDropdown = ({ selectedValue, onValueChange, type, setData }) 
   const [variantOptions, setVariantOptions] = useState([]);
   const [resistanceOptions, setResistanceOptions] = useState([]);
 
+  const { currEmail } = useCurrEmail();
+
   const handleValues = async (workout, lift, resistance) => {
-    const timestamp = new Date();
+    let timestamp = new Date();
+    timestamp = formatDateSlashes(timestamp) + " " + timestamp.toLocaleTimeString()
+
     const newRow = {
-      id: timestamp,
-      timestamp: timestamp.toDateString(),
+      timestamp: timestamp,
       activity: workout,
       variants: lift,
       resistance_method: resistance,
+      set_n: null,
+      weight: null,
+      reps: null,
+      rpe: null,
     };
 
-    // Uncomment below to enable API post request
-    // try {
-    //   const res = (await axios.post(baseUrl + '/akhil', { newRow: newRow })).data;
-    //   console.log(res);
-    // } catch (error) {
-    //   console.log(error);
-    // }
+    try {
+      const res = (await axios.post(baseUrl + '/insert_log', { newRow: newRow, email: currEmail })).data;
+      console.log(res);
+    } catch (error) {
+      console.log(error);
+    }
 
     setData(prevItems => [newRow, ...prevItems]);
     setCreateNewModalVisible(false);
@@ -69,8 +78,10 @@ export const CustomDropdown = ({ selectedValue, onValueChange, type, setData }) 
 
   return (
     <>
-      <Pressable onPress={() => setListModalVisible(true)}>      
-        <Text style={tw`text-3`}>{selectedValue || 'Select an option'}</Text>
+      <Pressable onPress={() => setListModalVisible(true)} style={tw`bg-white h-full`}>  
+        <ScrollView showsVerticalScrollIndicator={false} style={tw`bg-green-200 px-1 border border-black`}>
+          <Text style={tw`text-3`}>{selectedValue || 'Select an option'}</Text>
+        </ScrollView>      
       </Pressable>
       
       <ListModal  
