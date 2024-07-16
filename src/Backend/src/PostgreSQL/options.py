@@ -5,7 +5,7 @@ from flask import jsonify
 # from Backend.get_data import get_data_from_entries
 # from info import global_data
 
-from info import sql_get
+from postgres import sql_get
 
 
 def GetOptions():  # FIX: Create an options table. Add a image to options

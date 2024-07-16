@@ -1,27 +1,27 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request
 from flask_cors import CORS
 from flask_socketio import SocketIO, join_room, leave_room, emit
 
+from PostgreSQL.receive_data import ProcessData
+from PostgreSQL.options import GetOptions
+from PostgreSQL.insert_log import insertLog
+from PostgreSQL.insert_bw import insertBW
 from PostgreSQL.edit_bw import updateBW
 from PostgreSQL.edit_log import updateLog
 from PostgreSQL.delete_log import deleteLog
-from PostgreSQL.insert_log import insertLog
-from PostgreSQL.insert_bw import insertBW
-from PostgreSQL.body_weight import GetBodyWeight
-# from New.charts import GetPairs, GetAreaChart
-from PostgreSQL.options import GetOptions
-from PostgreSQL.receive_data import ProcessData
+from PostgreSQL.return_body_weight import GetBodyWeight
 from PostgreSQL.return_global_data import GetFull, GetHome
-
-from info import active_rooms
+# from New.charts import GetPairs, GetAreaChart
 
 
 app = Flask(__name__)
 CORS(app, origins=['http://localhost:8081'])
 CORS(app, supports_credentials=True)
 
-
 socketio = SocketIO(app, cors_allowed_origins="http://localhost:8081")
+
+
+active_rooms = {}
 
 
 @app.route("/full_table", methods=['POST'])

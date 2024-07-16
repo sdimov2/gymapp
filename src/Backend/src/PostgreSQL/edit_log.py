@@ -1,4 +1,4 @@
-from info import sql_change
+from postgres import sql_change
 
 def updateLog(updatedRow, email):
     query = """

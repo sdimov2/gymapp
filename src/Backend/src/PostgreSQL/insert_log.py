@@ -1,4 +1,4 @@
-from info import sql_change, columns
+from postgres import sql_change, columns
 
 def safe_int(value, default=0):
     try:

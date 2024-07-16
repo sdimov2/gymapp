@@ -2,7 +2,7 @@ from flask import jsonify
 
 # from Backend.filter import filter_entries
 # from Backend.get_data import get_data_from_entries
-from info import sql_get
+from postgres import sql_get
 
 
 def GetFull(email):
