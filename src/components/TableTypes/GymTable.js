@@ -1,38 +1,37 @@
 import axios from 'axios';
 import tw from 'twrnc';
 
-import { Provider } from 'react-native-paper';
-
 import { useState, useEffect } from 'react'
 import { ActivityIndicator, ScrollView, Text, View, Pressable } from 'react-native';
-import { DataTable } from 'react-native-paper';
+// import { Provider, DataTable } from 'react-native-paper';
+
+import { AddRow } from "@/src/components/TableComponents/AddRows/AddRow"
+import { EditRow } from "@/src/components/TableComponents/EditRows/EditRow"
+import { Pagination } from "@/src/components/TableComponents/Pagination"
 
 import { baseUrl } from '@/src/assets/constants/Fixed_Vars';
 import { dummyData } from '@/src/assets/constants/Fixed_Vars';
 
-import { AddRow } from "@/src/components/AddRows/AddRow"
-import { EditRow } from "@/src/components/EditRows/EditRow"
-
-import { getAuth } from "firebase/auth";
-import { app } from "@/config/firebase.config";
-
-const auth = getAuth(app);
+import { useCurrEmail } from '@/src/context/emailContext';
 
 
-const TableHeader = ({ title, size, end }) => (
-  <View 
-    style={[
-      tw`py-1 ${!end && 'border-r '} border-black items-center`,
-      size === "med" && tw`w-14`,
-      size === "small" && tw`w-6.5`,
-      size === "large" && tw`w-14`,
-    ]}
-  >
-    <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-      <Text style={tw`ml-0.5 text-2.5 font-bold font-sans `} numberOfLines={1} ellipsizeMode="tail">{title}</Text>
-    </ScrollView>
-  </View>
-);
+const TableHeader = ({ title, size, end=false }) => { 
+  const borderClass = !end ? 'border-r border-black' : '';
+  return (
+    <View 
+      style={[
+        tw`py-1 ${borderClass} items-center`,
+        size === "small" && tw`w-6.5`,
+        size === "med" && tw`w-12`,
+        size === "large" && tw`w-14`,
+      ]}
+    >
+      <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+        <Text style={tw`text-2.5 font-bold font-sans `}> {title} </Text>
+      </ScrollView>
+    </View>
+  )
+};
 
 const TableCell = ({ text, size }) => (
   <View 
@@ -40,11 +39,10 @@ const TableCell = ({ text, size }) => (
       tw`py-1 border-r border-gray-200 justify-center`,
       !size && tw`w-14`,
       size === "small" && tw`w-6.5`,
-      size === "large" && tw`w-14`,
     ]}
   >
     <ScrollView horizontal showsHorizontalScrollIndicator={false} >
-      <Text style={tw`text-2.8 ml-0.5 font-sans justify-center`} numberOfLines={1} ellipsizeMode="tail">{text}</Text>
+      <Text style={tw`ml-0.25 w-full text-2.8 font-sans justify-center mt-1`}> {text} </Text>
     </ScrollView>
   </View>
 );
@@ -57,6 +55,9 @@ export default function GymTable() {
   const [itemsPerPage, setItemsPerPage] = useState(numberOfItemsPerPageList[2]);
   const [isLoading, setLoading] = useState(true);
   const [items, setData] = useState(dummyData);
+
+  const { currEmail } = useCurrEmail();
+
   
   // Pagination Variables
   const from = page * itemsPerPage;
@@ -66,10 +67,10 @@ export default function GymTable() {
   // Get Data
   const render = async () => {
     try {
-      const res = (await axios.post(baseUrl + '/api', { email: auth.currentUser?.email })).data;
+      const res = ((await axios.post(baseUrl + '/full_table', { email: currEmail })).data).reverse();
       setData(res);
     } catch (error) {
-      console.log(error);
+      console.log(error); 
     }
 
     setLoading(false);
@@ -77,25 +78,16 @@ export default function GymTable() {
 
 
   // Delete Row
-  const handleDeleteLog = (id) => {
-    setData(items.filter(item => item.id !== id));
+  const handleDeleteLog = async (timestamp) => {
+    setData(items.filter(item => item.timestamp !== timestamp));
+    await axios.post(baseUrl + '/delete_log', { id: timestamp, email: currEmail });
   };
 
-  // Edit Row
+
+  // Edit & Save Row
   const editDataLog = (itemToUpdate) => {
     itemToUpdate.isEditing = !itemToUpdate.isEditing;
-  
-    const updatedItems = items.map(item => {
-      if (item.timestamp === itemToUpdate.timestamp) {
-        // console.log(item)
-        return itemToUpdate;
-      } else {
-        return item;
-      }
-    });
-
-    // console.log(updatedItems)
-  
+    const updatedItems = items.map((item) => (item.timestamp === itemToUpdate.timestamp ? itemToUpdate : item));
     setData(updatedItems);
   };
 
@@ -103,27 +95,26 @@ export default function GymTable() {
   // Use Effect
   useEffect(() => {
     setPage(0);
-    render();
-  }, [auth]);
+    render(); 
+  }, [currEmail, itemsPerPage]); 
 
 
   return (
-    <Provider>
-      <View style={tw`bg-gray-100 p-1 px-1 shadow rounded-lg w-98`}>
+    
+      <View style={tw`bg-gray-100 p-1 rounded-lg w-98 rounded-b-md`}>
         {!isLoading ? (
             <>
-
               {/* HEADER */}
-              <View style={tw`flex-row border-b-2 border-t-2 border border-black bg-gray-100`}>
+              <View style={tw`flex-row border-b-2 border-t-2 border border-black bg-gray-100 rounded-t`}>
                 <TableHeader title={'Timestamp'} size={"large"} />
-                <TableHeader title={'Workout'} size={"med"} />
-                <TableHeader title={'Variants'} size={"med"} />
-                <TableHeader title={'Resistance'} size={"med"} />
+                <TableHeader title={'Workout'} size={"large"} />
+                <TableHeader title={'Variants'} size={"large"} />
+                <TableHeader title={'Resistance'} size={"large"} />
                 <TableHeader title={'Set'} size={"small"} />
                 <TableHeader title={'lbs'} size={"small"} />
                 <TableHeader title={'Reps'} size={"small"} />
                 <TableHeader title={'RPE'} size={"small"} />
-                <TableHeader title={'Actions'} size={"large"} end={true}/>
+                <TableHeader title={'Actions'} size={"med"} end={true}/>
               </View>
               
 
@@ -131,8 +122,8 @@ export default function GymTable() {
               {items.slice(from, to).map((item, index) => (
                 <View key={index} style={tw`border border-t-0 border-gray-400 flex-row ${item.toggle ? 'bg-gray-300' : 'bg-white'}`}> 
                   {!item.isEditing ? ( // Render default row if not editing
-                    <>
-                      <TableCell text={item.timestamp} size={"large"}/>
+                    <ScrollView horizontal showsHorizontalScrollIndicator={false} >
+                      <TableCell text={item.timestamp} />
                       <TableCell text={item.activity} />
                       <TableCell text={item.variants} />
                       <TableCell text={item.resistance_method} />
@@ -141,26 +132,35 @@ export default function GymTable() {
                       <TableCell text={item.reps} size={"small"} />
                       <TableCell text={item.rpe} size={"small"} />
 
-                      <View style={tw`flex-row w-7 py-1 px-0.75 justify-center border-r border-gray-200`}>
+                      <View style={tw`flex-row w-14 px-0.75 justify-center border-r border-gray-300`}>
                         <Pressable
-                          style={tw`bg-cyan-500 border border-black rounded-lg px-1.5 py-1`}
+                          style={tw`bg-cyan-500 justify-center  w-7.5 `}
                           onPress={() => editDataLog(item)}
                         >
-                          <Text style={tw`text-white text-center text-1.8`} numberOfLines={1} ellipsizeMode="tail">E</Text>
+                          <Text style={tw`text-white text-center font-semibold text-3`} numberOfLines={1} ellipsizeMode="tail">Edit</Text>
                         </Pressable>
                       </View>
 
-                      <View style={tw`flex-row w-7 py-1 px-0.75 justify-center`}>
+                      {/* <View style={tw``}> */}
+                        <Pressable
+                          style={tw`bg-red-500 flex-row w-10 py-1 px-0.75 justify-center border-l border-black`}
+                          onPress={() => handleDeleteLog(item.timestamp)}
+                        >
+                          <Text style={tw`text-white text-center font-bold`} numberOfLines={1} ellipsizeMode="tail">D</Text>
+                        </Pressable>
+                      {/* </View>       7 */}
+
+                      {/* <View style={tw`flex-row w-7.75 py-1 px-0.75 justify-center`}>
                         <Pressable
                           style={tw`bg-red-500 border border-black rounded-lg px-1.5 py-1`}
-                          onPress={() => handleDeleteLog(item.id)}
+                          onPress={() => handleDeleteLog(item.timestamp)}
                         >
-                          <Text style={tw`text-white text-center text-1.8`} numberOfLines={1} ellipsizeMode="tail">D</Text>
+                          <Text style={tw`text-white text-center text-2 font-bold`} numberOfLines={1} ellipsizeMode="tail">D</Text>
                         </Pressable>
-                      </View>                      
-                    </>
+                      </View>                       */}
+                    </ScrollView>
                   ) : ( // Render inputs if editing
-                    <EditRow setData={setData} items={items} item={item} editDataLog={editDataLog}/>
+                    <EditRow item={item} editDataLog={editDataLog}/>
                   )}
                 </View>
               ))}
@@ -172,20 +172,17 @@ export default function GymTable() {
           <ActivityIndicator size="large" color="#0000ff" />
         )}
 
-        <DataTable.Pagination
-          style={tw`flex-row justify-between items-center py-1 bg-blue-50 border-t border-blue-300 rounded-b-lg`}
+
+        <Pagination 
           page={page}
           numberOfPages={Math.ceil(items.length / itemsPerPage)}
           onPageChange={page => setPage(page)}
-          label={`${from + 1}-${to} of ${items.length}`}
-          showFastPaginationControls
-          numberOfItemsPerPageList={numberOfItemsPerPageList}
-          numberOfItemsPerPage={itemsPerPage}
+          itemsPerPage={itemsPerPage}
           onItemsPerPageChange={setItemsPerPage}
-          selectPageDropdownLabel={'Rows per page'}
-        />
-        
+          totalItems={items.length}
+          numberOfItemsPerPageList={numberOfItemsPerPageList}
+        />        
       </View>
-    </Provider>
+    
   );
 }

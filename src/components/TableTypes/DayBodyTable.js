@@ -4,32 +4,29 @@ import tw from 'twrnc';
 import { useState, useEffect } from 'react';
 import { ActivityIndicator, Text, View, Pressable } from 'react-native';
 
-import { AddRowBody } from "@/src/components/AddRows/AddRowBody";
-import { EditRowBody } from "@/src/components/EditRows/EditRowBody";
+import { AddRowBody } from "@/src/components/TableComponents/AddRows/AddRowBody";
+import { EditRowBody } from "@/src/components/TableComponents/EditRows/EditRowBody";
 
 // HELPER METHODS
-import { formatDateSlashes, isCurrentDate } from '@/src/components/Helpers/Dates'; 
-
+import { formatDateSlashes, isCurrentDate } from '@/src/helpers/Dates'; 
 import { baseUrl } from '@/src/assets/constants/Fixed_Vars';
 
-import { app } from "@/config/firebase.config";
-import { getAuth } from "firebase/auth";
-
-const auth = getAuth(app);
+import { useCurrEmail } from '@/src/context/emailContext';
 
 
 export default function BodyWeightTable({ currScreen, currDate }) {
   const [isLoading, setLoading] = useState(true);
   const [items, setData] = useState([]);
 
+  const { currEmail } = useCurrEmail();
 
   // Get Data
   const fetchData = async () => {
     try {
-      let res = (await axios.post(`${baseUrl}/api`, { email: auth.currentUser?.email })).data;
       const formattedDate = formatDateSlashes(currDate);
-      const filteredData = res.filter(item => item.timestamp.split(' ')[0] === formattedDate && item.activity === '');
-      setData(filteredData);
+      let res = (await axios.post(`${baseUrl}/bw`, { email: currEmail, date: formattedDate })).data;
+      setData(res)
+      
     } catch (error) {
       console.error(error);
     }
@@ -37,20 +34,23 @@ export default function BodyWeightTable({ currScreen, currDate }) {
   };
 
   // Delete Row
-  const handleDeleteLog = (id) => {
-    setData(items.filter((item) => item.id !== id));
+  const handleDeleteLog = async (id) => {
+    setData(items.filter((item) => item.timestamp !== id)); 
+
+    await axios.post(baseUrl + '/delete_log', { id: id, email: currEmail });
   };
 
-  // Edit Row
+  // Edit & Save Row
   const editDataLog = (itemToUpdate) => {
     itemToUpdate.isEditing = !itemToUpdate.isEditing;
-    const updatedItems = items.map((item) => (item.id === itemToUpdate.id ? itemToUpdate : item));
+    const updatedItems = items.map((item) => (item.timestamp === itemToUpdate.timestamp ? itemToUpdate : item));
     setData(updatedItems);
   };
 
+
   useEffect(() => {
     fetchData();
-  }, [currDate, currScreen]);
+  }, [currDate, currScreen, currEmail]);
 
   return (
     <View style={tw`p-1 bg-white w-100`}>
@@ -60,7 +60,7 @@ export default function BodyWeightTable({ currScreen, currDate }) {
           {/* Headers */}
           <View style={tw`flex-row bg-gray-100 border border-black`}>
             <View style={tw`items-center justify-center p-1  w-32`}>
-              <Text style={tw`font-bold text-center`}>Timestamp</Text>
+              <Text style={tw`font-bold text-center`}>Time Recorded</Text>
             </View>
             <View style={tw`items-center justify-center p-1 border-l border-r border-black w-32`}>
               <Text style={tw`font-bold text-center`}>Body Weight</Text>
@@ -77,25 +77,25 @@ export default function BodyWeightTable({ currScreen, currDate }) {
                 <View key={index} style={tw`flex-row ${index !== 0 && 'border-t border-gray-500'}`}>
                   {!item.isEditing ? (
                     <>
-                      <View style={tw`items-center justify-center  border-black bg-gray-100 w-32`}>
-                        <Text style={tw`text-center`}>{item.timestamp}</Text>
+                      <View style={tw`justify-center bg-gray-100 w-32`}>
+                        <Text style={tw`text-center`}>{item.timestamp.split(' ').slice(1).join(' ')}</Text>
                       </View>
                       
                       <View style={tw`justify-center p-1 border-l border-r border-black bg-gray-100 w-32`}>
-                        <Text>{item.bodyweight}</Text>
+                        <Text style={tw`text-center`}>{item.bodyweight}</Text>
                       </View>
 
-                      <View style={tw`flex-row items-center justify-center p-1  border-black bg-gray-100 w-33`}>
-                        <Pressable style={tw`bg-yellow-500 px-2 py-1 rounded-md mr-2`} onPress={() => editDataLog(item)}>
+                      <View style={tw`flex-row items-center justify-center py-1 bg-gray-100 w-33.5`}>
+                        <Pressable style={tw`w-7 bg-yellow-500 px-2 py-1 rounded-md border border-black mr-2`} onPress={() => editDataLog(item)}>
                           <Text style={tw`text-white font-bold text-center`}>E</Text>
                         </Pressable>
-                        <Pressable style={tw`bg-red-500 px-2 py-1 rounded-md`} onPress={() => handleDeleteLog(item.id)}>
+                        <Pressable style={tw`w-7 bg-red-500 px-2 py-1 rounded-md border border-black`} onPress={() => handleDeleteLog(item.timestamp)}>
                           <Text style={tw`text-white font-bold text-center`}>D</Text>
                         </Pressable>
                       </View>
                     </>
                   ) : (
-                    <EditRowBody setData={setData} items={items} item={item} editDataLog={editDataLog} />
+                    <EditRowBody item={item} editDataLog={editDataLog} />
                   )}
                 </View>
               ))}

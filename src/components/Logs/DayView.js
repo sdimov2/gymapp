@@ -6,19 +6,17 @@ import { View, Text, Pressable } from 'react-native';
 
 import HomeTable from '@/src/components/TableTypes/DayHomeTable';
 import BodyWeightTable from '@/src/components/TableTypes/DayBodyTable';
-
-import LogType from '@/src/components/Logs/LogTableNavigate';
-import SearchBar from '@/src/components/paper/SearchBar';
+import LogType from '@/src/components/Logs/LogBarNavigate';
 
 // Helpers
-import { getDateObject } from '@/src/components/Helpers/Dates'; 
+import { getDateObject } from '@/src/helpers/Dates'; 
 
 
 const DayView = ({ selectedDate, setSelectedDate, setView }) => {
   const [formattedData, setFormattedData] = useState('')
   const [currentScreen, setCurrentScreen] = useState('Home');
-  const [today, setToday] = useState(new Date());
 
+  const today = new Date()
 
   // If "Back Button" is clicked
   const handlePreviousDay = () => {
@@ -33,27 +31,26 @@ const DayView = ({ selectedDate, setSelectedDate, setView }) => {
     const nextDate = new Date(selectedDate);
     nextDate.setDate(nextDate.getDate() + 1);
 
-    if (nextDate > today) return;
-    setSelectedDate(nextDate);
+    if (nextDate <= today) {
+      setSelectedDate(nextDate);
+    }
   };
 
   // Get Data
   const renderScreen = (selectedDate) => {
     switch (currentScreen) {
       case 'Home':
-        return <HomeTable currScreen={currentScreen} currDate={selectedDate} />;
+        return <HomeTable currScreen={currentScreen} currDate={selectedDate}/>;
       case 'Body Weight':
-        return <BodyWeightTable currScreen={currentScreen} currDate={selectedDate} />;
+        return <BodyWeightTable currScreen={currentScreen} currDate={selectedDate}/>;
       case 'Cardio?':
-        return <HomeTable currScreen={currentScreen} currDate={selectedDate} />;
-      default:
-        return <HomeTable currScreen={currentScreen} currDate={selectedDate} />;
+        return <HomeTable currScreen={currentScreen} currDate={selectedDate}/>;
     }
   };
 
   useEffect(() => {
     setFormattedData(getDateObject(selectedDate));
-    setToday(new Date());
+
   }, [selectedDate]);
 
   return (
@@ -63,19 +60,19 @@ const DayView = ({ selectedDate, setSelectedDate, setView }) => {
       
 
       {/* Search Bar & Filter */}
-      <View style={tw`flex-row`}>
+      {/* <View style={tw`flex-row`}>
           <SearchBar />
           
           <View style={tw`items-center justify-center`}>
-            <Pressable style={tw`justify-center ml-2  rounded-lg bg-gray-100 shadow-md px-1.5 h-11`}>
+            <Pressable style={tw`justify-center ml-2  rounded-lg bg-gray-100  px-1.5 h-11`}>
               <AntDesign name="filter" color="#000" size={30} />
             </Pressable>
           </View>
-      </View>
+      </View> */}
 
       
       {/* Home Button */}
-      <Pressable style={tw`mt-2 mb-3 p-2 rounded-full bg-blue-500 shadow-md`} onPress={() => setView('month')}>
+      <Pressable style={tw`mt-2 mb-3 p-2 rounded-full bg-blue-500 `} onPress={() => setView('month')}>
         <View style={tw`flex-row items-center justify-between`}>
           <AntDesign name="left" color="#FFF" size={10} />
           <View style={tw`mr-2`}/>
@@ -88,25 +85,22 @@ const DayView = ({ selectedDate, setSelectedDate, setView }) => {
       <View style={tw`flex-row items-center justify-between w-90 mb-3`}>
         
         {/* Back Button */}
-        <Pressable style={tw`p-2 rounded-full bg-gray-100 shadow-md`} onPress={handlePreviousDay}>
-          <AntDesign name="left" size={14} color="#3366FF" />
+        <Pressable style={tw`p-2 rounded-full bg-gray-100 `} onPress={handlePreviousDay}>
+          <AntDesign name="left" size={12} color="#3366FF" />
         </Pressable>
 
         {/* Format Date */}
         <View style={tw`items-center`}>
-          <View>
             <Text style={tw`text-lg font-bold`}>{formattedData.dayOfWeek}</Text>
-          </View>
-          <View>
+
             <Text style={tw`text-sm font-bold`}>
               {formattedData.month} {formattedData.dayOfMonth} {formattedData.year}
             </Text>
-          </View>
         </View>
         
         {/* Next Button */}
-        <Pressable style={tw`p-2 rounded-full bg-gray-100 shadow-md`} onPress={handleNextDay}>
-          <AntDesign name="right" size={14} color="#3366FF" />
+        <Pressable style={tw`p-2 rounded-full bg-gray-100 `} onPress={handleNextDay}>
+          <AntDesign name="right" size={12} color="#3366FF" />
         </Pressable>
       </View>
 

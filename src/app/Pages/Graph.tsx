@@ -4,10 +4,12 @@ import { useState } from 'react';
 import { Text, View, ScrollView } from 'react-native';
 import { Provider } from 'react-native-paper';
 
-import BodyWeightGraph from '@/src/components/recharts/areachart';
-import VolumeGraph from '@/src/components/recharts/volumechart';
-import ChooseGraph from '@/src/components/paper/ChooseGraph';
-import WeightDropdown from '@/src/components/paper/Dropdown';
+import BodyWeightGraph from '@/src/components/GraphTypes/areachart';
+import VolumeGraph from '@/src/components/GraphTypes/volumechart';
+import ChooseGraph from '@/src/components/GraphComponents/ChooseGraph';
+import WeightDropdown from '@/src/components/GraphComponents/Dropdown';
+
+import { CurrEmailProvider } from '@/src/context/emailContext';
 
 
 export default function Graph() {
@@ -18,16 +20,19 @@ export default function Graph() {
   };
 
   return (
-    <ScrollView contentContainerStyle={tw`flex-grow justify-center items-center bg-gray-100`}>
+    <ScrollView contentContainerStyle={tw`justify-center bg-gray-100`}>
       
-      <Text style={tw`text-xl font-bold`}>Data Analytics</Text>
+      <View style={tw`items-center justify-between bg-white p-2`}>
+        <Text style={tw`text-xl font-bold items-center flex`}>Data Analytics</Text>
 
-      <View style={tw`flex-row items-start justify-between px-2`}>
-        <WeightDropdown updateGraph={updateGraph} />
-        <ChooseGraph setIsAreaGraph={setIsAreaGraph} />
+        <CurrEmailProvider>
+          <ChooseGraph setIsAreaGraph={setIsAreaGraph} />
+          <WeightDropdown updateGraph={updateGraph}/>  
+        </CurrEmailProvider>
+        
       </View>
 
-      {isAreaGraph ? <BodyWeightGraph /> : <VolumeGraph />}
+      {/* {isAreaGraph ? <BodyWeightGraph /> : <VolumeGraph />} */}
       
     </ScrollView>
   );

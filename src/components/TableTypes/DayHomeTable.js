@@ -3,41 +3,42 @@ import tw from 'twrnc';
 
 import { useState, useEffect } from 'react';
 import { ActivityIndicator, ScrollView, Text, View, Pressable } from 'react-native';
-import { IconButton } from 'react-native-paper';
 
-import { DropRowHome } from "@/src/components/AddRows/DropRowHome";
-import { AddRowHome } from "@/src/components/AddRows/AddRowHome";
-import { EditRowHome } from "@/src/components/EditRows/EditRowHome";
-import { ImagePopup } from '@/src/components/paper/ImagePopup';
+import { AntDesign } from '@expo/vector-icons';
+
+import { DropRowHome } from "@/src/components/TableComponents/AddRows/AddRowHome";
+import { EditRowHome } from "@/src/components/TableComponents/EditRows/EditRowHome";
+import { ImagePopup } from '@/src/components/Picture/ImagePopup';
 
 // HELPER METHODS
-import { formatDateSlashes, isCurrentDate } from '@/src/components/Helpers/Dates'; 
-import { groupBy, getVolume } from '@/src/components/Helpers/Grouping'; 
+import { formatDateSlashes, isCurrentDate } from '@/src/helpers/Dates'; 
+import { groupBy, getVolume } from '@/src/helpers/Grouping'; 
 
 import { baseUrl } from '@/src/assets/constants/Fixed_Vars';
 import { dummyData } from '@/src/assets/constants/Fixed_Vars';
 
-import { getAuth } from "firebase/auth";
-import { app } from "@/config/firebase.config";
-
-const auth = getAuth(app);
+import { useCurrEmail } from '@/src/context/emailContext';
 
 
-const TableHeader = ({ title, size, start, end }) => (
-  <View 
-    style={[
-      tw`py-1 ${!end ? 'border-r' : ''}`,
-      size === "med" && tw`w-17.5`,
-      size === "small" && tw`w-7.5`,
-      size === "large" && tw`w-15`,
-    ]}
-  >
-    <ScrollView horizontal showsHorizantalScrollIndicator={false}>
-      <Text style={tw`ml-1 text-2.4 font-bold`} numberOfLines={1} ellipsizeMode="tail">{title}</Text>
-    </ScrollView>
-  </View>
-);
-
+const TableHeader = ({ title, size, end }) => { 
+  
+  const borderState = !end ? 'border-r' : '';
+  
+  return (
+      <View 
+        style={[
+          tw`py-1 ${borderState}`,
+          size === "large" && tw`w-17.5`,
+          size === "med" && tw`w-15`,
+          size === "small" && tw`w-7.5`,
+        ]}
+      >
+        <ScrollView horizontal showsHorizantalScrollIndicator={false}>
+          <Text style={tw`ml-1 text-2.4 font-bold`}>{title}</Text>
+        </ScrollView>
+      </View>
+  )
+};
 
 const TableCell = ({ text, numeric }) => (
   <View 
@@ -54,15 +55,15 @@ export default function HomeTable({ currScreen, currDate }) {
   const [isLoading, setLoading] = useState(true);
   const [items, setData] = useState(dummyData);
   
+  
   // Grouping Variables
   const [expandedGroups, setExpandedGroups] = useState({});
+  const [currGroupKey, setCurrGroupKey] = useState(null);
+  const [whichHovered, setWhichHovered] = useState(null);
   let groupedItems = groupBy(items, ['activity', 'variants', 'resistance_method']);
 
-  const [currGroupKey, setCurrGroupKey] = useState(null);
-
-
-  const [whichHovered, setWhichHovered] = useState(null);
-
+  const { currEmail } = useCurrEmail();
+  
   const handlePressIn = (index) => {
     setWhichHovered(index)
   };
@@ -73,18 +74,15 @@ export default function HomeTable({ currScreen, currDate }) {
 
 
   // Get Data
-  const fetchData = async () => {
+  const fetchData = async () => {    
     try {
-      const res = (await axios.post(baseUrl + '/api', { email: auth.currentUser?.email })).data;
-
       const formattedDate = formatDateSlashes(currDate);
-      const filteredData = res.filter(item => item.timestamp.split(' ')[0] === formattedDate && item.activity !== '');
+      const res = (await axios.post(baseUrl + '/home_table', { email: currEmail, date: formattedDate })).data;
+      setData(res);
 
-      groupedItems = groupBy(filteredData, ['activity', 'variants', 'resistance_method']);
-
+      groupedItems = groupBy(res, ['activity', 'variants', 'resistance_method']);
       for (const groupKey of Object.keys(groupedItems)) toggleGroup(groupKey)
-      
-      setData(filteredData);
+        
     } catch (error) {
       console.error(error);
     }
@@ -93,14 +91,16 @@ export default function HomeTable({ currScreen, currDate }) {
 
 
   // Delete Row
-  const handleDeleteLog = (id) => {
-    setData(items.filter(item => item.id !== id));
+  const handleDeleteLog = async (id) => {
+    setData(items.filter(item => item.timestamp !== id));
+    
+    await axios.post(baseUrl + '/delete_log', { id: id, email: currEmail });
   };
 
-  // Edit Row
+  // Edit & Save Row
   const editDataLog = (itemToUpdate) => {
     itemToUpdate.isEditing = !itemToUpdate.isEditing;
-    const updatedItems = items.map(item => item.id === itemToUpdate.id ? itemToUpdate : item);
+    const updatedItems = items.map(item => item.timestamp === itemToUpdate.timestamp ? itemToUpdate : item);
     setData(updatedItems);
   };
 
@@ -113,39 +113,35 @@ export default function HomeTable({ currScreen, currDate }) {
     }));
   };
 
-
-  // Handle Image Click
+  
+  // Image Pop-up
   const handleImageClick = (groupKey) => {
     setCurrGroupKey(groupKey);
   };
 
+
   useEffect(() => {
     setExpandedGroups({})
     fetchData();
-  }, [currDate, currScreen]);
-
-
-  // useEffect(() => {
-    
-  // }, []);
+  }, [currDate, currScreen, currEmail]);
 
 
   return (
     <>
-      <View style={tw`p-0.75 bg-purple-800 w-100`}>
+      <ScrollView style={tw`p-1 bg-purple-800 w-100 max-h-115`} showsVerticalScrollIndicator={false}>
         {!isLoading ? (
-          <View style={tw`border border-black bg-white`}>
+          <View style={tw`border border-black`}>
 
             {/* Headers */}
             <View style={tw`flex-row border-b border-black bg-gray-100 px-0.5`}>
-              <TableHeader title={'Workout'} size={"med"} start={true}/>
-              <TableHeader title={'Variants'} size={"med"} />
-              <TableHeader title={'Resistance'} size={"med"} />
+              <TableHeader title={'Workout'} size={"large"} start={true}/>
+              <TableHeader title={'Variants'} size={"large"} />
+              <TableHeader title={'Resistance'} size={"large"} />
               <TableHeader title={'Set'} size={"small"} />
               <TableHeader title={'lbs'} size={"small"} />
               <TableHeader title={'Reps'} size={"small"} />
               <TableHeader title={'RPE'} size={"small"} />
-              <TableHeader title={'Actions'} size={"large"} end={true}/>
+              <TableHeader title={'Actions'} size={"med"} end={true}/>
             </View>
 
             
@@ -159,38 +155,35 @@ export default function HomeTable({ currScreen, currDate }) {
                   onPress={() => toggleGroup(groupKey)}
                 >
                   <Pressable 
-                    style={tw`${whichHovered === index ? 'bg-gray-900' : 'bg-gray-800'} w-7/8px-3 rounded-lg mr-1 mb-1`}
+                    style={tw`${whichHovered === index ? 'bg-gray-900' : 'bg-gray-800'} w-4/5 px-3 rounded-lg h-10`}
                     onStartShouldSetResponder={() => true}
                     onPress={() => handleImageClick(groupKey)}
                     onHoverIn={() => handlePressIn(index)}
                     onHoverOut={() => handlePressOut()}
                   >
-                    <Text style={tw`text-white text-3 py-2 px-1`}>{groupKey}</Text>
+                    <Text style={tw`text-white text-3 py-1`}>{groupKey}</Text>
                   </Pressable>
 
-                  <View style={tw`flex-wrap justify-center`}>
-                    <Text style={tw`text-white bg-green-800 px-3 rounded-full mr-3 mb-1`}>
+                  <View style={tw`mr-4 justify-between`}>
+                    <Text style={tw`text-white bg-green-800 px-3 rounded-full`}>
                       {groupedItems[groupKey].length}
                     </Text>
-                    <Text style={tw`text-white bg-red-800 px-3 rounded-full mr-3 mb-1`}>
+                    <Text style={tw`text-white bg-red-800 px-3 rounded-full`}>
                       {getVolume(groupedItems[groupKey])}
                     </Text>
                   </View>
 
-                  <IconButton
-                    icon={expandedGroups[groupKey] ? 'chevron-up' : 'chevron-down'}
-                    size={20}
-                    onPress={() => toggleGroup(groupKey)}
-                    style={tw`absolute top--4 right--4`}
-                  />  
+                  <View style={tw`absolute w-4 h-3 top-0 right-0 bg-black justify-center items-center`}>
+                    <AntDesign size={10} name={expandedGroups[groupKey] ? 'up' : 'down'} color={'white'}/>
+                  </View>
                 </Pressable>
                 
 
                 {/* Logs in the dropdown */}
                 {expandedGroups[groupKey] && (
-                  <View style={tw`border-t border-b border-gray-500`}>
+                  <View key={groupKey} style={tw`border-t border-b border-gray-500`}>
                     {groupedItems[groupKey].map((item, index) => (
-                      <>
+                      <View key={index}>
                         {!item.isEditing ? (
                           <View key={index} style={tw`${index !== 0 && 'border-t border-gray-400'} h-9 flex-row bg-gray-100 px-0.5`}>
                             <TableCell text={item.activity} />
@@ -201,22 +194,22 @@ export default function HomeTable({ currScreen, currDate }) {
                             <TableCell text={item.reps} numeric={true} />
                             <TableCell text={item.rpe} numeric={true} />
                             
-                            <View style={tw`flex-row w-8 py-1.3 px-0.75 border-r border-gray-400 justify-center`}>
-                              <Pressable style={tw`bg-cyan-500 border border-black rounded-lg px-1.4 py-0.95 `} onPress={() => editDataLog(item)}>
+                            <View style={tw`flex-row w-7.5 py-1.3 border-r border-gray-400 justify-center`}>
+                              <Pressable style={tw`h-6 bg-cyan-500 border border-black rounded-lg px-1.4 py-0.95 `} onPress={() => editDataLog(item)}>
                                 <Text style={tw`text-white text-center text-2.5`} numberOfLines={1} ellipsizeMode="tail">E</Text>
                               </Pressable>
                             </View>
 
-                            <View style={tw`flex-row w-8 py-1.3  justify-center`}>
-                              <Pressable style={tw`bg-red-500 border border-black rounded-lg px-1.3 py-0.95 mr-0.4`} onPress={() => handleDeleteLog(item.id)}>
+                            <View style={tw`flex-row w-8 py-1.3 justify-center`}>
+                              <Pressable style={tw`h-6 bg-red-500 border border-black rounded-lg px-1.3 py-0.95 mr-0.4`} onPress={() => handleDeleteLog(item.timestamp)}>
                                 <Text style={tw`text-white text-center text-2.5`} numberOfLines={1} ellipsizeMode="tail">D</Text>
                               </Pressable>
                             </View>
                           </View>
                         ) : (
-                          <EditRowHome setData={setData} items={items} item={item} editDataLog={editDataLog} index={index} />
+                          <EditRowHome  item={item} index={index} editDataLog={editDataLog}  />
                         )}
-                      </>
+                      </View>
                     ))}
                   </View>
                 )}
@@ -225,14 +218,13 @@ export default function HomeTable({ currScreen, currDate }) {
 
             <View style={tw`border-b border-black bg-green-800 p-0.5`}>
               {isCurrentDate(currDate) && <DropRowHome setData={setData} />}
-              {isCurrentDate(currDate) && <AddRowHome setData={setData} />}
             </View>
 
           </View>
         ) : (
           <ActivityIndicator size="large" color="#0000ff" />
         )}
-      </View>
+      </ScrollView>
 
       {/* Image Popup (if invoked) */}
       { currGroupKey && (
@@ -241,7 +233,6 @@ export default function HomeTable({ currScreen, currDate }) {
           onClose={() => setCurrGroupKey(null)} 
         />
       )}
-
     </>
   );
 }

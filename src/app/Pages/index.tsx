@@ -1,42 +1,16 @@
-import React, { useState, useEffect } from 'react';
-import { View, Text, ScrollView, Pressable } from 'react-native';
-import axios from 'axios';
+import tw from 'twrnc';
 
-import Logout from "@/src/components/Buttons/Logout";
-import WebSocketCall from "@/src/components/Chat/ChatRoom";
+import { useState, createContext } from 'react';
+import { Text, View, ScrollView } from 'react-native';
 
-import { baseUrl } from '@/src/assets/constants/Fixed_Vars';
-import { app } from "@/config/firebase.config";
+import GymTable from '@/src/components/TableTypes/GymTable';
+import { CurrEmailProvider } from '@/src/context/emailContext';
 
 
-export default function LogoutPage() {
-  const [componentsList, setComponentsList] = useState(false);
- 
-  const toggleChat = () => {
-    setComponentsList(!componentsList);
-  };
-
+export default function Table() {
   return (
-    
-    <ScrollView contentContainerStyle={{ alignItems: 'center', padding: 12, backgroundColor: 'white' }}>
+    <ScrollView contentContainerStyle={tw`items-center bg-orange-100`}>
       
-      
-
-      {componentsList ? ( <WebSocketCall  toggleChat={toggleChat}/>) : (
-        <>
-          <View style={{ alignItems: 'center', padding: 12, backgroundColor: 'gray' }}>
-            <Text style={{ fontSize: 20, fontWeight: 'bold', color: 'white' }}>Logout Page</Text>
-            <Logout />
-          </View>
-
-          <Pressable onPress={toggleChat}>
-            <View style={{ padding: 10, marginVertical: 10, backgroundColor: 'lightblue' }}>
-              <Text style={{ fontSize: 16 }}>CHAT WITH SOMEONE</Text>
-            </View>
-          </Pressable>
-        </>
-      )}
-
     </ScrollView>
   );
 }

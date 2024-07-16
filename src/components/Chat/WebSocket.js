@@ -3,13 +3,8 @@ import tw from "twrnc";
 import { useEffect, useState } from "react";
 import { View, Text, TextInput, ScrollView, Pressable } from "react-native";
 
-import { getAuth } from "firebase/auth";
-import { app } from "@/config/firebase.config";
 
-const auth = getAuth(app);
-
-
-export default function RoomCommunication({ socket, room}) {
+export default function RoomCommunication({ socket, room, currEmail}) {
     const [inputText, setInputText] = useState([]);
     const [messages, setMessages] = useState([]);
 
@@ -23,7 +18,7 @@ export default function RoomCommunication({ socket, room}) {
         if (!inputText.trim()) return;
         
         socket.emit("send_message", {
-            email: auth.currentUser.email,
+            email: currEmail,
             message: inputText,
             room,
             socketID: socket.id,
@@ -62,7 +57,7 @@ export default function RoomCommunication({ socket, room}) {
                     key={ind}
                     style={[
                         tw`mb-2 max-w-3/4 p-2 rounded-lg`,
-                        message[0].toString().trim() === auth.currentUser.email.toString()
+                        message[0].toString().trim() === currEmail.toString()
                         ? tw`bg-blue-500 self-end`
                         : tw`bg-gray-600 self-start`
                     ]}
@@ -73,7 +68,7 @@ export default function RoomCommunication({ socket, room}) {
             ))}
         </ScrollView>
 
-        <View style={tw`flex-row items-center p-4 bg-white shadow-md`}>
+        <View style={tw`flex-row items-center p-4 bg-white `}>
             <TextInput
                 style={tw`flex-1 h-10 border border-gray-300 rounded p-2 mr-2`}
                 value={inputText}

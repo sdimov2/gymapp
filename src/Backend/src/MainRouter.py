@@ -1,70 +1,99 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request
 from flask_cors import CORS
 from flask_socketio import SocketIO, join_room, leave_room, emit
 
-
-from New.body_weight import GetBodyWeight
-from New.get_pairs import GetPairs
-from New.options import GetOptions
-from New.receive_data import ProcessData
-from New.return_global_data import GetApi
-
-from info import active_rooms
+from PostgreSQL.receive_data import ProcessData
+from PostgreSQL.options import GetOptions
+from PostgreSQL.insert_log import insertLog
+from PostgreSQL.insert_bw import insertBW
+from PostgreSQL.edit_bw import updateBW
+from PostgreSQL.edit_log import updateLog
+from PostgreSQL.delete_log import deleteLog
+from PostgreSQL.return_body_weight import GetBodyWeight
+from PostgreSQL.return_global_data import GetFull, GetHome
+# from New.charts import GetPairs, GetAreaChart
 
 
 app = Flask(__name__)
 CORS(app, origins=['http://localhost:8081'])
 CORS(app, supports_credentials=True)
 
-
 socketio = SocketIO(app, cors_allowed_origins="http://localhost:8081")
 
 
-@app.route("/api", methods=['POST'])
+active_rooms = {}
+
+
+@app.route("/full_table", methods=['POST'])
 def api0():
 
     # email = "sdimov77@gmail.com"
     email = request.get_json().get('email') 
+    # print(email)
 
-    print(email)
+    data = GetFull(email)
 
-    data = GetApi(email)
+    return data
+
+
+@app.route("/home_table", methods=['POST'])
+def api1():
+
+    # email = "sdimov77@gmail.com"
+    email = request.get_json().get('email') 
+    date = request.get_json().get('date')
+
+    # print(email)
+
+    data = GetHome(email, date)
 
     return data
 
 
 @app.route("/bw", methods=['POST'])
-def api1():
+def api2():
 
     email = request.get_json().get('email')
+    date = request.get_json().get('date')
 
-    data = GetBodyWeight(email)
+    data = GetBodyWeight(email, date)
 
     return data
 
 
-@app.route("/get_pairs", methods=['POST'])
-def api2():
+
+@app.route("/area_chart", methods=['POST'])
+def api3():
+
+    email = request.get_json().get('email')
+
+    # data = GetAreaChart(email)
+
+    # return data
+
+
+@app.route("/volume_chart", methods=['POST'])
+def api4():
 
     email = "sdimov77@gmail.com"
     # email = request.get_json().get('email') 
     criteria = "Bench"
     # criteria = request.get_json().get('criteria') 
 
-    data = GetPairs(email, criteria)
+    # data = GetPairs(email, criteria)
 
-    return data
+    # return data
 
 
 @app.route("/options")
-def api3():
+def api5():
     data = GetOptions()
 
     return data
 
 
 @app.route('/receive_data', methods=['POST'])
-def api4():
+def api6():
 
     selected = request.get_json().get('selected') 
 
@@ -73,14 +102,62 @@ def api4():
     return data
 
 
-@app.route('/akhil', methods=['POST'])
-def api5():
+@app.route('/insert_log', methods=['POST'])
+def api7():
 
     selected = request.get_json().get('newRow') 
+    email = request.get_json().get('email') 
 
-    print(selected)
+    insertLog(selected, email)
 
     return "success"
+
+
+@app.route('/insert_bw', methods=['POST'])
+def api8():
+
+    selected = request.get_json().get('newRow') 
+    email = request.get_json().get('email') 
+
+    insertBW(selected, email)
+
+    return "success"
+
+
+@app.route('/delete_log', methods=['POST'])
+def api9():
+
+    id = request.get_json().get('id') 
+    email = request.get_json().get('email') 
+
+    data = deleteLog(id, email)
+
+    return "success"
+
+
+@app.route('/edit_log', methods=['POST'])
+def api10():
+
+    id = request.get_json().get('newRow') 
+    email = request.get_json().get('email')
+
+    # print(id)
+
+    data = updateLog(id, email)
+
+    return "success"
+
+
+@app.route('/edit_bw', methods=['POST'])
+def api11():
+
+    id = request.get_json().get('newRow') 
+    email = request.get_json().get('email')
+
+    data = updateBW(id, email)
+
+    return "success"
+
 
 
 
