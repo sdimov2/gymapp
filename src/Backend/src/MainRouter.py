@@ -9,7 +9,7 @@ from PostgreSQL.insert_bw import insertBW
 from PostgreSQL.body_weight import GetBodyWeight
 # from New.charts import GetPairs, GetAreaChart
 from PostgreSQL.options import GetOptions
-from New.receive_data import ProcessData
+from PostgreSQL.receive_data import ProcessData
 from PostgreSQL.return_global_data import GetFull, GetHome
 
 from info import active_rooms

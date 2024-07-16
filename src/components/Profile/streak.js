@@ -5,8 +5,8 @@ import tw from 'twrnc';
 
 import { View, Text } from 'react-native';
 
-import CalendarHeatmap from 'react-calendar-heatmap';
-import 'react-calendar-heatmap/dist/styles.css';
+// import CalendarHeatmap from 'react-calendar-heatmap';
+// import 'react-calendar-heatmap/dist/styles.css';
 
 // const { currentCount } = useStreak(localStorage, new Date());
 const currentCount = 2

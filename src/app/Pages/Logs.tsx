@@ -9,7 +9,7 @@ import { CurrEmailProvider } from '@/src/context/emailContext';
 export default function Logs() {
 
   return (
-    <ScrollView contentContainerStyle={tw`items-center bg-orange-100 py-1`}>
+    <View style={tw`flex-1 items-center bg-orange-100 py-1`}>
       <View style={tw`items-center p-2 bg-orange-500 p-1`}>
         
         <CurrEmailProvider>
@@ -17,6 +17,6 @@ export default function Logs() {
         </CurrEmailProvider>
 
       </View>
-    </ScrollView>
+    </View>
   );
 };
