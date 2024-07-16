@@ -22,6 +22,7 @@ const TableHeader = ({ title, size, end=false }) => {
       style={[
         tw`py-1 ${borderClass} items-center`,
         size === "small" && tw`w-6.5`,
+        size === "med" && tw`w-12`,
         size === "large" && tw`w-14`,
       ]}
     >
@@ -100,7 +101,7 @@ export default function GymTable() {
 
   return (
     
-      <View style={tw`bg-gray-100 p-1 rounded-lg w-100 rounded-b-md`}>
+      <View style={tw`bg-gray-100 p-1 rounded-lg w-98 rounded-b-md`}>
         {!isLoading ? (
             <>
               {/* HEADER */}
@@ -113,7 +114,7 @@ export default function GymTable() {
                 <TableHeader title={'lbs'} size={"small"} />
                 <TableHeader title={'Reps'} size={"small"} />
                 <TableHeader title={'RPE'} size={"small"} />
-                <TableHeader title={'Actions'} size={"large"} end={true}/>
+                <TableHeader title={'Actions'} size={"med"} end={true}/>
               </View>
               
 
@@ -121,7 +122,7 @@ export default function GymTable() {
               {items.slice(from, to).map((item, index) => (
                 <View key={index} style={tw`border border-t-0 border-gray-400 flex-row ${item.toggle ? 'bg-gray-300' : 'bg-white'}`}> 
                   {!item.isEditing ? ( // Render default row if not editing
-                    <>
+                    <ScrollView horizontal showsHorizontalScrollIndicator={false} >
                       <TableCell text={item.timestamp} />
                       <TableCell text={item.activity} />
                       <TableCell text={item.variants} />
@@ -131,24 +132,33 @@ export default function GymTable() {
                       <TableCell text={item.reps} size={"small"} />
                       <TableCell text={item.rpe} size={"small"} />
 
-                      <View style={tw`flex-row w-7.75 py-1 px-0.75 justify-center border-r border-gray-300`}>
+                      <View style={tw`flex-row w-14 px-0.75 justify-center border-r border-gray-300`}>
                         <Pressable
-                          style={tw`bg-cyan-500 border border-black rounded-lg px-1.5 py-1`}
+                          style={tw`bg-cyan-500 justify-center  w-7.5 `}
                           onPress={() => editDataLog(item)}
                         >
-                          <Text style={tw`text-white text-center text-2 font-bold`} numberOfLines={1} ellipsizeMode="tail">E</Text>
+                          <Text style={tw`text-white text-center font-semibold text-3`} numberOfLines={1} ellipsizeMode="tail">Edit</Text>
                         </Pressable>
                       </View>
 
-                      <View style={tw`flex-row w-7.75 py-1 px-0.75 justify-center`}>
+                      {/* <View style={tw``}> */}
+                        <Pressable
+                          style={tw`bg-red-500 flex-row w-10 py-1 px-0.75 justify-center border-l border-black`}
+                          onPress={() => handleDeleteLog(item.timestamp)}
+                        >
+                          <Text style={tw`text-white text-center font-bold`} numberOfLines={1} ellipsizeMode="tail">D</Text>
+                        </Pressable>
+                      {/* </View>       7 */}
+
+                      {/* <View style={tw`flex-row w-7.75 py-1 px-0.75 justify-center`}>
                         <Pressable
                           style={tw`bg-red-500 border border-black rounded-lg px-1.5 py-1`}
                           onPress={() => handleDeleteLog(item.timestamp)}
                         >
                           <Text style={tw`text-white text-center text-2 font-bold`} numberOfLines={1} ellipsizeMode="tail">D</Text>
                         </Pressable>
-                      </View>                      
-                    </>
+                      </View>                       */}
+                    </ScrollView>
                   ) : ( // Render inputs if editing
                     <EditRow item={item} editDataLog={editDataLog}/>
                   )}

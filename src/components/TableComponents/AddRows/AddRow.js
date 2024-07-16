@@ -87,7 +87,7 @@ const AddRow = ({setData}) => {
 
 
   return (
-    <View style={tw`flex-row text-0.5 text-center font-bold bg-gray-100`}>  
+    <View style={tw`flex-row text-0.5 text-center font-bold bg-gray-100 border-r border-gray-300`}>  
       
       {/* Placeholder */}
       <View style={tw`w-14.3 border-r border-gray-300 bg-black`}/>
@@ -102,7 +102,7 @@ const AddRow = ({setData}) => {
       <AddCell numeric={true} value={rpe} onChangeText={setRpe} />
 
       {/* Action Button */}
-      <View style={tw`flex-row w-15.8 py-2 px-0.5 border-r border-gray-300 justify-center`}>
+      <View style={tw`flex-row w-14 py-2 px-0.5  justify-center`}>
         <Pressable
           style={tw`bg-blue-500 border border-blue-700 rounded-lg px-2.5 justify-center`}
           onPress={handleValues}

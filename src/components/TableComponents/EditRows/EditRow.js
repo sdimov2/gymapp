@@ -82,7 +82,7 @@ const EditRow = ({ item, editDataLog}) => {
 
 
       {/* Action Buttons */}
-      <View style={tw`flex-row w-7.75 py-1 px-0.75  justify-center border-r border-gray-300`}>
+      <View style={tw`flex-row w-6.75 py-1 px-0.75  justify-center border-r border-gray-300`}>
         <Pressable
           style={tw`bg-purple-500 border border-black rounded-lg px-1.5 py-1`}
           onPress={() => updateLog(item)}
@@ -91,7 +91,7 @@ const EditRow = ({ item, editDataLog}) => {
         </Pressable>
       </View>
 
-      <View style={tw`flex-row w-7.75 py-1 px-0.75 justify-center`}>
+      <View style={tw`flex-row w-6.75 py-1 px-0.75 justify-center`}>
         <Pressable
           style={tw`bg-gray-500 border border-black rounded-lg px-1.5 py-1 `}
           onPress={() => editDataLog(item)}

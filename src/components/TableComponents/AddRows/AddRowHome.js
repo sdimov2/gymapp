@@ -53,6 +53,8 @@ const DropRowHome = ({ setData }) => {
     
     let timestamp = new Date();
     timestamp = formatDateSlashes(timestamp) + " " + timestamp.toLocaleTimeString()
+
+    console.log(timestamp)
     
     const newRow = {
       timestamp: timestamp,

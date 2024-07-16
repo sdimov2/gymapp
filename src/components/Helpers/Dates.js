@@ -2,9 +2,7 @@ const formatDateSlashes = (date) => {
   const adjustedDate = new Date(date);
   adjustedDate.setDate(adjustedDate.getDate());
 
-  const components = adjustedDate.toISOString().split('T')[0].split('-');
-
-  return `${components[1].replace(/^0+/, '')}/${components[2]}/${components[0]}`;
+  return adjustedDate.toLocaleString().split(',')[0];
 };
   
 
