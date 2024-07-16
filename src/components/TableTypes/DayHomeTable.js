@@ -8,11 +8,11 @@ import { AntDesign } from '@expo/vector-icons';
 
 import { DropRowHome } from "@/src/components/TableComponents/AddRows/AddRowHome";
 import { EditRowHome } from "@/src/components/TableComponents/EditRows/EditRowHome";
-import { ImagePopup } from '@/src/components/Images/ImagePopup';
+import { ImagePopup } from '@/src/components/Picture/ImagePopup';
 
 // HELPER METHODS
-import { formatDateSlashes, isCurrentDate } from '@/src/components/Helpers/Dates'; 
-import { groupBy, getVolume } from '@/src/components/Helpers/Grouping'; 
+import { formatDateSlashes, isCurrentDate } from '@/src/helpers/Dates'; 
+import { groupBy, getVolume } from '@/src/helpers/Grouping'; 
 
 import { baseUrl } from '@/src/assets/constants/Fixed_Vars';
 import { dummyData } from '@/src/assets/constants/Fixed_Vars';

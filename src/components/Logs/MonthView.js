@@ -7,7 +7,7 @@ import { Calendar, LocaleConfig } from 'react-native-calendars';
 import DayView  from '@/src/components/Logs/DayView';
 
 // Helpers
-import { formatDateDashes } from '@/src/components/Helpers/Dates'; 
+import { formatDateDashes } from '@/src/helpers/Dates'; 
 
 
 // Calendar Parameters Configured

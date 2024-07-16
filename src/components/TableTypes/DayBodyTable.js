@@ -8,7 +8,7 @@ import { AddRowBody } from "@/src/components/TableComponents/AddRows/AddRowBody"
 import { EditRowBody } from "@/src/components/TableComponents/EditRows/EditRowBody";
 
 // HELPER METHODS
-import { formatDateSlashes, isCurrentDate } from '@/src/components/Helpers/Dates'; 
+import { formatDateSlashes, isCurrentDate } from '@/src/helpers/Dates'; 
 import { baseUrl } from '@/src/assets/constants/Fixed_Vars';
 
 import { useCurrEmail } from '@/src/context/emailContext';

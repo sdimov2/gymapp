@@ -9,7 +9,7 @@ import BodyWeightTable from '@/src/components/TableTypes/DayBodyTable';
 import LogType from '@/src/components/Logs/LogBarNavigate';
 
 // Helpers
-import { getDateObject } from '@/src/components/Helpers/Dates'; 
+import { getDateObject } from '@/src/helpers/Dates'; 
 
 
 const DayView = ({ selectedDate, setSelectedDate, setView }) => {

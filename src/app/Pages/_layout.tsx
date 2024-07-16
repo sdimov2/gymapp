@@ -3,7 +3,7 @@ import tw from 'twrnc';
 import { useMemo, memo } from 'react';
 import { Image, View } from 'react-native';
 import { Tabs } from 'expo-router';
-import { useColorScheme, useClientOnlyValue } from '@/src/components/Helpers/serverRenderHelpers';
+import { useColorScheme, useClientOnlyValue } from '@/src/helpers/serverRenderHelpers';
 import { PfpProvider, useProfilePic } from '@/src/context/pfpContext';
 
 import FontAwesome from '@expo/vector-icons/FontAwesome';

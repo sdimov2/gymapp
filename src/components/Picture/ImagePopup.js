@@ -8,7 +8,7 @@ import { getStorage, ref, uploadBytes, getDownloadURL, listAll } from "@/config/
 import { name } from "@/src/assets/profile_data/profile_vals";
 
 import PhotoLibrary from './PhotoLibrary.js';
-import CameraComponent from '../Camera/Camera.js';
+import CameraComponent from './Camera.js';
 
 const storage = getStorage();
 

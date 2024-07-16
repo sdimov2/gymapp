@@ -8,7 +8,7 @@ import { CustomDropdown } from '@/src/components/TableComponents/Modals/ModalDro
 
 import { baseUrl } from '@/src/assets/constants/Fixed_Vars';
 import { useCurrEmail } from '@/src/context/emailContext';
-import { formatDateSlashes } from '@/src/components/Helpers/Dates';
+import { formatDateSlashes } from '@/src/helpers/Dates';
   
 
 // Input Cells

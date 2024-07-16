@@ -7,7 +7,7 @@ import { View, Text, Pressable, ScrollView } from 'react-native';
 
 import { baseUrl } from '@/src/assets/constants/Fixed_Vars';
 import { useCurrEmail } from '@/src/context/emailContext';
-import { formatDateSlashes } from '@/src/components/Helpers/Dates';
+import { formatDateSlashes } from '@/src/helpers/Dates';
 
 import ListModal from './ListOptionsModal';
 import CreateNewModal from './CreateNewExerciseModal';
