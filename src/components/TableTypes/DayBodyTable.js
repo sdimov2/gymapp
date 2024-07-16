@@ -37,7 +37,7 @@ export default function BodyWeightTable({ currScreen, currDate }) {
   const handleDeleteLog = async (id) => {
     setData(items.filter((item) => item.timestamp !== id)); 
 
-    await axios.post(baseUrl + '/delete_log', { id: id });
+    await axios.post(baseUrl + '/delete_log', { id: id, email: currEmail });
   };
 
   // Edit & Save Row

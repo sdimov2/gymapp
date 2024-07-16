@@ -21,7 +21,7 @@ def insertBW(newRow, email):
         )
         VALUES (
             %s, %s, %s, %s, %s, 
-            %s, %s, %s, %s, %s, %s
+            %s, %s, %s, %s, %s, %s, NOW()
         );
     """
 

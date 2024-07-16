@@ -80,7 +80,7 @@ export default function GymTable() {
   // Delete Row
   const handleDeleteLog = async (timestamp) => {
     setData(items.filter(item => item.timestamp !== timestamp));
-    await axios.post(baseUrl + '/delete_log', { id: timestamp });
+    await axios.post(baseUrl + '/delete_log', { id: timestamp, email: currEmail });
   };
 
 

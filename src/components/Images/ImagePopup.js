@@ -1,7 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import { Pressable, View, Text, Image, Modal, ScrollView, SafeAreaView } from 'react-native';
 import tw from 'twrnc';
 import * as ImagePicker from 'expo-image-picker';
+
+import React, { useState, useEffect } from 'react';
+import { Pressable, View, Text, Image, Modal, ScrollView, SafeAreaView } from 'react-native';
+
 import { getStorage, ref, uploadBytes, getDownloadURL, listAll } from "@/config/firebase.config";
 import { name } from "@/src/assets/profile_data/profile_vals";
 
@@ -9,6 +11,7 @@ import PhotoLibrary from './PhotoLibrary.js';
 import CameraComponent from '../Camera/Camera.js';
 
 const storage = getStorage();
+
 
 const ImagePopup = ({ groupKey, onClose }) => {
     const [workoutInfo, setWorkoutInfo] = useState({ workout: "nil", variant: "nil", resistance: "nil" });
@@ -82,7 +85,7 @@ const ImagePopup = ({ groupKey, onClose }) => {
                         <ScrollView contentContainerStyle={tw`p-4`} showsVerticalScrollIndicator={false}>
                             <Header workoutInfo={workoutInfo} onClose={onClose} />
                             
-                            <Pressable onPress={() => setIsImageEnlarged(true)} style={tw`bg-orange-200 rounded-lg overflow-hidden aspect-square mb-4 w-full`}>
+                            <Pressable onPress={() => {if (assignedImage) setIsImageEnlarged(true)}} style={tw`bg-orange-200 rounded-lg overflow-hidden aspect-square mb-4 w-full`}>
                                 {assignedImage ? (
                                     <Image source={{ uri: assignedImage }} style={tw`w-full h-full`} resizeMode="cover" />
                                 ) : (

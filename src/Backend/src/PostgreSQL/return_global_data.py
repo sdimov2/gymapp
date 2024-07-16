@@ -10,7 +10,8 @@ def GetFull(email):
         SELECT * FROM public."WorkoutLogs"
         WHERE "Email Address" = %s
         AND "Workout" IS NOT NULL 
-    """ # ?FIX: SHOULD WE REMOVE BODYWEIGHT FROM MAIN CHART? IT'S NOT EVEN DISPLAYED
+        ORDER BY "FullTimestamp";
+    """ # ?FIX: SHOULD WE REMOVE BODYWEIGHT FROM MAIN CHART? IT'S NOT EVEN DISPLAYED 
 
 
     params = (email,)

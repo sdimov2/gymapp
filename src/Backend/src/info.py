@@ -75,7 +75,7 @@ def sql_change(query, params=None):
 
 columns =  """ 
             "Timestamp", "Email Address", "Workout", "Variants", "Resistance", 
-            "Set #", "Weight", "Reps", "RPE", "Bodyweight", "Additional Info" 
+            "Set #", "Weight", "Reps", "RPE", "Bodyweight", "Additional Info", "FullTimestamp" 
         """
 
 

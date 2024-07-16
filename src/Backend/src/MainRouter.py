@@ -2,7 +2,8 @@ from flask import Flask, request, jsonify
 from flask_cors import CORS
 from flask_socketio import SocketIO, join_room, leave_room, emit
 
-
+from PostgreSQL.edit_bw import updateBW
+from PostgreSQL.edit_log import updateLog
 from PostgreSQL.delete_log import deleteLog
 from PostgreSQL.insert_log import insertLog
 from PostgreSQL.insert_bw import insertBW
@@ -127,11 +128,35 @@ def api8():
 def api9():
 
     id = request.get_json().get('id') 
+    email = request.get_json().get('email') 
 
-    data = deleteLog(id)
+    data = deleteLog(id, email)
 
     return "success"
 
+
+@app.route('/edit_log', methods=['POST'])
+def api10():
+
+    id = request.get_json().get('newRow') 
+    email = request.get_json().get('email')
+
+    # print(id)
+
+    data = updateLog(id, email)
+
+    return "success"
+
+
+@app.route('/edit_bw', methods=['POST'])
+def api11():
+
+    id = request.get_json().get('newRow') 
+    email = request.get_json().get('email')
+
+    data = updateBW(id, email)
+
+    return "success"
 
 
 

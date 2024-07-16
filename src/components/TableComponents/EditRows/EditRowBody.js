@@ -5,7 +5,7 @@ import { useState, useEffect } from 'react';
 import { View, Text, TextInput, Pressable } from 'react-native';
 
 import { baseUrl } from '@/src/assets/constants/Fixed_Vars';
-
+import { useCurrEmail } from '@/src/context/emailContext';
 
 
 // Input Cell
@@ -25,21 +25,18 @@ const AddCell = ({ value, onChangeText }) => (
 
 const EditRowBody = ({ item, editDataLog }) => {
   const [bodyWeight, setBodyWeight] = useState(item.bodyweight);
+  const { currEmail } = useCurrEmail();
 
   // Save Row
-  const updateLog = (itemToUpdate) => {
+  const updateLog = async (itemToUpdate) => {
     itemToUpdate.timestamp = item.timestamp;
     itemToUpdate.bodyweight = bodyWeight;
 
-
-    // FIX EDIT IN BACKEND
-    // SEND TO BACKEND ?
-    // try {
-    //   const res = (await axios.post(baseUrl + '/akhil', { newRow: newRow })).data;
-    //   console.log(res);
-    // } catch (error) {
-    //   console.log(error);
-    // }
+    try {
+      await axios.post(baseUrl + '/edit_bw', { newRow: itemToUpdate, email: currEmail });
+    } catch (error) {
+      console.log(error);
+    }
 
     editDataLog(itemToUpdate);
   };

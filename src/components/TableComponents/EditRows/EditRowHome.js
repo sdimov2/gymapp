@@ -5,6 +5,7 @@ import { useState, useEffect } from 'react';
 import { View, Text, TextInput, Pressable } from 'react-native';
 
 import { baseUrl } from '@/src/assets/constants/Fixed_Vars';
+import { useCurrEmail } from '@/src/context/emailContext';
 
 
 const Input = ({ value, onChangeText }) => (
@@ -37,9 +38,11 @@ const EditRowHome = ({item, editDataLog, index}) => {
   const [reps, setReps] = useState(item.reps);
   const [rpe, setRpe] = useState(item.rpe);
 
+  const { currEmail } = useCurrEmail();
   
   // Save Row
-  const updateLog = async (itemToUpdate) => {    
+  const updateLog = async (itemToUpdate) => {
+    itemToUpdate.timestamp = item.timestamp;
     itemToUpdate.activity = workout
     itemToUpdate.variants = variants
     itemToUpdate.resistance_method = resistance
@@ -48,14 +51,11 @@ const EditRowHome = ({item, editDataLog, index}) => {
     itemToUpdate.reps = reps
     itemToUpdate.rpe = rpe
 
-    // FIX EDIT IN BACKEND
-    // SEND TO BACKEND ?
-    // try {
-    //   const res = (await axios.post(baseUrl + '/akhil', { newRow: newRow })).data;
-    //   console.log(res);
-    // } catch (error) {
-    //   console.log(error);
-    // }
+    try {
+      await axios.post(baseUrl + '/edit_log', { newRow: itemToUpdate, email: currEmail });
+    } catch (error) {
+      console.log(error);
+    }
 
     editDataLog(itemToUpdate)
   };
