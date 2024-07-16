@@ -22,7 +22,7 @@ const ImagePopup = ({ groupKey, onClose }) => {
 
     const [openLibrary, setOpenLibrary] = useState(false);
     const [assignedImage, setAssignedImage] = useState(null);
-    const [images, setImages] = useState([]);   // Fix: Make this its own library instead of a state 
+    const [imageUrls, setImageUrls] = useState([]);
 
     useEffect(() => {
         const [var1, var2, var3] = groupKey.split('|');
@@ -38,12 +38,12 @@ const ImagePopup = ({ groupKey, onClose }) => {
         setOpenLibrary(!openLibrary)
     }
 
-    const fetchImages = async (workout) => { // Fix: How specific?
+    const fetchImages = async (workout) => { // ?Fix: How specific?
         const imagesRef = ref(storage, `${name}/workoutImages/${workout}`);
         try {
             const result = await listAll(imagesRef);
             const urls = await Promise.all(result.items.map(itemRef => getDownloadURL(itemRef)));
-            setImages(urls);
+            setImageUrls(urls);
 
             setAssignedImage(urls[0]) // Fix: Set the picked image as the main image
 
@@ -155,7 +155,7 @@ const ImagePopup = ({ groupKey, onClose }) => {
                 </Pressable>
 
                 {/* Photo Library */}
-                {openLibrary && <PhotoLibrary images={images} onSelect={handleImageSelect} /> }
+                {openLibrary && <PhotoLibrary images={imageUrls} onSelect={handleImageSelect} /> }
             </View>
         </>
     );

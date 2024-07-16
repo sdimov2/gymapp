@@ -7,8 +7,8 @@ from PostgreSQL.delete_log import deleteLog
 from PostgreSQL.insert_log import insertLog
 from PostgreSQL.insert_bw import insertBW
 from PostgreSQL.body_weight import GetBodyWeight
-from New.charts import GetPairs, GetAreaChart
-from New.options import GetOptions
+# from New.charts import GetPairs, GetAreaChart
+from PostgreSQL.options import GetOptions
 from New.receive_data import ProcessData
 from PostgreSQL.return_global_data import GetFull, GetHome
 
@@ -66,9 +66,9 @@ def api3():
 
     email = request.get_json().get('email')
 
-    data = GetAreaChart(email)
+    # data = GetAreaChart(email)
 
-    return data
+    # return data
 
 
 @app.route("/volume_chart", methods=['POST'])
@@ -79,9 +79,9 @@ def api4():
     criteria = "Bench"
     # criteria = request.get_json().get('criteria') 
 
-    data = GetPairs(email, criteria)
+    # data = GetPairs(email, criteria)
 
-    return data
+    # return data
 
 
 @app.route("/options")

@@ -79,19 +79,19 @@ columns =  """
         """
 
 
-def getGlobalData():
-    conn = getConnection()
-    cur = conn.cursor()
+# def getGlobalData():
+#     conn = getConnection()
+#     cur = conn.cursor()
 
-    cur.execute('SELECT * FROM public."WorkoutLogs"')
-    global_data = cur.fetchall()
+#     cur.execute('SELECT * FROM public."WorkoutLogs"')
+#     global_data = cur.fetchall()
 
-    cur.close()
-    conn.close()
+#     cur.close()
+#     conn.close()
 
-    return global_data
+#     return global_data
 
-global_data = getGlobalData() # FIX: THIS IS JUST TEMPORARY
+# global_data = getGlobalData() # FIX THIS IS JUST TEMPORARY
 
 
 
