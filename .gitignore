@@ -1,6 +1,7 @@
+Trash/
 node_modules/
 .expo/
-dist/
+
 npm-debug.*
 *.jks
 *.p8
@@ -8,7 +9,6 @@ npm-debug.*
 *.key
 *.mobileprovision
 *.orig.*
-web-build/
 
 # macOS
 .DS_Store
@@ -18,7 +18,3 @@ web-build/
 
 expo-env.d.ts
 # @end expo-cli
-
-src\flask\gscredentials.json
-
-Trash/
