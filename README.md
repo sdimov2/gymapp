@@ -1,11 +1,9 @@
-1. Go to backend directory
-2. Type this in terminal: pip install -r requirements.txt
+1. Type this in terminal: npm i
+2. Go to backend directory in terminal
+3. Type this in terminal: pip install -r requirements.txt  (make sure you have python and pip installed)
 
 
 Akhil Notes:
-
 Consider using:
 - Microsoft Power BI
-- Celery
-
-- Add camera feature
+- Kafka or Celery
