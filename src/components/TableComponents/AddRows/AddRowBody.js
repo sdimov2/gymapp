@@ -38,12 +38,12 @@ const AddRowBody = ({setData}) => {
     if (!bodyWeight) { 
       console.log("NEED A VALUE") 
       return;
-    }
+    } // FIX: NOTIFICATION
 
     if (!Number(bodyWeight)) { 
       console.log("Has to be a number") 
       return;
-    } //Fix:  Add notifications
+    } // FIX: NOTIFICATION
     
     let timestamp = new Date();
     timestamp = formatDateSlashes(timestamp) + " " + timestamp.toLocaleTimeString()

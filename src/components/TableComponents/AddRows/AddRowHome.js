@@ -49,12 +49,10 @@ const DropRowHome = ({ setData }) => {
     if (!workout) { 
       console.log("NEED A VALUE") 
       return;
-    }
+    } // FIX: NOTIFICATION
     
     let timestamp = new Date();
     timestamp = formatDateSlashes(timestamp) + " " + timestamp.toLocaleTimeString()
-
-    console.log(timestamp)
     
     const newRow = {
       timestamp: timestamp,

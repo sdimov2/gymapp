@@ -27,7 +27,7 @@ export const PfpProvider = ({ children }) => {
     try {
         await uploadBytes(storageRef, blob);
         const url = await getDownloadURL(storageRef);
-        // console.log('Image uploaded. URL:', url);
+        
         setAssignedImage(url);
     } catch (error) {
         console.error('Error uploading image:', error);
@@ -56,8 +56,6 @@ export const PfpProvider = ({ children }) => {
         const firstItem = result.items[0];
         const url = await getDownloadURL(firstItem);
         setAssignedImage(url);
-      } else {
-        console.log('No images found in the specified directory');
       }
     } catch (error) {
       console.error('Error fetching image:', error);

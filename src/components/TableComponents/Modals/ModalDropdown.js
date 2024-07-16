@@ -38,8 +38,7 @@ export const CustomDropdown = ({ selectedValue, onValueChange, type, setData }) 
     };
 
     try {
-      const res = (await axios.post(baseUrl + '/insert_log', { newRow: newRow, email: currEmail })).data;
-      console.log(res);
+      await axios.post(baseUrl + '/insert_log', { newRow: newRow, email: currEmail });
     } catch (error) {
       console.log(error);
     }

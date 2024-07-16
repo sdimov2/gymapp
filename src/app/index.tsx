@@ -63,12 +63,12 @@ export default function LoginScreen() {
   
   const handleSignUp = async () => {
     await createUserWithEmailAndPassword(auth, email, password)
-      .catch(() => { console.log("Signup failed") })
+      .catch(() => { console.log("Signup failed") }) // FIX: NOTIFICATION
   }
 
   const handleLogin = async () => {
     await signInWithEmailAndPassword(auth, email, password)
-      .catch(() => { console.log("INVALID CREDENTIALS") })
+      .catch(() => { console.log("INVALID CREDENTIALS") }) // FIX: NOTIFICATION
   }
 
   // const googleSignIn = async () => {    

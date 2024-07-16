@@ -54,12 +54,6 @@ const EditRow = ({ item, editDataLog}) => {
     editDataLog(item)
   };
 
-  
-
-  useEffect(() => {
-    // console.log(item)
-  }, []);
-
 
   return (
     <View style={tw`flex-row bg-blue-300`}>  

@@ -58,7 +58,7 @@ const AddRow = ({setData}) => {
     if (!workout) { 
       console.log("NEED A VALUE") 
       return;
-    }
+    } // FIX: NOTIFICATION
     
     let timestamp = new Date();
     timestamp = formatDateSlashes(timestamp) + " " + timestamp.toLocaleTimeString()
@@ -75,8 +75,7 @@ const AddRow = ({setData}) => {
     };
 
     try {
-      const res = (await axios.post(baseUrl + '/insert_log', { newRow: newRow, email: currEmail})).data;
-      console.log(res);
+      await axios.post(baseUrl + '/insert_log', { newRow: newRow, email: currEmail});
     } catch (error) {
       console.log(error);
     }

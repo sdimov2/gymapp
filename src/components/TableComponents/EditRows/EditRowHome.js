@@ -59,12 +59,7 @@ const EditRowHome = ({item, editDataLog, index}) => {
 
     editDataLog(itemToUpdate)
   };
-  
-
-  useEffect(() => {
-    // console.log(item)
-  }, []);
-
+ 
 
   return (
     <View style={tw`h-9 flex-row text-center text-black-800 font-bold bg-white px-0.5 ${index !== 0 && 'border-t border-gray-400'}`}>

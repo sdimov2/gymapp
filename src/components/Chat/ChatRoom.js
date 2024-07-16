@@ -53,16 +53,16 @@ export default function WebSocketCall({ toggleChat  }) {
 
       // Event listeners for socket events
       socket.on("connect1", () => {
-        // console.log("Connected:", socket.id);
+        // console.log("Connected:", socket.id); // FIX: NOTIFICATION
       });
 
       socket.on("disconnect1", (data) => {
-        // console.log("Disconnected:", data);
+        // console.log("Disconnected:", data); // FIX: NOTIFICATION
       });
 
 
       socket.on("rooms", (data) => {
-        // console.log("Available Rooms:", data.rooms);
+        // console.log("Available Rooms:", data.rooms); // FIX: NOTIFICATION
         setRooms(data.rooms);
       });
 
