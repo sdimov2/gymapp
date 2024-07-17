@@ -13,7 +13,6 @@ const AddCell = ({ numeric, value, onChangeText }) => (
   <View style={tw`${!numeric ? 'w-14' : 'w-6.5'}  border-r border-black`}>
     <TextInput
       editable
-      numberOfLines={1}
       maxLength={40}
       onChangeText={onChangeText}
       value={value}
@@ -77,7 +76,7 @@ const EditRow = ({ item, editDataLog}) => {
 
 
       {/* Action Buttons */}
-      <View style={tw`flex-row w-6.75 py-1 px-0.75  justify-center border-r border-gray-300`}>
+      <View style={tw`flex-row w-6.75 py-1 px-0.75  justify-center`}>
         <Pressable
           style={tw`bg-purple-500 border border-black rounded-lg px-1.5 py-1`}
           onPress={() => updateLog(item)}

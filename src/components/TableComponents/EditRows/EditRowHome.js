@@ -11,9 +11,8 @@ import { useCurrEmail } from '@/src/context/emailContext';
 const Input = ({ value, onChangeText }) => (
   <TextInput
     editable
-    // numberOfLines={1}
     multiline 
-    maxLength={10}
+    maxLength={40}
     onChangeText={onChangeText}
     value={value}
     style={tw`text-2.5 px-1`}

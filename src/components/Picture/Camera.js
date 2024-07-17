@@ -11,11 +11,12 @@ import { AntDesign } from '@expo/vector-icons';
 const PermissionRequest = ({ requestPermission }) => (
   <SafeAreaView style={tw`flex-1 bg-gray-100 justify-center items-center`}>
     <Text style={tw`text-lg text-center mb-4`}>We need your permission to use the camera</Text>
-    <CameraButton 
+    <Pressable 
       onPress={requestPermission} 
       style={tw`bg-blue-500`}
-      text="Grant permission"
-    />
+    >
+      Grant permission
+    </Pressable>
   </SafeAreaView>
 );
 

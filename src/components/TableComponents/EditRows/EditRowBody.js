@@ -14,7 +14,7 @@ const AddCell = ({ value, onChangeText }) => (
     <TextInput
       editable
       numberOfLines={1}
-      maxLength={40}
+      maxLength={8}
       onChangeText={onChangeText}
       value={value}
       style={tw`p-2`}

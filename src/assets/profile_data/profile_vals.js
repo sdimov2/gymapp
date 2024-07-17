@@ -4,3 +4,4 @@ const bio = "string";
 const name = "AKHIL";
 
 export {avatar, bio, name, defaultAvatar};
+
