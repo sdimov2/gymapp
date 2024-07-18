@@ -9,3 +9,5 @@ Akhil Notes:
 Consider using:
 - Microsoft Power BI
 - Kafka or Celery
+
+Take advantage of *expo router*
