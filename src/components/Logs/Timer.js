@@ -40,12 +40,11 @@ const Timer = () => {
             </Pressable>
           </View>
 
-          <View style={tw`bg-black border-2 border-white w-12 h-12 rounded-full items-center justify-center`}>
-            <Pressable 
-              onPress={toggleTimer} 
-              style={tw`bg-red-600  ${isRunning ? 'rounded-sm w-4 h-4' : 'rounded-full w-11 h-11'}`}
+          <Pressable style={tw`bg-black border-2 border-white w-12 h-12 rounded-full items-center justify-center`} onPress={toggleTimer} >
+            <View 
+              style={tw`bg-red-600  ${isRunning ? 'rounded-sm w-6.5 h-6.5' : 'rounded-full w-11 h-11'}`}
             />
-          </View>
+          </Pressable>
         </View>
       </View>
     </View>
