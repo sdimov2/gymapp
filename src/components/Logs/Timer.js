@@ -32,18 +32,13 @@ const Timer = () => {
       </View>
 
       <View style={tw`bg-black w-60 py-1 px-4 rounded-b-sm`}>
-
         <View style={tw`flex-row justify-between`}>
-          <View style={tw`bg-green-400 border border-gray-500 w-12 h-12 rounded-full items-center justify-center`}>
-            <Pressable onPress={timerReset} >
-              <Text style={tw`text-white text-3`}> RESET </Text>
-            </Pressable>
-          </View>
+          <Pressable onPress={timerReset} style={tw`bg-green-400 border border-gray-500 w-12 h-12 rounded-full items-center justify-center`}>
+            <Text style={tw`text-white text-3`}> RESET </Text>
+          </Pressable>
 
           <Pressable style={tw`bg-black border-2 border-white w-12 h-12 rounded-full items-center justify-center`} onPress={toggleTimer} >
-            <View 
-              style={tw`bg-red-600  ${isRunning ? 'rounded-sm w-6.5 h-6.5' : 'rounded-full w-11 h-11'}`}
-            />
+            <View style={tw`bg-red-600  ${isRunning ? 'rounded-sm w-6.5 h-6.5' : 'rounded-full w-11 h-11'}`}/>
           </Pressable>
         </View>
       </View>
