@@ -7,6 +7,7 @@ import { View, Text, Pressable } from 'react-native';
 import HomeTable from '@/src/components/TableTypes/DayHomeTable';
 import BodyWeightTable from '@/src/components/TableTypes/DayBodyTable';
 import LogType from '@/src/components/Logs/LogBarNavigate';
+import Timer from './Timer';
 
 // Helpers
 import { getDateObject } from '@/src/helpers/Dates'; 
@@ -82,7 +83,7 @@ const DayView = ({ selectedDate, setSelectedDate, setView }) => {
 
 
       
-      <View style={tw`flex-row items-center justify-between w-90 mb-3`}>
+      <View style={tw`flex-row items-center justify-between w-90 mb-1`}>
         
         {/* Back Button */}
         <Pressable style={tw`p-2 rounded-full bg-gray-100 `} onPress={handlePreviousDay}>
@@ -107,6 +108,10 @@ const DayView = ({ selectedDate, setSelectedDate, setView }) => {
 
       {/* Which Graph To Output */}
       {renderScreen(selectedDate)}
+
+
+      {/* Timer */}
+      <Timer/>
     </View>
   );
 };

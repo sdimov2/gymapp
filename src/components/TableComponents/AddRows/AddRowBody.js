@@ -1,13 +1,12 @@
 import axios from 'axios';
 import tw from 'twrnc';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { View, Text, TextInput, Pressable } from 'react-native';
 
 import { baseUrl } from '@/src/assets/constants/Fixed_Vars';
 import { useCurrEmail } from '@/src/context/emailContext';
 import { formatDateSlashes } from '@/src/helpers/Dates';
-
 
 const Input = ({ value, onChangeText }) => (
   <TextInput
@@ -26,7 +25,6 @@ const Input = ({ value, onChangeText }) => (
 const AddRowBody = ({setData}) => {
   const [bodyWeight, setBodyWeight] = useState('');
   const { currEmail } = useCurrEmail();
-
 
   const resetInputs = () => {
     setBodyWeight('')
@@ -62,7 +60,6 @@ const AddRowBody = ({setData}) => {
     setData(prevItems => [...prevItems, newRow]);
     resetInputs()
   };
-
 
   return (
     <View style={tw`mt-1 flex-row text-0.5 text-center font-bold bg-gray-100 border border-gray-500`}>  

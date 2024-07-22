@@ -127,8 +127,8 @@ export default function HomeTable({ currScreen, currDate }) {
 
 
   return (
-    <>
-      <ScrollView style={tw`p-1 bg-purple-800 w-100 max-h-115`} showsVerticalScrollIndicator={false}>
+    <View style={tw`flex-shrink bg-purple-800 w-100 p-0.5 `}>
+      <ScrollView style={tw`max-h-115`} showsVerticalScrollIndicator={false}>
         {!isLoading ? (
           <View style={tw`border border-black`}>
 
@@ -233,6 +233,6 @@ export default function HomeTable({ currScreen, currDate }) {
           onClose={() => setCurrGroupKey(null)} 
         />
       )}
-    </>
+    </View>
   );
 }

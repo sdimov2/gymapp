@@ -10,6 +10,7 @@ import { baseUrl } from '@/src/assets/constants/Fixed_Vars';
 import { useCurrEmail } from '@/src/context/emailContext';
 import { formatDateSlashes } from '@/src/helpers/Dates';
   
+import { useTimer } from '@/src/context/timerContext';
 
 // Input Cells
 const AddCell = ({ value, onChangeText }) => (
@@ -44,7 +45,9 @@ const DropRowHome = ({ setData }) => {
   const [rpe, setRpe] = useState('');
 
   const { currEmail } = useCurrEmail();
-  
+  const { finalTime } = useTimer();
+
+
   const handleValues = async () => {
     if (!workout) { 
       console.log("NEED A VALUE") 
@@ -64,6 +67,9 @@ const DropRowHome = ({ setData }) => {
       reps: reps,
       rpe: rpe,
     };
+
+    // FIX: Send final time to backend?
+    console.log("Time: ", finalTime);
 
     try {
       await axios.post(baseUrl + '/insert_log', { newRow: newRow, email: currEmail}).data;
