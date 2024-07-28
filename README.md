@@ -7,7 +7,9 @@
 
 Akhil Notes:
 Consider using:
-- Microsoft Power BI
+- Google Analytics
 - Kafka or Celery
+- React-Native-Animated
+- WebRTC
 
 Take advantage of *expo router*
