@@ -6,10 +6,6 @@ import { Calendar, LocaleConfig } from 'react-native-calendars';
 
 import DayView  from '@/src/components/Logs/DayView';
 
-// Helpers
-import { formatDateDashes } from '@/src/helpers/Dates'; 
-
-
 // Calendar Parameters Configured
 LocaleConfig.locales['en'] = {
   monthNames: [
@@ -31,6 +27,7 @@ LocaleConfig.defaultLocale = 'en';
 
 
 const WorkoutCalander = () => {
+  const [dateString, setDateString] = useState(new Date());
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [view, setView] = useState('day');
 
@@ -38,7 +35,8 @@ const WorkoutCalander = () => {
   const handleDayPress = (day) => {
     const selected = new Date(day.timestamp);
     selected.setDate(selected.getDate() + 1);
-    
+
+    setDateString(day.dateString);    
     setSelectedDate(selected);
     setView('day');
   };
@@ -60,7 +58,7 @@ const WorkoutCalander = () => {
           <Calendar
             onDayPress={handleDayPress}
             markedDates={{
-              [formatDateDashes(selectedDate)]: {
+              [dateString]: {
                 selected: true,
                 selectedColor: 'blue',
                 selectedTextColor: 'white',  

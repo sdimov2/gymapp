@@ -10,14 +10,14 @@ import LogType from '@/src/components/Logs/LogBarNavigate';
 import Timer from './Timer';
 
 // Helpers
-import { getDateObject } from '@/src/helpers/Dates'; 
+import { getDateObject, isCurrentDate } from '@/src/helpers/Dates'; 
 
 
 const DayView = ({ selectedDate, setSelectedDate, setView }) => {
   const [formattedData, setFormattedData] = useState('')
   const [currentScreen, setCurrentScreen] = useState('Home');
 
-  const today = new Date()
+  const today = new Date();
 
   // If "Back Button" is clicked
   const handlePreviousDay = () => {
@@ -31,8 +31,9 @@ const DayView = ({ selectedDate, setSelectedDate, setView }) => {
   const handleNextDay = () => {
     const nextDate = new Date(selectedDate);
     nextDate.setDate(nextDate.getDate() + 1);
+    nextDate.setHours(0, 0, 0, 0);
 
-    if (nextDate <= today) {
+    if (nextDate.getTime() <= today.getTime()) {
       setSelectedDate(nextDate);
     }
   };
@@ -78,11 +79,13 @@ const DayView = ({ selectedDate, setSelectedDate, setView }) => {
 
         {/* Format Date */}
         <View style={tw`items-center`}>
-            <Text style={[tw`text-lg font-bold`, {fontFamily: "Arsenal"}]}> {formattedData.dayOfWeek}</Text>
+            <Text style={[tw`text-7 font-bold`, {fontFamily: "Arsenal"}]}> {formattedData.dayOfWeek}</Text>
 
-            <Text style={[tw`text-sm`, {fontFamily: "Raleway_400Regular"}]}>
-              {formattedData.month} {formattedData.dayOfMonth} {formattedData.year}
-            </Text>
+            <View style={tw`flex-row`}>
+              <Text style={[tw`text-sm font-bold`, {fontFamily: "Raleway_400Regular"}]}> {formattedData.month} {formattedData.dayOfMonth}</Text>
+              <Text style={[tw`text-2.8`, {fontFamily: "Raleway_400Regular"}]}>{formattedData.dayOfMonthSuffix} </Text>
+              <Text style={[tw`text-sm`, {fontFamily: "Raleway_400Regular"}]}>{formattedData.year}</Text>  
+            </View>
         </View>
         
         {/* Next Button */}
@@ -97,7 +100,7 @@ const DayView = ({ selectedDate, setSelectedDate, setView }) => {
 
 
       {/* Timer */}
-      <Timer/>
+      {isCurrentDate(selectedDate) && <Timer/>}
     </View>
   );
 };
