@@ -1,6 +1,6 @@
 import tw from 'twrnc';
 
-import { useState, createContext } from 'react';
+import { useState} from 'react';
 import { Text, View, ScrollView } from 'react-native';
 
 import GymTable from '@/src/components/TableTypes/GymTable';
@@ -18,9 +18,8 @@ export default function Table() {
         <View style={tw`mb-2`}/>
         
         <CurrEmailProvider>
-          <GymTable />
+            <GymTable />
         </CurrEmailProvider>
-
       </View>
     </ScrollView>
   );

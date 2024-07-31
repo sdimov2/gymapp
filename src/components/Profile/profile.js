@@ -28,7 +28,7 @@ export default function Profile() {
         </Pressable>
 
         <View>
-          <Text style={tw`text-2xl font-bold`}>{name}</Text>
+          <Text style={[tw`text-2xl font-bold`, {fontFamily: "Raleway_400Regular"}]}>{name}</Text>
           <Text style={tw`mt-1`}>Bio: {bio}</Text>
           <Text style={tw`mt-1`}>Body weight: {}</Text>
         </View>

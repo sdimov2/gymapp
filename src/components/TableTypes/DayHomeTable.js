@@ -34,7 +34,7 @@ const TableHeader = ({ title, size, end }) => {
         ]}
       >
         <ScrollView horizontal showsHorizantalScrollIndicator={false}>
-          <Text style={tw`ml-1 text-2.4 font-bold`}>{title}</Text>
+          <Text style={[tw`ml-0.5 text-2.7 font-bold`, {fontFamily: "Raleway_400Regular"}]}>{title}</Text>
         </ScrollView>
       </View>
   )

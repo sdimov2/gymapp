@@ -58,19 +58,7 @@ const DayView = ({ selectedDate, setSelectedDate, setView }) => {
     <View style={tw`flex-1 items-center`}>
       {/* Log Navigation */}
       <LogType currentScreen={currentScreen} setCurrentScreen={setCurrentScreen} />
-      
-
-      {/* Search Bar & Filter */}
-      {/* <View style={tw`flex-row`}>
-          <SearchBar />
-          
-          <View style={tw`items-center justify-center`}>
-            <Pressable style={tw`justify-center ml-2  rounded-lg bg-gray-100  px-1.5 h-11`}>
-              <AntDesign name="filter" color="#000" size={30} />
-            </Pressable>
-          </View>
-      </View> */}
-
+     
       
       {/* Home Button */}
       <Pressable style={tw`mt-2 mb-3 p-2 rounded-full bg-blue-500 `} onPress={() => setView('month')}>
@@ -80,8 +68,6 @@ const DayView = ({ selectedDate, setSelectedDate, setView }) => {
           <FontAwesome name="calendar" color="black" size={15} />
         </View>
       </Pressable>
-
-
       
       <View style={tw`flex-row items-center justify-between w-90 mb-1`}>
         
@@ -92,9 +78,9 @@ const DayView = ({ selectedDate, setSelectedDate, setView }) => {
 
         {/* Format Date */}
         <View style={tw`items-center`}>
-            <Text style={tw`text-lg font-bold`}>{formattedData.dayOfWeek}</Text>
+            <Text style={[tw`text-lg font-bold`, {fontFamily: "Arsenal"}]}> {formattedData.dayOfWeek}</Text>
 
-            <Text style={tw`text-sm font-bold`}>
+            <Text style={[tw`text-sm`, {fontFamily: "Raleway_400Regular"}]}>
               {formattedData.month} {formattedData.dayOfMonth} {formattedData.year}
             </Text>
         </View>

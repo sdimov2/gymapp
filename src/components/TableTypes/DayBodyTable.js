@@ -60,13 +60,13 @@ export default function BodyWeightTable({ currScreen, currDate }) {
           {/* Headers */}
           <View style={tw`flex-row bg-gray-100 border border-black`}>
             <View style={tw`items-center justify-center p-1  w-32`}>
-              <Text style={tw`font-bold text-center`}>Time Recorded</Text>
+              <Text style={[tw`font-bold text-center`, {fontFamily: "Raleway_400Regular"}]}>Time Recorded</Text>
             </View>
             <View style={tw`items-center justify-center p-1 border-l border-r border-black w-32`}>
-              <Text style={tw`font-bold text-center`}>Body Weight</Text>
+              <Text style={[tw`font-bold text-center`, {fontFamily: "Raleway_400Regular"}]}>Body Weight</Text>
             </View>
             <View style={tw`items-center justify-center p-1  w-34`}>
-              <Text style={tw`font-bold text-center`}>Actions</Text>
+              <Text style={[tw`font-bold text-center`, {fontFamily: "Raleway_400Regular"}]}>Actions</Text>
             </View>
           </View>
 

@@ -17,6 +17,7 @@ import { useCurrEmail } from '@/src/context/emailContext';
 
 const TableHeader = ({ title, size, end=false }) => { 
   const borderClass = !end ? 'border-r border-black' : '';
+
   return (
     <View 
       style={[
@@ -27,7 +28,7 @@ const TableHeader = ({ title, size, end=false }) => {
       ]}
     >
       <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-        <Text style={tw`text-2.5 font-bold font-sans `}> {title} </Text>
+        <Text style={[tw`text-2.5 font-bold font-sans `, {fontFamily: "Raleway_200ExtraLight"} ]}> {title} </Text>
       </ScrollView>
     </View>
   )
@@ -42,7 +43,7 @@ const TableCell = ({ text, size }) => (
     ]}
   >
     <ScrollView horizontal showsHorizontalScrollIndicator={false} >
-      <Text style={tw`ml-0.25 w-full text-2.8 font-sans justify-center mt-1`}> {text} </Text>
+      <Text style={[tw`ml-0.25 w-full text-2.8 justify-center mt-1`, {fontFamily: "Dosis"}]}> {text} </Text>
     </ScrollView>
   </View>
 );

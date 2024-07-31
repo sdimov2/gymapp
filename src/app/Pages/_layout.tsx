@@ -10,6 +10,8 @@ import FontAwesome from '@expo/vector-icons/FontAwesome';
 import Colors from '@/src/assets/constants/Colors';
 
 import { defaultAvatar } from "@/src/assets/profile_data/profile_vals";
+import { FontProvider } from '@/src/context/fontContext';
+import { TimerProvider } from '@/src/context/timerContext';
 
 
 // Separate component for fetching and displaying the profile image
@@ -56,15 +58,19 @@ export default function TabLayout() {
 
   return (
     <PfpProvider>
-    <Tabs
-      screenOptions={{
-        tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
-        headerShown: useClientOnlyValue(false, true),
-      }}>
-      {Object.entries(tabOptions).map(([name, options]) => (
-        <Tabs.Screen key={name} name={name} options={options} />
-      ))}
-    </Tabs>
+      <FontProvider>
+        <TimerProvider>
+          <Tabs
+            screenOptions={{
+              tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
+              headerShown: useClientOnlyValue(false, true),
+            }}>
+            {Object.entries(tabOptions).map(([name, options]) => (
+              <Tabs.Screen key={name} name={name} options={options} />
+            ))}
+          </Tabs>
+        </TimerProvider>
+      </FontProvider>
     </PfpProvider>
   );
 }
