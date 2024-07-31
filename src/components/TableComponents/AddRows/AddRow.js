@@ -56,9 +56,9 @@ const AddRow = ({setData}) => {
   // Add new row
   const handleValues = async () => {
     if (!workout) { 
-      console.log("NEED A VALUE") 
+      console.log("NEED A VALUE")  // FIX: NOTIFICATION
       return;
-    } // FIX: NOTIFICATION
+    } 
     
     let timestamp = new Date();
     timestamp = formatDateSlashes(timestamp) + " " + timestamp.toLocaleTimeString()

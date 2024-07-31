@@ -25,8 +25,6 @@ export function TimerProvider({children}) {
     setFinalTime(elapsedTime);
     setIsRunning(false);
     clearInterval(intervalRef.current);
-
-    console.log("Final Time: ", elapsedTime);
   }
 
   const timerOn = async () => {

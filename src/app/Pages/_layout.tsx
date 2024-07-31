@@ -9,7 +9,7 @@ import { PfpProvider, useProfilePic } from '@/src/context/pfpContext';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import Colors from '@/src/assets/constants/Colors';
 
-import { defaultAvatar } from "@/src/assets/profile_data/profile_vals";
+import { defaultAvatar } from "@/src/assets/constants/Fixed_Vars.js";
 import { FontProvider } from '@/src/context/fontContext';
 import { TimerProvider } from '@/src/context/timerContext';
 

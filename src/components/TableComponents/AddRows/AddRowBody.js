@@ -34,14 +34,14 @@ const AddRowBody = ({setData}) => {
   // Add New Row
   const handleValues = async () => {
     if (!bodyWeight) { 
-      console.log("NEED A VALUE") 
+      console.log("NEED A VALUE") // FIX: NOTIFICATION
       return;
-    } // FIX: NOTIFICATION
+    }
 
     if (!Number(bodyWeight)) { 
-      console.log("Has to be a number") 
+      console.log("Has to be a number") // FIX: NOTIFICATION
       return;
-    } // FIX: NOTIFICATION
+    } 
     
     let timestamp = new Date();
     timestamp = formatDateSlashes(timestamp) + " " + timestamp.toLocaleTimeString()

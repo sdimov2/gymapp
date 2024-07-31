@@ -6,7 +6,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { useProfilePic } from '@/src/context/pfpContext';
 
 // FIX: CREATE A PROFILE DATABASE (FIREBASE OR SQL?)
-import { bio, name, defaultAvatar } from "@/src/assets/profile_data/profile_vals";
+import { bio, name, defaultAvatar } from "@/src/assets/constants/Fixed_Vars.js";
 
 
 export default function Profile() {
