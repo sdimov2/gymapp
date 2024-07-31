@@ -6,7 +6,7 @@ import { io } from "socket.io-client";
 
 import RoomCommunication from "@/src/components/Chat/WebSocket";
 
-import { baseUrl } from "@/src/assets/constants/Fixed_Vars";
+import { baseUrl } from "@/src/helpers/Constants";
 
 import { useCurrEmail } from '@/src/context/emailContext';
 

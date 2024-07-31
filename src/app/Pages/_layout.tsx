@@ -3,15 +3,16 @@ import tw from 'twrnc';
 import { useMemo, memo } from 'react';
 import { Image, View } from 'react-native';
 import { Tabs } from 'expo-router';
-import { useColorScheme, useClientOnlyValue } from '@/src/helpers/serverRenderHelpers';
-import { PfpProvider, useProfilePic } from '@/src/context/pfpContext';
+import { useColorScheme, useClientOnlyValue } from '@/src/helpers/Built_In/serverRenderHelpers';
 
 import FontAwesome from '@expo/vector-icons/FontAwesome';
-import Colors from '@/src/assets/constants/Colors';
+import Colors from '@/src/helpers/Built_In/Colors';
 
-import { defaultAvatar } from "@/src/assets/constants/Fixed_Vars.js";
 import { FontProvider } from '@/src/context/fontContext';
 import { TimerProvider } from '@/src/context/timerContext';
+import { PfpProvider, useProfilePic } from '@/src/context/pfpContext';
+import { defaultAvatar } from "@/src/helpers/Constants.js";
+
 
 
 // Separate component for fetching and displaying the profile image

@@ -9,7 +9,7 @@ import { EditRowBody } from "@/src/components/TableComponents/EditRows/EditRowBo
 
 // HELPER METHODS
 import { formatDateSlashes, isCurrentDate } from '@/src/helpers/Dates'; 
-import { baseUrl } from '@/src/assets/constants/Fixed_Vars';
+import { baseUrl } from '@/src/helpers/Constants';
 
 import { useCurrEmail } from '@/src/context/emailContext';
 

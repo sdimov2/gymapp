@@ -6,7 +6,7 @@ import { View, Text, TextInput, Pressable } from 'react-native';
 
 import { CustomDropdown } from '@/src/components/TableComponents/Modals/ModalDropdown';
 
-import { baseUrl } from '@/src/assets/constants/Fixed_Vars';
+import { baseUrl } from '@/src/helpers/Constants';
 import { useCurrEmail } from '@/src/context/emailContext';
 import { formatDateSlashes } from '@/src/helpers/Dates';
   

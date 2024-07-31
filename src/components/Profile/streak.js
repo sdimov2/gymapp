@@ -12,7 +12,7 @@ import { View, Text } from 'react-native';
 const currentCount = 2
 
 // DUMMY DATA
-import { startDate, endDate, HeatData } from "@/src/assets/constants/Fixed_Vars";
+import { startDate, endDate, HeatData } from "@/src/helpers/Constants";
 
 // FIX: FIGURE OUT HOW TO CALCULATE STREAK
 import { useStreak } from "use-streak";

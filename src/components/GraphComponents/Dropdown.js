@@ -5,7 +5,7 @@ import { AntDesign } from '@expo/vector-icons';
 import { useState, useEffect, useMemo } from 'react';
 import { View, Text, Pressable, ScrollView, TextInput } from 'react-native';
 
-import { baseUrl } from '@/src/assets/constants/Fixed_Vars';
+import { baseUrl } from '@/src/helpers/Constants';
 
 import { useCurrEmail } from '@/src/context/emailContext';
 

@@ -9,8 +9,8 @@ import { AddRow } from "@/src/components/TableComponents/AddRows/AddRow"
 import { EditRow } from "@/src/components/TableComponents/EditRows/EditRow"
 import { Pagination } from "@/src/components/TableComponents/Pagination"
 
-import { baseUrl } from '@/src/assets/constants/Fixed_Vars';
-import { dummyData } from '@/src/assets/constants/Fixed_Vars';
+import { baseUrl } from '@/src/helpers/Constants';
+import { dummyData } from '@/src/helpers/Constants';
 
 import { useCurrEmail } from '@/src/context/emailContext';
 

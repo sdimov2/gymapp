@@ -8,7 +8,7 @@ const name = "AKHIL";
 export {avatar, bio, name, defaultAvatar};
 
 export const dummyData = [
-    {activity: 'Bench', lift: '', reps: '8', resistance_method: 'barbell', rpe: '8'},
+    {timestamp:'ssssssssssssssssssssssss', activity: 'Bench', lift: '', reps: '8', resistance_method: 'barbell', rpe: '8'},
     {activity: 'Bench', lift: '', reps: '8', resistance_method: 'barbell', rpe: '8'},
     {activity: 'Bench', lift: '', reps: '8', resistance_method: 'barbell', rpe: '8'},
     {activity: 'Bench', lift: '', reps: '8', resistance_method: 'barbell', rpe: '8'},
