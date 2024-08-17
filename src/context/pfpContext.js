@@ -3,7 +3,7 @@ import { createContext, useContext, useState, useEffect } from 'react';
 
 import { app, getStorage, ref, uploadBytes, getDownloadURL, listAll } from "@/config/firebase.config";
 
-import { name } from "@/src/helpers/Constants.js";
+import { name } from "@/src/helpers/constants.js";
 
 
 const storage = getStorage(app);
@@ -25,26 +25,26 @@ export const PfpProvider = ({ children }) => {
     const storageRef = ref(storage, `${name}/pfp/${name}-pfp`);
   
     try {
-        await uploadBytes(storageRef, blob);
-        const url = await getDownloadURL(storageRef);
-        
-        setAssignedImage(url);
+      await uploadBytes(storageRef, blob);
+      const url = await getDownloadURL(storageRef);
+      
+      setAssignedImage(url);
     } catch (error) {
-        console.error('Error uploading image:', error);
+      console.error('Error uploading image:', error);
     }
   };
   
 
   const selectImage = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
-        mediaTypes: ImagePicker.MediaTypeOptions.Images,
-        allowsEditing: true,
-        aspect: [4, 3],
-        quality: 1,
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      allowsEditing: true,
+      aspect: [4, 3],
+      quality: 1,
     });
   
     if (!result.canceled) {
-        await uploadImage(result.assets[0].uri);
+      await uploadImage(result.assets[0].uri);
     }
   };
 

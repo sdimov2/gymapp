@@ -34,7 +34,7 @@ const WorkoutCalander = () => {
   // Go to the day you clicked
   const handleDayPress = (day) => {
     const selected = new Date(day.timestamp);
-    selected.setDate(selected.getDate() + 1);
+    selected.setDate(selected.getDate());
 
     setDateString(day.dateString);    
     setSelectedDate(selected);

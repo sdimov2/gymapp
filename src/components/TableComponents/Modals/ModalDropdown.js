@@ -5,7 +5,7 @@ import tw from 'twrnc';
 import { useState, useEffect } from 'react';
 import { View, Text, Pressable, ScrollView } from 'react-native';
 
-import { baseUrl } from '@/src/helpers/Constants';
+import { baseUrl } from '@/src/helpers/constants';
 import { useCurrEmail } from '@/src/context/emailContext';
 import { formatDateSlashes } from '@/src/helpers/Dates';
 
@@ -21,6 +21,29 @@ export const CustomDropdown = ({ selectedValue, onValueChange, type, setData }) 
   const [resistanceOptions, setResistanceOptions] = useState([]);
 
   const { currEmail } = useCurrEmail();
+  
+
+  const fetchData = async () => {
+    try {
+      const data = (await axios.post(baseUrl + "/options", {email: currEmail})).data;
+
+      if (data === "No data") return;
+
+      setWorkoutOptions(data[0][0]);
+      setVariantOptions(data[1][0]);
+      setResistanceOptions(data[2][0]);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+
+  const getData = () => {
+    if (type === 'Workout') return workoutOptions;
+    if (type === 'Variant') return variantOptions;
+    if (type === 'Resistance') return resistanceOptions;
+  };
+
 
   const handleValues = async (workout, lift, resistance) => {
     let timestamp = new Date();
@@ -38,43 +61,29 @@ export const CustomDropdown = ({ selectedValue, onValueChange, type, setData }) 
     };
 
     try {
-      await axios.post(baseUrl + '/insert_log', { newRow: newRow, email: currEmail });
+      await axios.post(baseUrl + '/insert_log', { newRow: newRow, email: currEmail, new: true });
     } catch (error) {
       console.log(error);
     }
 
     setData(prevItems => [newRow, ...prevItems]);
     setCreateNewModalVisible(false);
+
+    fetchData()
   };
 
-  
-  const fetchData = async () => {
-    if (!(workoutOptions.length === 0 && variantOptions.length === 0 && resistanceOptions.length === 0)) return;
-    try {
-      const data = (await axios.get(baseUrl + "/options")).data;
-      setWorkoutOptions(data[0][0]);
-      setVariantOptions(data[1][0]);
-      setResistanceOptions(data[2][0]);
-    } catch (error) {
-      console.log(error);
-    }
-  };
 
   const handleSelect = (item) => {
     onValueChange(item);
     setListModalVisible(false);
   };
 
-  const getData = () => {
-    if (type === 'workout') return workoutOptions;
-    if (type === 'variant') return variantOptions;
-    if (type === 'resistance') return resistanceOptions;
-  };
 
   useEffect(() => {
     fetchData();
-  }, []);
+  }, [currEmail]);
 
+  
   return (
     <>
       <Pressable onPress={() => setListModalVisible(true)} style={tw`bg-white h-full`}>  
@@ -92,6 +101,7 @@ export const CustomDropdown = ({ selectedValue, onValueChange, type, setData }) 
           setListModalVisible(false);
           setCreateNewModalVisible(true);
         }}
+        type={type}
       />
 
       <CreateNewModal 

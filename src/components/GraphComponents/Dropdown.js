@@ -5,7 +5,7 @@ import { AntDesign } from '@expo/vector-icons';
 import { useState, useEffect, useMemo } from 'react';
 import { View, Text, Pressable, ScrollView, TextInput } from 'react-native';
 
-import { baseUrl } from '@/src/helpers/Constants';
+import { baseUrl } from '@/src/helpers/constants';
 
 import { useCurrEmail } from '@/src/context/emailContext';
 
@@ -20,8 +20,10 @@ const WeightSelector = ({ updateGraph }) => {
 
   const getOptions = async () => {
     try {
-      const res = (await axios.get(baseUrl + "/options")).data;
-      setOptions(res[0][0]);
+      const res = (await axios.post(baseUrl + "/options", { email: currEmail})).data;
+      
+      if (res === "No data") { setOptions([])}
+      else {setOptions(res[0][0]);}
     } catch (error) {
       console.error("Error fetching options:", error);
     }
@@ -41,12 +43,13 @@ const WeightSelector = ({ updateGraph }) => {
     getOptions();
   }, [currEmail]);
 
-
+  
   const filteredData = useMemo(() => {
     return options.filter(item =>
       item.toLowerCase().includes(searchTerm.toLowerCase())
     );
   }, [options, searchTerm]);
+
 
   const renderDropdown = () => (
     <View style={tw`mt-1 bg-blue-600 border border-black rounded-lg p-1 h-42`}>

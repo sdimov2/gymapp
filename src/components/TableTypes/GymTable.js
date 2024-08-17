@@ -3,14 +3,13 @@ import tw from 'twrnc';
 
 import { useState, useEffect } from 'react'
 import { ActivityIndicator, ScrollView, Text, View, Pressable } from 'react-native';
-// import { Provider, DataTable } from 'react-native-paper';
 
 import { AddRow } from "@/src/components/TableComponents/AddRows/AddRow"
 import { EditRow } from "@/src/components/TableComponents/EditRows/EditRow"
 import { Pagination } from "@/src/components/TableComponents/Pagination"
 
-import { baseUrl } from '@/src/helpers/Constants';
-import { dummyData } from '@/src/helpers/Constants';
+import { baseUrl } from '@/src/helpers/constants';
+import { dummyData } from '@/src/helpers/constants';
 
 import { useCurrEmail } from '@/src/context/emailContext';
 
@@ -37,13 +36,13 @@ const TableHeader = ({ title, size, end=false }) => {
 const TableCell = ({ text, size }) => (
   <View 
     style={[
-      tw`py-1 border-r border-gray-200 justify-center`,
+      tw`py-0.5 border-r border-gray-200 justify-center`,
       !size && tw`w-14`,
       size === "small" && tw`w-6.5`,
     ]}
   >
     <ScrollView horizontal showsHorizontalScrollIndicator={false} >
-      <Text style={[tw`ml-0.25 w-full text-2.8 justify-center mt-1`, {fontFamily: "Dosis"}]}> {text} </Text>
+      <Text style={[tw`ml-0.25 w-full text-2.8 mt-1`, {fontFamily: "Dosis"}]}> {text} </Text>
     </ScrollView>
   </View>
 );
@@ -121,7 +120,7 @@ export default function GymTable() {
 
               {/* LOGS */}
               {items.slice(from, to).map((item, index) => (
-                <View key={index} style={tw`border border-t-0 border-gray-400 flex-row ${item.toggle ? 'bg-gray-300' : 'bg-white'}`}> 
+                <View key={index} style={tw`border border-t-0 border-gray-400 flex-row h-8 ${item.toggle ? 'bg-gray-300' : 'bg-white'}`}> 
                   {!item.isEditing ? ( // Render default row if not editing
                     <ScrollView horizontal showsHorizontalScrollIndicator={false} >
                       <TableCell text={item.timestamp} />

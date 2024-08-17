@@ -1,46 +1,42 @@
 from flask import jsonify
-# from numpy import sort
-
-# from Backend.filter import filter_entries
-# from Backend.get_data import get_data_from_entries
-# from info import global_data
 
 from postgres import sql_get
 
 
-def GetOptions():  # FIX: Create an options table. Add a image to options
+def GetOptions(email):  # FIX: Create an options table. Add a image to options
+    workouts, variants, resistances = [], [], []
 
-    workout_query = """
-    SELECT DISTINCT "Workout"
-    FROM public."WorkoutLogs"
-    WHERE "Workout" IS NOT NULL AND "Workout" != ''
-    ORDER BY "Workout";
+
+    workout_query = f"""
+        SELECT * FROM "{email}"."WorkoutOptions"
+        ORDER BY "Options" ASC
     """
 
-    variant_query = """
-    SELECT DISTINCT "Variants"
-    FROM public."WorkoutLogs"
-    WHERE "Variants" IS NOT NULL AND "Variants" != ''
-    ORDER BY "Variants";
+    variant_query = f"""
+        SELECT * FROM "{email}"."VariantOptions"
+        ORDER BY "Options" ASC
     """
 
-    resistance_query = """
-    SELECT DISTINCT "Resistance"
-    FROM public."WorkoutLogs"
-    WHERE "Resistance" IS NOT NULL AND "Resistance" != ''
-    ORDER BY "Resistance";
+    resistance_query = f"""
+        SELECT * FROM "{email}"."ResistanceOptions"
+        ORDER BY "Options" ASC
     """
+
 
     try:
         workouts = [row[0] for row in sql_get(workout_query)]
-        variants = [row[0] for row in sql_get(variant_query)]
-        resistances = [row[0] for row in sql_get(resistance_query)]
-
-        # workouts = sorted(set(workouts), key=str.lower)
-        # variants = sorted(set(variants), key=str.lower)
-        # resistances = sorted(set(resistances), key=str.lower)
     except Exception as e:
         print(f"Error fetching options: {e}")
-        # return jsonify([[], [], []])
+
+    try:
+        variants = [row[0] for row in sql_get(variant_query)]
+    except Exception as e:
+        print(f"Error fetching options: {e}")
+
+    try:
+        resistances = [row[0] for row in sql_get(resistance_query)]
+    except Exception as e:
+        print(f"Error fetching options: {e}")
+
 
     return jsonify([workouts], [variants], [resistances])

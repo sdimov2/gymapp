@@ -12,14 +12,13 @@ export function TimerProvider({children}) {
   const [isRunning, setIsRunning] = useState(false);
 
   const intervalRef = useRef(null);
-
+  
 
   const timerReset = async () => {
     setElapsedTime(0);
 
     await timerPause()
   }
-
 
   const timerPause = async () => {
     setFinalTime(elapsedTime);

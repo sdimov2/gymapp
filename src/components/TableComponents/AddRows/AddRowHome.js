@@ -6,7 +6,7 @@ import { View, Text, TextInput, Pressable } from 'react-native';
 
 import { CustomDropdown } from '@/src/components/TableComponents/Modals/ModalDropdown';
 
-import { baseUrl } from '@/src/helpers/Constants';
+import { baseUrl } from '@/src/helpers/constants';
 import { useCurrEmail } from '@/src/context/emailContext';
 import { formatDateSlashes } from '@/src/helpers/Dates';
   
@@ -71,7 +71,7 @@ const DropRowHome = ({ setData }) => {
     // console.log("Time: ", finalTime); // FIX: Send final time to backend?
 
     try {
-      await axios.post(baseUrl + '/insert_log', { newRow: newRow, email: currEmail}).data;
+      await axios.post(baseUrl + '/insert_log', { newRow: newRow, email: currEmail, new: false}).data;
     } catch (error) {
       console.log(error);
     }
@@ -81,9 +81,9 @@ const DropRowHome = ({ setData }) => {
 
   return (
     <View style={tw`h-12 flex-row text-center font-bold bg-gray-100 border-t border-b border-gray-500`}>
-      <SelectCell selectedValue={workout} onValueChange={setWorkout} type={"workout"} setData={setData}/>
-      <SelectCell selectedValue={lift} onValueChange={setLift} type={"variant"} setData={setData} />
-      <SelectCell selectedValue={resistance} onValueChange={setResistance} type={"resistance"} setData={setData}/>
+      <SelectCell selectedValue={workout} onValueChange={setWorkout} type={"Workout"} setData={setData}/>
+      <SelectCell selectedValue={lift} onValueChange={setLift} type={"Variant"} setData={setData} />
+      <SelectCell selectedValue={resistance} onValueChange={setResistance} type={"Resistance"} setData={setData}/>
       <AddCell numeric={true} value={set} onChangeText={setSet} />
       <AddCell numeric={true} value={lbs} onChangeText={setlbs} />
       <AddCell numeric={true} value={reps} onChangeText={setReps} />

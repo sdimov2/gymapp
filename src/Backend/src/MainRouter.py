@@ -8,9 +8,10 @@ from PostgreSQL.insert_log import insertLog
 from PostgreSQL.insert_bw import insertBW
 from PostgreSQL.edit_bw import updateBW
 from PostgreSQL.edit_log import updateLog
-from PostgreSQL.delete_log import deleteLog
+from PostgreSQL.delete_log import deleteLog, deleteBW, deleteOption
 from PostgreSQL.return_body_weight import GetBodyWeight
 from PostgreSQL.return_global_data import GetFull, GetHome
+from PostgreSQL.register import register
 # from New.charts import GetPairs, GetAreaChart
 
 
@@ -26,37 +27,38 @@ active_rooms = {}
 
 @app.route("/full_table", methods=['POST'])
 def api0():
-
-    # email = "sdimov77@gmail.com"
     email = request.get_json().get('email') 
-    # print(email)
+    
+    data = "No data"
 
-    data = GetFull(email)
+    if email:
+        data = GetFull(email)
 
     return data
 
 
 @app.route("/home_table", methods=['POST'])
 def api1():
-
-    # email = "sdimov77@gmail.com"
     email = request.get_json().get('email') 
     date = request.get_json().get('date')
 
-    # print(email)
+    data = "No data"
 
-    data = GetHome(email, date)
+    if email:
+        data = GetHome(email, date)
 
     return data
 
 
 @app.route("/bw", methods=['POST'])
 def api2():
-
     email = request.get_json().get('email')
     date = request.get_json().get('date')
 
-    data = GetBodyWeight(email, date)
+    data = "No data"
+
+    if email:
+        data = GetBodyWeight(email, date)
 
     return data
 
@@ -85,16 +87,20 @@ def api4():
     # return data
 
 
-@app.route("/options")
+@app.route("/options", methods=['POST'])
 def api5():
-    data = GetOptions()
+    email = request.get_json().get('email')
+
+    data = "No data"
+
+    if email:
+        data = GetOptions(email)
 
     return data
 
 
 @app.route('/receive_data', methods=['POST'])
 def api6():
-
     selected = request.get_json().get('selected') 
 
     data = ProcessData(selected)
@@ -104,22 +110,23 @@ def api6():
 
 @app.route('/insert_log', methods=['POST'])
 def api7():
-
     selected = request.get_json().get('newRow') 
     email = request.get_json().get('email') 
+    new = request.get_json().get('new')
 
-    insertLog(selected, email)
+    if email:
+        insertLog(selected, email, new)
 
     return "success"
 
 
 @app.route('/insert_bw', methods=['POST'])
 def api8():
-
     selected = request.get_json().get('newRow') 
-    email = request.get_json().get('email') 
+    email = request.get_json().get('email')
 
-    insertBW(selected, email)
+    if email:
+        insertBW(selected, email)
 
     return "success"
 
@@ -130,35 +137,72 @@ def api9():
     id = request.get_json().get('id') 
     email = request.get_json().get('email') 
 
-    data = deleteLog(id, email)
+    if email:
+        data = deleteLog(id, email)
+
+    return "success"
+
+
+@app.route('/delete_bw', methods=['POST'])
+def api10():
+
+    id = request.get_json().get('id') 
+    email = request.get_json().get('email') 
+
+    if email:
+        data = deleteBW(id, email)
+
+    return "success"
+
+
+@app.route('/delete_option', methods=['POST'])
+def api11():
+
+    value = request.get_json().get('value') 
+    email = request.get_json().get('email') 
+    type = request.get_json().get('type')
+
+    if email:
+        data = deleteOption(value, email, type)
 
     return "success"
 
 
 @app.route('/edit_log', methods=['POST'])
-def api10():
+def api12():
 
     id = request.get_json().get('newRow') 
     email = request.get_json().get('email')
 
-    # print(id)
-
-    data = updateLog(id, email)
+    if email:
+        data = updateLog(id, email)
 
     return "success"
 
 
 @app.route('/edit_bw', methods=['POST'])
-def api11():
+def api13():
 
     id = request.get_json().get('newRow') 
     email = request.get_json().get('email')
 
-    data = updateBW(id, email)
+    if email:
+        data = updateBW(id, email)
 
     return "success"
 
 
+@app.route('/register', methods=['POST'])
+def api14():
+
+    email = request.get_json().get('email')
+
+    print(email)
+
+    if email:
+        data = register(email)
+
+    return "success"
 
 
 @socketio.on("connect")

@@ -11,7 +11,8 @@ import Colors from '@/src/helpers/Built_In/Colors';
 import { FontProvider } from '@/src/context/fontContext';
 import { TimerProvider } from '@/src/context/timerContext';
 import { PfpProvider, useProfilePic } from '@/src/context/pfpContext';
-import { defaultAvatar } from "@/src/helpers/Constants.js";
+import { defaultAvatar } from "@/src/helpers/constants.js";
+import { CurrEmailProvider } from '@/src/context/emailContext';
 
 
 

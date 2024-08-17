@@ -23,6 +23,7 @@ export default function Graph() {
     <ScrollView contentContainerStyle={tw`justify-center bg-gray-100`}>
       
       <View style={tw`items-center justify-between bg-white p-2`}>
+      
         <Text style={tw`text-xl font-bold items-center flex`}>Data Analytics</Text>
 
         <CurrEmailProvider>

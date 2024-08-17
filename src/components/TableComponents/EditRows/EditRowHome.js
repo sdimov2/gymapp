@@ -4,7 +4,7 @@ import tw from 'twrnc';
 import { useState, useEffect } from 'react';
 import { View, Text, TextInput, Pressable } from 'react-native';
 
-import { baseUrl } from '@/src/helpers/Constants';
+import { baseUrl } from '@/src/helpers/constants';
 import { useCurrEmail } from '@/src/context/emailContext';
 
 
@@ -61,7 +61,7 @@ const EditRowHome = ({item, editDataLog, index}) => {
  
 
   return (
-    <View style={tw`h-9 flex-row text-center text-black-800 font-bold bg-white px-0.5 ${index !== 0 && 'border-t border-gray-400'}`}>
+    <View style={tw`h-9 flex-row text-center text-black font-bold bg-white px-0.5 ${index !== 0 && 'border-t border-gray-400'}`}>
       {/* Input Cells */}
       <AddCell numeric={false} value={workout} onChangeText={setWorkout} />
       <AddCell numeric={false} value={variants} onChangeText={setVariants} />

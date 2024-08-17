@@ -1,18 +1,19 @@
 import psycopg2
 
-
-# Column Headers
-columns = """ 
-            "Timestamp", "Email Address", "Workout", "Variants", "Resistance", 
-            "Set #", "Weight", "Reps", "RPE", "Bodyweight", "Additional Info", "FullTimestamp" 
-          """
-
 # Connection parameters
+# conn_params = {
+#     "dbname": "Akhil",
+#     "user": "user1",
+#     "password": "user1",
+#     "host": "73.111.169.78",
+# }
+
 conn_params = {
     "dbname": "GymBro",
     "user": "postgres",
     "password": "rootAkhil",
 }
+
 
 def execute_query(query, params, fetch):
     conn = psycopg2.connect(**conn_params)
@@ -38,3 +39,15 @@ def sql_get(query, params=None):
 
 def sql_change(query, params=None):
     return execute_query(query, params, fetch=False)
+
+
+
+# Column Headers
+columns = """ 
+            "Timestamp", "Workout", "Variants", "Resistance", 
+            "Set#", "Weight", "Reps", "RPE", "AdditionalInfo", "FullTimestamp"
+          """
+
+columnsBW = """ 
+              "Timestamp", "Bodyweight", "FullTimestamp"
+            """

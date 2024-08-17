@@ -1,4 +1,5 @@
-from postgres import sql_change, columns
+from postgres import sql_change, columnsBW
+
 
 def safe_int(value, default=0):
     try:
@@ -16,28 +17,19 @@ def safe_float(value, default=0.0):
 def insertBW(newRow, email):
 
     query = f"""
-        INSERT INTO public."WorkoutLogs"(
-            {columns}
+        INSERT INTO "{email}"."Bodyweight"(
+            {columnsBW}
         )
         VALUES (
-            %s, %s, %s, %s, %s, 
-            %s, %s, %s, %s, %s, %s, NOW()
+            %s, %s, NOW()
         );
     """
 
     params = (
         newRow['timestamp'],
-        email,
-        None,
-        None,
-        None,
-        None,
-        None,
-        None,
-        None,
         safe_int(newRow['bodyweight']),
-        None,
     )
+
 
     sql_change(query, params)
     

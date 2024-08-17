@@ -1,19 +1,19 @@
-import {useContext, useState, createContext} from 'react';
-
-const CurrEmailContext = createContext();
+import { useContext, useState, createContext } from 'react';
 
 import { auth, onAuthStateChanged } from "@/config/firebase.config";
 
 
+const CurrEmailContext = createContext();
+
 export function useCurrEmail() {
-    return useContext(CurrEmailContext)
+  return useContext(CurrEmailContext)
 }
 
 export function CurrEmailProvider({children}) {
     const [currEmail, setCurrEmail] = useState(null)
 
     onAuthStateChanged(auth, (user) => {
-        setCurrEmail(user?.email)
+      setCurrEmail(user?.email)
     })
 
   return (

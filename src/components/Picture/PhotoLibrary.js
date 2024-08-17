@@ -1,18 +1,18 @@
-import React from 'react';
-import { View, Text, FlatList, Image, Pressable, ScrollView } from 'react-native';
 import tw from 'twrnc';
+
+import React from 'react';
+
+import { View, Text, FlatList, Image, Pressable, ScrollView } from 'react-native';
+
 
 const PhotoLibrary = ({ images, onSelect }) => {
     
     const renderImageItem = ({ item }) => (
-        <Pressable
-            onPress={() => onSelect(item)}
-        >
+        <Pressable onPress={() => onSelect(item)}>
             <Image source={{ uri: item }} style={tw`w-30 h-30 mx-1 rounded-lg`} resizeMode="cover" />
             {/* <Text style={tw`text-3 px-1`}>{item.split('/').pop()}</Text> */}
         </Pressable>
     );
-
 
     return (
         <>

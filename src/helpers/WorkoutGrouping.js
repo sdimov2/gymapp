@@ -1,10 +1,16 @@
 const groupBy = (array, keys) => {
+
+  if (!Array.isArray(array) || !Array.isArray(keys)) {
+    return {};
+  }
+
   return array.reduce((result, currentValue) => {
       const key = keys.map(k => currentValue[k] === "" ? 'N/A' : currentValue[k]).join(' | ');
       (result[key] = result[key] || []).push(currentValue);
       return result;
   }, {});
 };
+
 
 const getVolume = (group) => {
   let volume = 0;
@@ -17,5 +23,6 @@ const getVolume = (group) => {
   });
   return volume;
 };
+
 
 export {groupBy, getVolume}

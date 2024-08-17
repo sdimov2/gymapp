@@ -1,7 +1,9 @@
+import tw from 'twrnc';
+
 import React, { useRef, useState } from 'react';
+
 import { View, Pressable, Text, Modal, SafeAreaView, ScrollView, Image } from 'react-native';
 import { Camera } from 'expo-camera/legacy';
-import tw from 'twrnc';
 
 import { FontAwesome6 } from '@expo/vector-icons';
 import { AntDesign } from '@expo/vector-icons';

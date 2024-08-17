@@ -5,7 +5,7 @@ import React, { useState, useEffect } from 'react';
 import { Pressable, View, Text, Image, Modal, ScrollView, SafeAreaView } from 'react-native';
 
 import { getStorage, ref, uploadBytes, getDownloadURL, listAll } from "@/config/firebase.config";
-import { name } from "@/src/helpers/Constants.js";
+import { name } from "@/src/helpers/constants.js";
 
 import PhotoLibrary from './PhotoLibrary.js';
 import CameraComponent from './Camera.js';
@@ -26,6 +26,7 @@ const ImagePopup = ({ groupKey, onClose }) => {
         setWorkoutInfo({ workout, variant, resistance });
         fetchImages(workout);
     }, [groupKey]);
+
 
     const fetchImages = async (workout) => {
         try {

@@ -9,7 +9,8 @@ import { EditRowBody } from "@/src/components/TableComponents/EditRows/EditRowBo
 
 // HELPER METHODS
 import { formatDateSlashes, isCurrentDate } from '@/src/helpers/Dates'; 
-import { baseUrl } from '@/src/helpers/Constants';
+
+import { baseUrl } from '@/src/helpers/constants';
 
 import { useCurrEmail } from '@/src/context/emailContext';
 
@@ -37,7 +38,7 @@ export default function BodyWeightTable({ currScreen, currDate }) {
   const handleDeleteLog = async (id) => {
     setData(items.filter((item) => item.timestamp !== id)); 
 
-    await axios.post(baseUrl + '/delete_log', { id: id, email: currEmail });
+    await axios.post(baseUrl + '/delete_bw', { id: id, email: currEmail });
   };
 
   // Edit & Save Row

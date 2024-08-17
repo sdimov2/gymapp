@@ -1,17 +1,18 @@
 from postgres import sql_change
 
+
 def updateLog(updatedRow, email):
-    query = """
-        UPDATE public."WorkoutLogs"
+    query = f"""
+        UPDATE "{email}"."Exercises"
         SET 
             "Workout" = %s,
             "Variants" = %s,
             "Resistance" = %s,
-            "Set #" = %s,
+            "Set#" = %s,
             "Weight" = %s,
             "Reps" = %s,
             "RPE" = %s
-        WHERE "Timestamp" = %s AND "Email Address" = %s;
+        WHERE "Timestamp" = %s;
     """
 
     params = (
@@ -23,12 +24,9 @@ def updateLog(updatedRow, email):
         updatedRow['reps'],
         updatedRow['rpe'],
         updatedRow['timestamp'],
-        email,
     )
 
-    # print(updatedRow)
 
-    affected_rows = sql_change(query, params)
+    sql_change(query, params)
     
-    # return "Log updated successfully" if affected_rows > 0 else "No matching log found to update"
     return "WHOOP3"

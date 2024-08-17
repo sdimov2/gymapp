@@ -17,8 +17,8 @@ export function FontProvider({children}) {
     });
 
     return (
-        <FontContext.Provider value={{}}>
-            {children}
-        </FontContext.Provider>
+      <FontContext.Provider value={{}}>
+        {children}
+      </FontContext.Provider>
     );
 }

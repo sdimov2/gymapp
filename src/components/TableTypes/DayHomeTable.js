@@ -1,10 +1,10 @@
 import axios from 'axios';
 import tw from 'twrnc';
 
+import { AntDesign } from '@expo/vector-icons';
+
 import { useState, useEffect } from 'react';
 import { ActivityIndicator, ScrollView, Text, View, Pressable } from 'react-native';
-
-import { AntDesign } from '@expo/vector-icons';
 
 import { DropRowHome } from "@/src/components/TableComponents/AddRows/AddRowHome";
 import { EditRowHome } from "@/src/components/TableComponents/EditRows/EditRowHome";
@@ -12,10 +12,10 @@ import { ImagePopup } from '@/src/components/Picture/ImagePopup';
 
 // HELPER METHODS
 import { formatDateSlashes, isCurrentDate } from '@/src/helpers/Dates'; 
-import { groupBy, getVolume } from '@/src/helpers/Grouping'; 
+import { groupBy, getVolume } from '@/src/helpers/WorkoutGrouping'; 
 
-import { baseUrl } from '@/src/helpers/Constants';
-import { dummyData } from '@/src/helpers/Constants';
+import { baseUrl } from '@/src/helpers/constants';
+import { dummyData } from '@/src/helpers/constants';
 
 import { useCurrEmail } from '@/src/context/emailContext';
 
@@ -45,7 +45,7 @@ const TableCell = ({ text, numeric }) => (
     style={tw`${numeric ? 'w-7.5' : 'w-17.5'} border-r border-gray-400`}
   >
     <ScrollView showsVerticalScrollIndicator={false}>
-      <Text style={tw`text-2.5 p-1 `} >{text}</Text>
+      <Text style={[tw`text-2.5 p-1 font-bold`, {fontFamily: "Raleway_200ExtraLight"}]} >{text}</Text>
     </ScrollView>
   </View>
 );
@@ -60,6 +60,7 @@ export default function HomeTable({ currScreen, currDate }) {
   const [expandedGroups, setExpandedGroups] = useState({});
   const [currGroupKey, setCurrGroupKey] = useState(null);
   const [whichHovered, setWhichHovered] = useState(null);
+  
   let groupedItems = groupBy(items, ['activity', 'variants', 'resistance_method']);
 
   const { currEmail } = useCurrEmail();

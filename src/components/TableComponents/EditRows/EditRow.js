@@ -4,7 +4,7 @@ import tw from 'twrnc';
 import { useState, useEffect } from 'react';
 import { View, Text, TextInput, Pressable, ScrollView } from 'react-native';
 
-import { baseUrl } from '@/src/helpers/Constants';
+import { baseUrl } from '@/src/helpers/constants';
 import { useCurrEmail } from '@/src/context/emailContext';
 
 
@@ -16,7 +16,8 @@ const AddCell = ({ numeric, value, onChangeText }) => (
       maxLength={40}
       onChangeText={onChangeText}
       value={value}
-      style={tw`text-2.8 font-sans justify-center py-1 px-1 h-full`}
+      style={tw`text-2.8 font-sans justify-center px-1 py-1 h-full`}
+      ellipsizeMode="clip"
     />
   </View>
 );
@@ -57,11 +58,9 @@ const EditRow = ({ item, editDataLog}) => {
   return (
     <View style={tw`flex-row bg-blue-300`}>  
       {/* Timestamp */}
-      <View style={tw`text-0.5 w-14 border-r border-black text-sm justify-center`}>
+      <View style={tw`bg-white py-0.5 border-r border-gray-200 justify-center w-14`}>
         <ScrollView horizontal showsHorizontalScrollIndicator={false} >
-          <Text style={tw` text-2.8 font-sans justify-center py-1 px-1 mt-1`}>  
-              {item.timestamp}
-          </Text>
+          <Text style={[tw`ml-0.25 w-full text-2.8 mt-1`, {fontFamily: "Dosis"}]}> {item.timestamp} </Text>
         </ScrollView>
       </View>
       

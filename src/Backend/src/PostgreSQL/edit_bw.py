@@ -1,19 +1,19 @@
 from postgres import sql_change
 
+
 def updateBW(updatedRow, email):
-    query = """
-        UPDATE public."WorkoutLogs"
+    query = f"""
+        UPDATE "{email}"."Bodyweight"
         SET 
             "Bodyweight" = %s
-        WHERE "Timestamp" = %s AND "Email Address" = %s;
+        WHERE "Timestamp" = %s;
     """
 
     params = (
-        
         updatedRow['bodyweight'],
         updatedRow['timestamp'],
-        email,
     )
+
 
     sql_change(query, params)
 

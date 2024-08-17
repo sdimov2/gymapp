@@ -7,14 +7,15 @@ import { Ionicons } from '@expo/vector-icons';
 
 
 const Pagination = ({
-  page,
-  numberOfPages,
-  onPageChange,
-  itemsPerPage,
-  onItemsPerPageChange,
-  totalItems,
-  numberOfItemsPerPageList,
-}) => {
+    page,
+    numberOfPages,
+    onPageChange,
+    itemsPerPage,
+    onItemsPerPageChange,
+    totalItems,
+    numberOfItemsPerPageList,
+  }) => {
+
   const [openDropdown, setOpenDropdown] = useState(false);
   const from = page * itemsPerPage;
   const to = Math.min((page + 1) * itemsPerPage, totalItems);

@@ -1,8 +1,12 @@
+import axios from 'axios';
+
 import { useEffect, useState } from 'react'
 import { useRouter } from 'expo-router'
 import { KeyboardAvoidingView, Text, TextInput, Pressable, View } from 'react-native'
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signInWithPopup } from "firebase/auth";
 // import {GoogleAuthProvider, TwitterAuthProvider } from "firebase/auth";
+
+import { baseUrl } from '@/src/helpers/constants';
 
 // import googleLogo from '../assets/images/google.png';
 
@@ -62,8 +66,14 @@ export default function LoginScreen() {
 
   
   const handleSignUp = async () => {
-    await createUserWithEmailAndPassword(auth, email, password)
+    try {
+      await createUserWithEmailAndPassword(auth, email, password)
       .catch(() => { console.log("Signup failed") }) // FIX: NOTIFICATION
+
+      await axios.post(baseUrl + '/register', { email: email});
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   const handleLogin = async () => {

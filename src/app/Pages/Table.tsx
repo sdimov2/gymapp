@@ -15,11 +15,10 @@ export default function Table() {
         
         {/* <SearchBar/> */}
         
-        <View style={tw`mb-2`}/>
-        
         <CurrEmailProvider>
             <GymTable />
         </CurrEmailProvider>
+
       </View>
     </ScrollView>
   );
