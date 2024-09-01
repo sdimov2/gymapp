@@ -3,8 +3,9 @@ import tw from 'twrnc';
 import { useState } from 'react';
 import { View, Text, ScrollView, Pressable } from 'react-native';
 
-import Streak from "@/src/components/Profile/streak"; // FIX: "streak.js"
-import Profile from "@/src/components/Profile/Profile"; // FIX: "profile.js"
+import Streak from "@/src/components/Profile/streak";
+import Profile from "@/src/components/Profile/Profile";
+
 import Logout from "@/src/components/Profile/Logout";
 import WebSocketCall from "@/src/components/Chat/ChatRoom";
 

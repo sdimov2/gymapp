@@ -1,28 +1,11 @@
-const formatDateSlashes = (date) => {
-  const adjustedDate = new Date(date);
-
-  return adjustedDate.toLocaleString().split(',')[0];
-};
-
-
-const isCurrentDate = (date) => {
-  const today = new Date();
-
-  return date.toDateString() === today.toDateString();
-};
+import {daysOfWeek, monthsOfYear} from './constants';
 
 
 const getDateObject = (inputDate) => {
-  let date = inputDate
-
-  const daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-  const monthsOfYear = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-
-
-  const dayOfWeek = daysOfWeek[date.getDay()];
-  const month = monthsOfYear[date.getMonth()];
-  const dayOfMonth = date.getDate();
-  const year = date.getFullYear();
+  const dayOfWeek = daysOfWeek[inputDate.getDay()];
+  const month = monthsOfYear[inputDate.getMonth()];
+  const dayOfMonth = inputDate.getDate();
+  const year = inputDate.getFullYear();
 
   let dayOfMonthSuffix;
   switch (dayOfMonth % 10) {
@@ -51,5 +34,20 @@ const getDateObject = (inputDate) => {
     year
   };
 };
+
+
+const formatDateSlashes = (date) => {
+  const adjustedDate = new Date(date);
+
+  return adjustedDate.toLocaleString().split(',')[0];
+};
+
+
+const isCurrentDate = (date) => {
+  const today = new Date();
+
+  return date.toDateString() === today.toDateString();
+};
+
 
 export {formatDateSlashes, isCurrentDate, getDateObject}
