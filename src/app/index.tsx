@@ -8,7 +8,7 @@ import { createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthState
 
 import { auth } from "@/config/firebase.config"
 
-import { baseUrl } from '@/src/constants';
+import { baseUrl } from '@/src/CONSTANTS';
 
 
 const AuthInput = ({ placeholder, value, onChangeText, secureTextEntry }: any) => {

@@ -10,7 +10,7 @@ import Colors from '@/src/helpers/Built_In/Colors';
 
 import { TimerProvider } from '@/src/context/timerContext';
 import { PfpProvider, useProfilePic } from '@/src/context/pfpContext';
-import { defaultAvatar } from "@/src/constants.js";
+import { defaultAvatar } from "@/src/CONSTANTS.js";
 import { CurrEmailProvider } from '@/src/context/emailContext';
 
 

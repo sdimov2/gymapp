@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend } from 'recharts';
 
-import { baseUrl } from '@/src/constants';
+import { baseUrl } from '@/src/CONSTANTS';
 import { app } from "@/config/firebase.config"
 import { getAuth } from "firebase/auth";
 const auth = getAuth(app);

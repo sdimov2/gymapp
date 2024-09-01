@@ -5,7 +5,7 @@ import tw from 'twrnc';
 import { useState, useEffect } from 'react';
 import { View, Text, Pressable, ScrollView } from 'react-native';
 
-import { baseUrl } from '@/src/constants';
+import { baseUrl } from '@/src/CONSTANTS';
 import { formatDateSlashes } from '@/src/helpers/Dates';
 import { useCurrEmail } from '@/src/context/emailContext';
 

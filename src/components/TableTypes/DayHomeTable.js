@@ -14,8 +14,8 @@ import { ImagePopup } from '@/src/components/Picture/ImagePopup';
 import { formatDateSlashes, isCurrentDate } from '@/src/helpers/Dates'; 
 import { groupBy, getVolume } from '@/src/helpers/WorkoutGrouping'; 
 
-import { baseUrl } from '@/src/constants';
-import { dummyData } from '@/src/constants';
+import { baseUrl } from '@/src/CONSTANTS';
+import { dummyData } from '@/src/CONSTANTS';
 
 import { useCurrEmail } from '@/src/context/emailContext';
 

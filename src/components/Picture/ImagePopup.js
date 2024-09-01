@@ -5,7 +5,7 @@ import React, { useState, useEffect } from 'react';
 import { Pressable, View, Text, Image, Modal, ScrollView, SafeAreaView } from 'react-native';
 
 import { storage, ref, uploadBytes, getDownloadURL, listAll } from "@/config/firebase.config";
-import { name } from "@/src/constants.js";
+import { name } from "@/src/CONSTANTS.js";
 
 import PhotoLibrary from './PhotoLibrary.js';
 import CameraComponent from './Camera.js';

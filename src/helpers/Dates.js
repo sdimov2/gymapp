@@ -1,4 +1,4 @@
-import {daysOfWeek, monthsOfYear} from '../constants';
+import {daysOfWeek, monthsOfYear} from '../CONSTANTS';
 
 
 const getDateObject = (inputDate) => {

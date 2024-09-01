@@ -3,7 +3,7 @@ import { createContext, useContext, useState, useEffect } from 'react';
 
 import { storage, ref, uploadBytes, getDownloadURL, listAll } from "@/config/firebase.config";
 
-import { name } from "@/src/constants.js";
+import { name } from "@/src/CONSTANTS.js";
 
 
 const PfpContext = createContext();
