@@ -2,6 +2,8 @@ Trash/
 node_modules/
 .expo/
 
+src/backend/.venv
+
 npm-debug.*
 *.jks
 *.p8

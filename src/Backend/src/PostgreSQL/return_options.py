@@ -3,7 +3,7 @@ from flask import jsonify
 from postgres import sql_get
 
 
-def GetOptions(email):  # FIX: Create an options table. Add a image to options
+def GetOptions(email):  # FIX: Add a image to options
     workouts, variants, resistances = [], [], []
 
 

@@ -2,8 +2,7 @@ from flask import Flask, request
 from flask_cors import CORS
 from flask_socketio import SocketIO, join_room, leave_room, emit
 
-from PostgreSQL.receive_data import ProcessData
-from PostgreSQL.options import GetOptions
+from PostgreSQL.return_options import GetOptions
 from PostgreSQL.insert_log import insertLog
 from PostgreSQL.insert_bw import insertBW
 from PostgreSQL.edit_bw import updateBW

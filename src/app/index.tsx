@@ -60,7 +60,7 @@ export default function LoginScreen() {
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       if (user) 
-        router.navigate('Pages/');
+        router.navigate('Tabs/');
     });
   }, [])
 

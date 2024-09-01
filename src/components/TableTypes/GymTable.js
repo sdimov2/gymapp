@@ -69,6 +69,8 @@ export default function GymTable() {
     try {
       const res = ((await axios.post(baseUrl + '/full_table', { email: currEmail })).data).reverse();
       setData(res);
+
+      // console.log(res)
     } catch (error) {
       console.log(error); 
     }

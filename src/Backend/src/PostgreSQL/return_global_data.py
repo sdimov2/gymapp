@@ -8,7 +8,7 @@ def GetFull(email):
         SELECT * FROM "{email}"."Exercises"
         WHERE "Workout" IS NOT NULL 
         ORDER BY "FullTimestamp";
-    """ # ?FIX: SHOULD WE REMOVE BODYWEIGHT FROM MAIN CHART? IT'S NOT EVEN DISPLAYED 
+    """
 
     return polishedData(sql_get(query))
 

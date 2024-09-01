@@ -11,5 +11,7 @@ Consider using:
 - Kafka or Celery
 - React-Native-Animated
 - WebRTC
+- Pandas
+- NumPy
 
 Take advantage of *expo router*

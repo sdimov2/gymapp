@@ -9,12 +9,11 @@ const dummyData = [
 
 
 const defaultAvatar = 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png';
-const avatar = defaultAvatar;
 const bio = "string";
 const name = "STEVE";
 
 
-export {baseUrl, dummyData, avatar, bio, name, defaultAvatar};
+export {baseUrl, dummyData, bio, name, defaultAvatar};
 
 
 
@@ -22,7 +21,7 @@ export const startDate = new Date('2024-01-01'); // Whenever you joined
 export const endDate = new Date('2024-12-01');
 
 
-// FIX: FIND OUT HOW TO INTEGRATE DATA INTO THIS
+// FIX: FIGURE OUT HOW TO INTEGRATE DATA INTO THIS AND MAKE HEATMAP
 export const HeatData = {
     data: [
       { date: '2024-01-01', count: 12 },

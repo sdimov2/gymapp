@@ -8,7 +8,6 @@ import { useColorScheme, useClientOnlyValue } from '@/src/helpers/Built_In/serve
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import Colors from '@/src/helpers/Built_In/Colors';
 
-import { FontProvider } from '@/src/context/fontContext';
 import { TimerProvider } from '@/src/context/timerContext';
 import { PfpProvider, useProfilePic } from '@/src/context/pfpContext';
 import { defaultAvatar } from "@/src/helpers/constants.js";
@@ -60,19 +59,17 @@ export default function TabLayout() {
 
   return (
     <PfpProvider>
-      <FontProvider>
-        <TimerProvider>
-          <Tabs
-            screenOptions={{
-              tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
-              headerShown: useClientOnlyValue(false, true),
-            }}>
-            {Object.entries(tabOptions).map(([name, options]) => (
-              <Tabs.Screen key={name} name={name} options={options} />
-            ))}
-          </Tabs>
-        </TimerProvider>
-      </FontProvider>
+      <TimerProvider>
+        <Tabs
+          screenOptions={{
+            tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
+            headerShown: useClientOnlyValue(false, true),
+          }}>
+          {Object.entries(tabOptions).map(([name, options]) => (
+            <Tabs.Screen key={name} name={name} options={options} />
+          ))}
+        </Tabs>
+      </TimerProvider>
     </PfpProvider>
   );
 }
