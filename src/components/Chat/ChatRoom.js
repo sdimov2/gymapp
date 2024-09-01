@@ -6,7 +6,7 @@ import { io } from "socket.io-client";
 
 import RoomCommunication from "@/src/components/Chat/WebSocket";
 
-import { baseUrl } from "@/src/helpers/constants";
+import { baseUrl } from "@/src/constants";
 
 import { useCurrEmail } from '@/src/context/emailContext';
 
@@ -53,16 +53,16 @@ export default function WebSocketCall({ toggleChat  }) {
 
       // Event listeners for socket events
       socket.on("connect1", () => {
-        // console.log("Connected:", socket.id); // FIX: NOTIFICATION
+        // console.log("Connected:", socket.id); // Fix2: NOTIFICATION
       });
 
       socket.on("disconnect1", (data) => {
-        // console.log("Disconnected:", data); // FIX: NOTIFICATION
+        // console.log("Disconnected:", data); // Fix2: NOTIFICATION
       });
 
 
       socket.on("rooms", (data) => {
-        // console.log("Available Rooms:", data.rooms); // FIX: NOTIFICATION
+        // console.log("Available Rooms:", data.rooms); // Fix2: NOTIFICATION
         setRooms(data.rooms);
       });
 

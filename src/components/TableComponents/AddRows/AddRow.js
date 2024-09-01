@@ -4,7 +4,7 @@ import tw from 'twrnc';
 import { useState } from 'react';
 import { View, Text, TextInput, Pressable } from 'react-native';
 
-import { baseUrl } from '@/src/helpers/constants';
+import { baseUrl } from '@/src/constants';
 import { useCurrEmail } from '@/src/context/emailContext';
 import { formatDateSlashes } from '@/src/helpers/Dates';
 
@@ -56,7 +56,7 @@ const AddRow = ({setData}) => {
   // Add new row
   const handleValues = async () => {
     if (!workout) { 
-      console.log("NEED A VALUE")  // FIX: NOTIFICATION
+      console.log("NEED A VALUE")  // Fix2: NOTIFICATION
       return;
     } 
     

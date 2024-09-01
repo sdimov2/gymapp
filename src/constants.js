@@ -19,7 +19,7 @@ export {baseUrl, dummyData, defaultAvatar, daysOfWeek, monthsOfYear};
 // PROFILE VALUES
 
 const bio = "string";
-const name = "STEVE";
+const name = "AKHIL";
 
 export {bio, name};
 

@@ -8,8 +8,8 @@ import { AddRow } from "@/src/components/TableComponents/AddRows/AddRow"
 import { EditRow } from "@/src/components/TableComponents/EditRows/EditRow"
 import { Pagination } from "@/src/components/TableComponents/Pagination"
 
-import { baseUrl } from '@/src/helpers/constants';
-import { dummyData } from '@/src/helpers/constants';
+import { baseUrl } from '@/src/constants';
+import { dummyData } from '@/src/constants';
 
 import { useCurrEmail } from '@/src/context/emailContext';
 

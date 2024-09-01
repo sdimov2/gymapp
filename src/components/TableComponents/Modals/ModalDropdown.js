@@ -5,9 +5,9 @@ import tw from 'twrnc';
 import { useState, useEffect } from 'react';
 import { View, Text, Pressable, ScrollView } from 'react-native';
 
-import { baseUrl } from '@/src/helpers/constants';
-import { useCurrEmail } from '@/src/context/emailContext';
+import { baseUrl } from '@/src/constants';
 import { formatDateSlashes } from '@/src/helpers/Dates';
+import { useCurrEmail } from '@/src/context/emailContext';
 
 import ListModal from './ListOptionsModal';
 import CreateNewModal from './CreateNewExerciseModal';

@@ -7,7 +7,7 @@ import { View, Text } from 'react-native';
 
 
 // DUMMY DATA
-import { startDate, endDate, HeatData, currentCount } from "@/src/helpers/constants";
+import { startDate, endDate, HeatData, currentCount } from "@/src/constants";
 
 
 export default function Streak() {

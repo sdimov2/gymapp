@@ -6,7 +6,7 @@ import { AntDesign } from '@expo/vector-icons';
 import { View, Text, Pressable, Modal, FlatList, ScrollView, TextInput } from 'react-native';
 import { useState, useEffect } from 'react';
 
-import { baseUrl } from '@/src/helpers/constants';
+import { baseUrl } from '@/src/constants';
 
 import { useCurrEmail } from '@/src/context/emailContext';
 

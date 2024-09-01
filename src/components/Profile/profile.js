@@ -6,7 +6,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { useProfilePic } from '@/src/context/pfpContext';
 import { useCurrEmail } from '@/src/context/emailContext';
 
-import { bio, name, defaultAvatar } from "@/src/helpers/constants.js";
+import { bio, name, defaultAvatar } from "@/src/constants.js";
 
 
 export default function Profile() {

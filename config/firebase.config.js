@@ -1,15 +1,11 @@
-// Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 // import { getAnalytics } from "firebase/analytics";
 
 import { getStorage, ref, uploadBytes, getDownloadURL, listAll } from "firebase/storage";
 import { getAuth, onAuthStateChanged, } from "firebase/auth";
 
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
 
 // Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
   apiKey: "AIzaSyAU7hqMF6Ht4SuTv8XN6bN0t2kwkwZSk9w",
   authDomain: "gymbro-4d0a0.firebaseapp.com",
@@ -22,10 +18,9 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
-// const analytics = getAnalytics(app);
 let auth = getAuth(app);
+let storage = getStorage(app);
+// const analytics = getAnalytics(app);
 
-// const storage = getStorage();
-// const storageRef = ref(storage);
 
-export {app, auth, onAuthStateChanged, getStorage, ref, uploadBytes, getDownloadURL, listAll }
+export {app, auth, storage, onAuthStateChanged, ref, uploadBytes, getDownloadURL, listAll }

@@ -1,18 +1,14 @@
+import tw from 'twrnc';
 import axios from 'axios';
 
-import { useEffect, useState } from 'react'
 import { useRouter } from 'expo-router'
+import { useEffect, useState } from 'react'
 import { KeyboardAvoidingView, Text, TextInput, Pressable, View } from 'react-native'
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signInWithPopup } from "firebase/auth";
-// import {GoogleAuthProvider, TwitterAuthProvider } from "firebase/auth";
 
-import { baseUrl } from '@/src/helpers/constants';
+import { auth } from "@/config/firebase.config"
 
-// import googleLogo from '../assets/images/google.png';
-
-import tw from 'twrnc';
-
-import { app, auth } from "@/config/firebase.config"
+import { baseUrl } from '@/src/constants';
 
 
 const AuthInput = ({ placeholder, value, onChangeText, secureTextEntry }: any) => {
@@ -38,18 +34,6 @@ const AuthButton = ({ onPress, label, backgroundColor, textColor }: any) => {
   );
 };
 
-// const GoogleSignInButton = ({ onPress }: any) => {
-//   return (
-//     <Pressable 
-//       style={tw`flex-row items-center bg-white border border-gray-300 rounded-lg py-3 mt-3 justify-center`}
-//       onPress={onPress}
-//     >
-//       <Image source={googleLogo} style={tw`w-6 h-6 mr-4`} />
-//       <Text style={tw`text-black text-center font-semibold text-lg`}>Sign in with Google</Text>
-//     </Pressable>
-//   );
-// };
-
 
 export default function LoginScreen() {
   const router = useRouter();
@@ -59,8 +43,7 @@ export default function LoginScreen() {
 
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
-      if (user) 
-        router.navigate('Tabs/');
+      if (user) router.navigate('./Tabs');
     });
   }, [])
 
@@ -68,7 +51,7 @@ export default function LoginScreen() {
   const handleSignUp = async () => {
     try {
       await createUserWithEmailAndPassword(auth, email, password)
-      .catch(() => { console.log("Signup failed") }) // FIX: NOTIFICATION
+      .catch(() => { console.log("Signup failed") }) // FIX2: NOTIFICATION
 
       await axios.post(baseUrl + '/register', { email: email});
     } catch (error) {
@@ -78,17 +61,9 @@ export default function LoginScreen() {
 
   const handleLogin = async () => {
     await signInWithEmailAndPassword(auth, email, password)
-      .catch(() => { console.log("INVALID CREDENTIALS") }) // FIX: NOTIFICATION
+      .catch(() => { console.log("INVALID CREDENTIALS") }) // FIX2: NOTIFICATION
   }
 
-  // const googleSignIn = async () => {    
-  //   var provider = new GoogleAuthProvider();
-  //   provider.addScope('profile');
-  //   provider.addScope('email');
-    
-  //   await signInWithPopup(auth, provider)
-  //     .catch(() => { console.log("Something messed up idk") })
-  // }
 
   return (
     <KeyboardAvoidingView style={tw`flex-1 justify-center items-center`} behavior="padding">
@@ -115,7 +90,6 @@ export default function LoginScreen() {
           textColor="white"
         />
         
-
         <AuthButton
           onPress={handleSignUp}
           label="Register"
@@ -123,14 +97,38 @@ export default function LoginScreen() {
           textColor="#0782F9"
         />
 
-        {/* <GoogleSignInButton 
-          onPress={googleSignIn} 
-        /> */}
-
       </View>
     </KeyboardAvoidingView>
   )
 }
 
 
-// Manage Users Link: https://firebase.google.com/docs/auth/web/manage-users
+// import {GoogleAuthProvider, TwitterAuthProvider } from "firebase/auth";
+// import googleLogo from '../assets/images/google.png';
+
+
+// const googleSignIn = async () => {    
+//   var provider = new GoogleAuthProvider();
+//   provider.addScope('profile');
+//   provider.addScope('email');
+  
+//   await signInWithPopup(auth, provider)
+//     .catch(() => { console.log("Something messed up idk") })
+// }
+
+
+// const GoogleSignInButton = ({ onPress }: any) => {
+//   return (
+//     <Pressable 
+//       style={tw`flex-row items-center bg-white border border-gray-300 rounded-lg py-3 mt-3 justify-center`}
+//       onPress={onPress}
+//     >
+//       <Image source={googleLogo} style={tw`w-6 h-6 mr-4`} />
+//       <Text style={tw`text-black text-center font-semibold text-lg`}>Sign in with Google</Text>
+//     </Pressable>
+//   );
+// };
+
+{/* <GoogleSignInButton 
+  onPress={googleSignIn} 
+/> */}

@@ -4,13 +4,11 @@ import * as ImagePicker from 'expo-image-picker';
 import React, { useState, useEffect } from 'react';
 import { Pressable, View, Text, Image, Modal, ScrollView, SafeAreaView } from 'react-native';
 
-import { getStorage, ref, uploadBytes, getDownloadURL, listAll } from "@/config/firebase.config";
-import { name } from "@/src/helpers/constants.js";
+import { storage, ref, uploadBytes, getDownloadURL, listAll } from "@/config/firebase.config";
+import { name } from "@/src/constants.js";
 
 import PhotoLibrary from './PhotoLibrary.js';
 import CameraComponent from './Camera.js';
-
-const storage = getStorage();
 
 
 const ImagePopup = ({ groupKey, onClose }) => {

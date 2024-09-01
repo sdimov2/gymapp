@@ -6,7 +6,7 @@ import { View, Text, TextInput, Pressable } from 'react-native';
 
 import { CustomDropdown } from '@/src/components/TableComponents/Modals/ModalDropdown';
 
-import { baseUrl } from '@/src/helpers/constants';
+import { baseUrl } from '@/src/constants';
 import { useCurrEmail } from '@/src/context/emailContext';
 import { formatDateSlashes } from '@/src/helpers/Dates';
   
@@ -50,7 +50,7 @@ const DropRowHome = ({ setData }) => {
 
   const handleValues = async () => {
     if (!workout) { 
-      console.log("NEED A VALUE")  // FIX: NOTIFICATION
+      console.log("NEED A VALUE")  // Fix2: NOTIFICATION
       return;
     } 
     

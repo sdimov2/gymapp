@@ -4,7 +4,7 @@ import tw from 'twrnc';
 import { useState, useEffect } from 'react';
 import { View, Text, TextInput, Pressable, ScrollView } from 'react-native';
 
-import { baseUrl } from '@/src/helpers/constants';
+import { baseUrl } from '@/src/constants';
 import { useCurrEmail } from '@/src/context/emailContext';
 
 

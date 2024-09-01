@@ -1,14 +1,13 @@
 import * as ImagePicker from 'expo-image-picker';
 import { createContext, useContext, useState, useEffect } from 'react';
 
-import { app, getStorage, ref, uploadBytes, getDownloadURL, listAll } from "@/config/firebase.config";
+import { storage, ref, uploadBytes, getDownloadURL, listAll } from "@/config/firebase.config";
 
-import { name } from "@/src/helpers/constants.js";
+import { name } from "@/src/constants.js";
 
-
-const storage = getStorage(app);
 
 const PfpContext = createContext();
+
 
 export const useProfilePic = () => {
   return useContext(PfpContext);
